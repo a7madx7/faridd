@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Faridd</title>
+    <%= favicon_link_tag %>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/flash' %>
+    <%= render 'layouts/menu' %>
+    <!--Moved yield to the layouts/menu -->
+  </body>
+
+<% unless devise_controller? %>
+    <footer  class="centered">
+      <p>In the memory of Mohamed Farid Awd</p>
+    </footer>
+<% end %>
+</html>
+
+<%= debug(params) %>

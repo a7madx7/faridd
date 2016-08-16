@@ -1,0 +1,41 @@
+.login{
+  //background: url('http://desktopwallpapershd.in/wp-content/uploads/2015/12/Cute-Girl-in-Autumn.jpg') fixed;
+  //background-size: cover;
+
+  .form-holder {
+    background: rgba(255,255,255,0.2);
+    margin-top: 10%;
+    border-radius: 3px;
+  }
+
+  .form-head {
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 30px #000;
+    margin: 15px auto 30px auto;
+  }
+
+  .remember-me {
+    text-align: left;
+  }
+  .ui.checkbox label {
+    color: #ddd;
+  }
+}
+
+#error_explanation{
+  ul{
+    list-style: none;
+    line-height: 1.5em;
+    li{
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+  }
+}
+
+.register{
+  background-image: url("bg.png");
+}

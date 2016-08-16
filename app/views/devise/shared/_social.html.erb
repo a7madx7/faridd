@@ -1,0 +1,12 @@
+<div class="ui raised violet segment">
+    <!--todo: show the number of users who used that social network besides the button  -->
+    <!-- http://semantic-ui.com/elements/button.html -->
+    <!-- check labeled button, basic button, conditionals-->
+     <% %w{facebook twitter google}.each do |n| %>
+         <% n == 'google' ? n += ' plus' : n %>
+         <div class="ui big <%= n %> labeled circular icon button" >
+           <i class="signup icon"></i>
+           <%= n.capitalize! %>
+         </div>
+    <% end %>
+</div>

@@ -1,0 +1,38 @@
+<div class="centered">
+  <h2 class="ui center aligned blue icon horizontal divider header">
+    <i class="circular lab icon"></i>
+    Listing all the <%= number_to_human @generics.count %> generics in the world
+  </h2>
+  <%= semantic_will_paginate @generics %>
+  <br>
+
+  <ul class="no-bullets ui link cards">
+    <% @generics.each do |g| %>
+            <li class="purple card">
+              <div class="image">
+                <img src="">
+              </div>
+              <div class="content">
+                <div class="header"><%= g.name %></div>
+                <div class="meta">
+                  <a>Similar drugs</a>
+                </div>
+                <div class="description">
+                  This is a powerful drug.
+                </div>
+              </div>
+              <div class="extra content">
+      <span class="right floated">
+        <%= time_ago_in_words(g.created_at) %>
+      </span>
+      <span>
+        <i class="user icon"></i>
+        12 Similar drugs
+      </span>
+              </div>
+            </li>
+    <% end %>
+  </ul>
+
+  <%= semantic_will_paginate @generics %>
+</div>

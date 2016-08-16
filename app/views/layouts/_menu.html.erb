@@ -1,0 +1,61 @@
+<div class="ui pointing menu">
+  <a class="active item" id="logo">
+    <%= semantic_icon('purple home') %>
+    Faridd
+  </a>
+  <a class="item">
+    <%= semantic_icon('purple mail') %>
+    Messages
+  </a>
+  <a class="item">
+    <%= semantic_icon('purple user') %>
+    Friends
+  </a>
+  <%= link_to  generics_path, class: 'item' do %>
+      <%= semantic_icon('purple edit') %>
+      Articles
+  <% end %>
+    <%= link_to  generics_path, class: 'item' do %>
+      <%= semantic_icon('purple lab') %>
+      Generics
+    <% end %>
+  <a class="item">
+    <%= semantic_icon('purple registered') %>
+    Trademarks
+  </a>
+  <a class="item">
+    <%= semantic_icon('purple idea') %>
+    Formulations
+  </a>
+  <a class="item">
+    <%= semantic_icon('purple heartbeat') %>
+    Rx
+  </a>
+  <a class="item">
+    <%= semantic_icon('purple book') %>
+    Q&A
+  </a>
+  <%= link_to  generics_path, class: 'item' do %>
+      <%= semantic_icon('purple percent') %>
+      Trade center
+  <% end %>
+
+  <div class="right menu">
+    <div class="item">
+      <div class="ui transparent icon input">
+        <input type="text" placeholder="Search Generics, Trademarks, People, Articles & lots more" id="searchBox" name="search_box">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    <div class="item">
+      <%= semantic_icon('purple settings') %>
+      <%- if signed_in? %>
+          <%= current_user.username %>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+<div class="ui blue segment">
+  <%= yield %>
+</div>
