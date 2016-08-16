@@ -10,13 +10,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801020026) do
+ActiveRecord::Schema.define(version: 20160816030207) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "drug_id"
+    t.integer  "country_id"
+    t.float    "reputation"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_id"], name: "index_companies_on_country_id"
+    t.index ["drug_id"], name: "index_companies_on_drug_id"
+  end
 
   create_table "countries", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "drug_generics", force: :cascade do |t|
+    t.integer  "drug_id"
+    t.integer  "generic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "drugs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.integer  "category_id"
+    t.float    "price"
+    t.float    "concentration"
+    t.string   "unit"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.decimal  "contents"
+    t.integer  "form_id"
+    t.integer  "company_id"
+    t.index ["category_id"], name: "index_drugs_on_category_id"
+    t.index ["company_id"], name: "index_drugs_on_company_id"
+    t.index ["country_id"], name: "index_drugs_on_country_id"
+    t.index ["form_id"], name: "index_drugs_on_form_id"
+  end
+
+  create_table "forms", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "generics", force: :cascade do |t|

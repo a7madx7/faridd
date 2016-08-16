@@ -9,22 +9,40 @@
 DRUG_DB_FILE = "#{Rails.root}/db/db.json"
 COUNTRIES_DB_FILE = "#{Rails.root}/db/countries.json"
 
-def seed(source_file, key)
-  File.readlines(source_file).each do |d|
+def form_seed
+  ['amp', 'vial',
+   'cap', 'tab', 'enteric coated tab', 'powder',
+   'susp', 'emulsion', 'spray', 'syrup',
+   'drops', 'ear drops', 'eye drops',
+   'cream', 'ointment', 'gel', 'eye(ointment-gel)',
+   'mouth wash'].each do |df|
+      Form.create(name: df)
+    end
+end
+def country_seed
+    c = File.read(COUNTRIES_DB_FILE)
+    country = ActiveSupport::JSON.decode(c)
+    country.each { |k, v| Country.create(code: k.upcase, name: v) }
+end
+def drug_seed
+  File.readlines(DRUG_DB_FILE).each do |d|
+    # d is a drug line
     d = ActiveSupport::JSON.decode(d)
-    if key
-      d[key].each do |name|
-        begin
-          Generic.create(name: name)
-        end
-      end
-    else
-      d.each do |code, name|
-        Country.create(code: code, name: name)
-      end
+    Drug.where(name: d['name'].downcase).first_or_create do |h|
+      h.name = d['name']
+
+      h.country = Country.where(code: 'eg').first_or_create
+      h.company = Company.where(name: d['company']).first_or_create
+
+      h.form = Form.where(name: d['form']).first_or_create
+      h.price = d['price'].to_s.to_f
+
+      d['active_ingredient'].each { |ac|  h.generics << Generic.where(name: ac).first_or_create }
     end
   end
 end
-
 # seed(DRUG_DB_FILE, 'active_ingredient')
-seed(COUNTRIES_DB_FILE, nil)
+form_seed
+country_seed
+drug_seed
+# seed(COUNTRIES_DB_FILE, nil)

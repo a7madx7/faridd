@@ -15,29 +15,12 @@
       <%= semantic_icon('purple edit') %>
       Articles
   <% end %>
-    <%= link_to  generics_path, class: 'item' do %>
-      <%= semantic_icon('purple lab') %>
-      Generics
-    <% end %>
-  <a class="item">
-    <%= semantic_icon('purple registered') %>
-    Trademarks
-  </a>
-  <a class="item">
-    <%= semantic_icon('purple idea') %>
-    Formulations
-  </a>
-  <a class="item">
-    <%= semantic_icon('purple heartbeat') %>
-    Rx
-  </a>
-  <a class="item">
-    <%= semantic_icon('purple book') %>
-    Q&A
-  </a>
-  <%= link_to  generics_path, class: 'item' do %>
-      <%= semantic_icon('purple percent') %>
-      Trade center
+
+  <%- @menu.each do |name, data| %>
+      <%= link_to data[0], class: 'item' do %>
+          <%= semantic_icon("purple #{data[1]}") %>
+          <%= name.capitalize %>
+      <% end %>
   <% end %>
 
   <div class="right menu">

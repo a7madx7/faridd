@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :companies
+  resources :categories
+  resources :drugs
   devise_for :users, controllers: {registrations: 'user/registrations'}
 
   resources :generics

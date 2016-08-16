@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  generic: one
+  country: one
+  price: 9.99
+  concentration: 9.99
+  unit: MyString
+  category: 
+
+two:
+  name: MyString
+  generic: two
+  country: two
+  price: 9.99
+  concentration: 9.99
+  unit: MyString
+  category: 
