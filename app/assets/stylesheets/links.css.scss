@@ -1,0 +1,17 @@
+footer a, div a, li a, a{
+  background-color: white;
+  color: red;
+  &:link {
+    background-color: transparent;
+    color: red;
+  }
+  &:visited {
+    color: darkblue;
+  }
+  &:hover {
+    color: hotpink;
+  }
+  &:active {
+    color: blueviolet;
+  }
+}

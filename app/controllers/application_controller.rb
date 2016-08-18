@@ -12,23 +12,27 @@ class ApplicationController < ActionController::Base
 
   def prepare_menu
     @menu ||= {}
-    case current_user.profession.downcase
-      when 'pharmacist'
-        @menu = { 'generics' => [ generics_path, 'lab' ], 'trade names' => ['/trade_names', 'registered'],
-                  'formulations' => ['/formulations', 'idea'],
-                  'rxs' => ['/rxs', 'heartbeat'], 'questions' => ['/questions', 'book'],
-                  'trade center' => ['/trade_center', 'percent'] }
-      when 'physician'
-        @menu = { 'generics' => [generics_path, 'lab'], 'rxs' => ['/rxs', 'heartbeat'],
-                  'questions' => ['/questions', 'book'],
-                  'clinic' => ['/clinic', 'doctor'], 'patients' => ['/patients', 'user'] }
-      when 'student'
-        @menu = { 'generics' => [generics_path, 'lab'], 'trade names' => ['/trade_names', 'registered'],
-                  'formulations' => ['/formulations', 'idea'],
-                  'questions' => ['/questions', 'book'] }
-      else
-        @menu = { 'trade names' => ['/trade_names', 'registered'],
-                  'trade center' => ['/trade_center', 'percent'] }
+    if current_user
+      case current_user.profession.downcase
+        when 'pharmacist'
+          @menu = { 'generics' => [ generics_path, 'lab' ], 'trade names' => ['/trade_names', 'registered'],
+                    'formulations' => ['/formulations', 'idea'],
+                    'rxs' => ['/rxs', 'heartbeat'], 'questions' => ['/questions', 'book'],
+                    'trade center' => ['/trade_center', 'percent'] }
+        when 'physician'
+          @menu = { 'generics' => [generics_path, 'lab'], 'rxs' => ['/rxs', 'heartbeat'],
+                    'questions' => ['/questions', 'book'],
+                    'clinic' => ['/clinic', 'doctor'], 'patients' => ['/patients', 'user'] }
+        when 'student'
+          @menu = { 'generics' => [generics_path, 'lab'], 'trade names' => ['/trade_names', 'registered'],
+                    'formulations' => ['/formulations', 'idea'],
+                    'questions' => ['/questions', 'book'] }
+        else
+          @menu = { 'trade names' => ['/trade_names', 'registered'],
+                    'trade center' => ['/trade_center', 'percent'] }
+      end
+    else
+
     end
     @menu
   end

@@ -20,4 +20,8 @@ class User < ApplicationRecord
     end
   end
   # validate profession with a narrow group of values [pharmacist, physician, dentist, company]
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
