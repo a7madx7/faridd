@@ -1,0 +1,57 @@
+{
+  "results": {
+    "Drugs": {
+      "name": "Drugs",
+      "results": [
+        <%- if @drug_results %>
+          <% @drug_results.each_with_index do |result, i| %>
+          {
+            "title": "<%= result.to_s %>",
+            "url": "<%= result.id %>",
+            "image": "<%= result.image_url %>",
+            "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+            "description": "Optional Description"
+          }
+          <%- unless i == @drug_results.count - 1 %>
+            ,
+          <% end %>
+          <% end %>
+
+        <%- else %>
+        {
+          "title": "No result",
+          "description": "I couldn't find any commercial drugs with that name"
+        }
+        <% end %>
+      ]
+    },
+    "Generics": {
+      "name": "Generics",
+      "results": [
+        <%- if @generic_results %>
+          <% @generic_results.each_with_index do |result, i| %>
+          {
+            "title": "<%= result.to_s %>",
+            "url": "<%= result.id %>",
+            "image": "<%= result.image_url %>",
+            "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+            "description": "Optional Description"
+          }
+          <%- unless i == @generic_results.count - 1 %>
+            ,
+          <% end %>
+        <% end %>
+        <%- else %>
+        {
+          "title": "No result",
+          "description": "I couldn't find any commercial drugs with that name"
+        }
+        <% end %>
+      ]
+    }
+  },
+  "action": {
+    "url": "/search/?term={query}",
+    "text": "View all results"
+  }
+}

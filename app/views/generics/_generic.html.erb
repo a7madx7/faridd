@@ -1,0 +1,6 @@
+<%- obj.generics.each do |generic| %>
+      <tr>
+        <td> <%= generic.name %></td>
+        <td class="positive"><%= generic.invented_at.nil? ? 'Not known yet!' : generic.invented_at %></td>
+        <td class="positive">Approved</td>
+<% end %>

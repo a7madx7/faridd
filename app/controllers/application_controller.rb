@@ -4,6 +4,17 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :prepare_menu, unless: :devise_controller?
 
+  def search
+    @drug_results = Drug.search(params[:term]).order(:name).first(5)
+    # @generic_results = Generic.search(params[:term]).order(:name).first(5)
+    # @user_results = User.search(column: 'username', term: params[:term]).order(:first_name).first(5)
+    respond_to do |format|
+      format.js { render 'layouts/search' }
+      format.json { render file: 'layouts/search', content_type: 'application/json' }
+      format.html { render 'layouts/search' }
+    end
+  end
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:account_update, keys: [:email, :first_name, :last_name, :profession, :gender, :username, :country])
@@ -36,4 +47,5 @@ class ApplicationController < ActionController::Base
     end
     @menu
   end
+
 end

@@ -24,58 +24,17 @@
           <% end %>
       <% end %>
 <% end %>
-  <div class="right menu">
     <div class="item">
-     <div class="ui fluid category search">
-       <div class="ui transparent icon input">
-         <input type="text"  placeholder="Search Everything!" id="searchBox" name="search_box">
-         <i class="search link icon"></i>
-       </div>
-       <div class="results">
-
-       </div>
-     </div>
+      <div class="ui fluid right aligned category search" id="search_box">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search everything...">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
     </div>
-   <%- if signed_in? %>
-        <div class="ui dropdown item">
-          <%= semantic_icon('purple settings') %>
-          <%- if signed_in? %>
-              <div class="menu">
-                <%= link_to user_path(current_user), class: 'item' do %>
-                    <%= semantic_icon(:user) %>
-                    Go to profile
-                <% end %>
-                <%= link_to edit_user_path(current_user), class: 'item' do %>
-                    <%= semantic_icon(:edit) %>
-                    Update your info
-                <% end %>
-                <%= link_to destroy_user_session_path, method: :delete, class: 'item' do %>
-                    <%= semantic_icon(:sign, :out) %>
-                    Sign out
-                <% end %>
-              </div>
-          <% end %>
-        </div>
-   <% else %>
-        <div class="ui dropdown item">
-          <%= semantic_icon('purple settings') %>
-          <%- if signed_in? %>
-              <%= link_to current_user.username, user_path(current_user) %>
-          <% end %>
-          <div class="menu">
-            <%= link_to new_user_registration_path, class: 'item' do %>
-                <%= semantic_icon(:edit) %>
-                Sign up
-            <% end %>
-            <%= link_to new_user_session_path, class: 'item' do %>
-                <%= semantic_icon(:sign, :in) %>
-                Log in
-            <% end %>
-          </div>
-        </div>
-   <% end %>
+   <%= render 'layouts/settings_menu' %>
   </div>
-</div>
-<div class="ui blue segment">
+<div class="ui blue segment" id="main">
   <%= yield %>
 </div>

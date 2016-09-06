@@ -1,17 +1,3 @@
-$(function () {
-    $('.ui.checkbox').checkbox();
-    $('.ui.dropdown')
-        .dropdown({
-            allowAdditions: true,
-            transition: 'drop'
-        })
-    ;
-
-    prepare_dropdowns();
-    prepare_seed();
-    
-});
-
 var prepare_dropdowns = function () {
     $('#country_selection').dropdown('set selected', 'eg').dropdown('set text', 'Egypt');
     $('#country_selection .text').prepend('<i class="eg flag"> </i>');
@@ -29,3 +15,18 @@ var prepare_seed = function () {
     $('#user_password').val('#1forever')
     $('#user_password_confirmation').val('#1forever')
 };
+
+$(function () {
+    $('.ui.checkbox').checkbox();
+    $('.ui.dropdown')
+        .dropdown({
+            allowAdditions: true,
+            transition: 'drop'
+        })
+    ;
+
+    // $('table').tablesort();
+
+    prepare_dropdowns();
+    prepare_seed();
+}());

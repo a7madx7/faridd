@@ -1,39 +1,53 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Drugs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Generic</th>
-      <th>Country</th>
-      <th>Price</th>
-      <th>Concentration</th>
-      <th>Unit</th>
-      <th>Category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<%= semantic_will_paginate @drugs %>
+<div class="ui two column grid">
     <% @drugs.each do |drug| %>
-      <tr>
-        <td><%= drug.name %></td>
-        <td><%= drug.generic %></td>
-        <td><%= drug.country %></td>
-        <td><%= drug.price %></td>
-        <td><%= drug.concentration %></td>
-        <td><%= drug.unit %></td>
-        <td><%= drug.category %></td>
-        <td><%= link_to 'Show', drug %></td>
-        <td><%= link_to 'Edit', edit_drug_path(drug) %></td>
-        <td><%= link_to 'Destroy', drug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <div class="column">
+      <div class="ui raised piled segments">
+        <%- color = cycle(%w{orange green teal red blue purple}) %>
+        <div class="ui <%= color %> segment">
+          <%= link_to drug.name.upcase, drug_path(drug), class: "ui huge #{color} ribbon label" %>
+          <span><%= drug.country %></span>
+          <div class="ui horizontal divider"><%= drug.price %> EGP</div>
+          <p>
+            <%= drug.concentration %>
+            <%= drug.unit %>
+          </p>
+          <div class="ui <%= color %> ribbon label"> <%= pluralize(drug.generics.count, 'Active Ingredient') %></div>
+          <p>
+            <%- drug.categories.each do |category| %>
+              <div class="ui label">
+                <%= category.name %>
+                <%= semantic_icon(:delete) %>
+              </div>
+            <% end %>
+          </p>
+        </div>
+        <div class="ui segment">
+          <table class="ui sortable celled table">
+            <thead>
+            <tr>
+              <th class="sorted ascending">Name</th>
+              <th class="">Invented at</th>
+              <th>Notes</th>
+            </tr>
+            </thead>
+              <tbody>
+               <%= render 'generics/generic', obj: drug %>
+              </tbody>
+              <tfoot>
 
-<br>
+              </tfoot>
+          </table>
+        </div>
+        <div class="ui segment">
+          <%= link_to 'Show', drug %>
+          <%= link_to 'Edit', edit_drug_path(drug) %>
+          <%= link_to 'Destroy', drug, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+      </div>
+<% end %>
+  </div>
+<%= semantic_will_paginate @drugs %>
 
 <%= link_to 'New Drug', new_drug_path %>

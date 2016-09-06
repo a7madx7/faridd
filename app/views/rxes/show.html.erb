@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @rx.patient %>
+</p>
+
+<%= link_to 'Edit', edit_rx_path(@rx) %> |
+<%= link_to 'Back', rxes_path %>

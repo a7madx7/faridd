@@ -1,0 +1,24 @@
+<%- if @drug_results %>
+    <div class="ui dividing centered header">Commercial Drugs</div>
+    <% @drug_results.each do |result| %>
+        <div class="ui centered orange segment">
+          <%= link_to result.to_s, drug_path(result.id) %>
+        </div>
+    <% end %>
+<% end %>
+<%- if @generic_results %>
+    <div class="ui dividing centered header">Generics</div>
+    <% @generic_results.each do |result| %>
+        <div class="ui centered orange segment">
+          <%= result.to_s %>
+        </div>
+    <% end %>
+<% end %>
+<%- if @user_results %>
+    <div class="ui dividing centered header">Users</div>
+    <% @user_results.each do |result| %>
+        <div class="ui centered orange segment">
+          <%= result.to_s %>
+        </div>
+    <% end %>
+<% end %>

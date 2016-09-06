@@ -1,0 +1,22 @@
+<%= form_for(rx) do |f| %>
+  <% if rx.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rx.errors.count, "error") %> prohibited this rx from being saved:</h2>
+
+      <ul>
+      <% rx.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :patient_id %>
+    <%= f.text_field :patient_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+$(function () {
+  <%- if @results %>
+    <%- @results.each do |result| %>
+     $('.ui.search').search('add results', "<p><%= result %></p>");
+    <% end %>
+  <% end %>
+  $('.ui.search').search('show results');
+});

@@ -1,39 +1,30 @@
-<p id="notice"><%= notice %></p>
+<div class="ui centered container">
+  <div class="ui <%= @drug.categories.first.present? ? @drug.categories.first.color : 'green' %> raised huge card">
+    <div class="content">
+      <div class="ui orange left floated ribbon label"><%= @drug.price %> EGP</div>
+      <div class="header"><%= @drug.name.capitalize %></div>
+      <div class="meta">Created <%= time_ago_in_words(@drug.created_at) %></div>
+      <div class="description">
+        <p><%= @drug.contents %></p>
+        <p>
+          <% @drug.generics.each do |generic| %>
+              <%= generic.name %>
+           <% end %>
+        </p>
+        <p><%= @drug.country %></p>
+      </div>
+    </div>
+    <div class="extra content">
+      <i class="tags icon"></i>
+      <% @drug.categories.each do |cat| %>
+            <%= cat.name %>
+      <% end %>
+     </div>
+    <div class="extra content">
+      <%= link_to 'Edit', edit_drug_path(@drug) %> |
+      <%= link_to 'Back', drugs_path %>
+    </div>
+  </div>
+ </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @drug.name %>
-</p>
 
-<p>
-  <strong>Generic:</strong>
-  <%= @drug.generic %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @drug.country %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @drug.price %>
-</p>
-
-<p>
-  <strong>Concentration:</strong>
-  <%= @drug.concentration %>
-</p>
-
-<p>
-  <strong>Unit:</strong>
-  <%= @drug.unit %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @drug.category %>
-</p>
-
-<%= link_to 'Edit', edit_drug_path(@drug) %> |
-<%= link_to 'Back', drugs_path %>

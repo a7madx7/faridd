@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :rxes
+  resources :patients
+  resources :questions
+  resources :comments
+  resources :answers
   resources :companies
   resources :categories
   resources :drugs
@@ -6,8 +11,11 @@ Rails.application.routes.draw do
 
   resources :generics
 
-  get 'welcome/home', as: :home_path
-  get 'welcome/about', as: :about_path
+  get 'welcome/home', as: :home
+  get 'welcome/about', as: :about
+  get 'trade_names', to: 'drugs#index', as: :trade_names
+  get 'search', to: 'application#search', as: :search
+
   # get 'user/:id', to: 'users#show', as: :user
   # get 'users', to: 'users#index', as: :users_path
   # get ''
