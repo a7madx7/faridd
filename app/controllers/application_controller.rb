@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :prepare_menu, unless: :devise_controller?
 
+  semantic_breadcrumb :index, :root_path
+
   def search
     @drug_results = Drug.search(params[:term]).order(:name).first(5)
     # @generic_results = Generic.search(params[:term]).order(:name).first(5)

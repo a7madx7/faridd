@@ -24,17 +24,17 @@
           <% end %>
       <% end %>
 <% end %>
-    <div class="item">
-      <div class="ui fluid right aligned category search" id="search_box">
-        <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Search everything...">
-          <i class="search icon"></i>
-        </div>
-        <div class="results"></div>
-      </div>
-    </div>
-   <%= render 'layouts/settings_menu' %>
-  </div>
-<div class="ui blue segment" id="main">
+     <div class="item" id="search_item">
+       <div class="ui fluid category purple search" id="search_box">
+         <div class="ui icon input">
+           <input class="prompt" type="text" placeholder="Search everything..." id="search_input">
+           <i class="search icon"></i>
+         </div>
+         <div class="results"></div>
+       </div>
+     </div>
+  <%= render 'layouts/settings_menu' %>
+</div>
+<div class="ui blue container" id="main">
   <%= yield %>
 </div>

@@ -16,8 +16,9 @@ var prepare_seed = function () {
     $('#user_password_confirmation').val('#1forever')
 };
 
-$(function () {
+var ready = function () {
     $('.ui.checkbox').checkbox();
+    // todo: replace the class selector with the id selector for a more specific approach
     $('.ui.dropdown')
         .dropdown({
             allowAdditions: true,
@@ -25,8 +26,27 @@ $(function () {
         })
     ;
 
-    // $('table').tablesort();
+    $('#search_box')
+        .search({
+            apiSettings: { url: '/search?term={query}' },
+            minCharacters : 3,
+            type: 'category'
+        })
+    ;
 
-    prepare_dropdowns();
-    prepare_seed();
-}());
+    $('table').tablesort();
+
+    var maxHeight = - 1;
+    cards = $('.drugs.index .ui.card');
+    cards.each(function () {
+        maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+    });
+    cards.each(function () {
+        $(this).height(maxHeight);
+    });
+    // prepare_dropdowns();
+    // prepare_seed();
+};
+
+$(document).ready(ready);
+$(document).on('page:change', ready);

@@ -20,7 +20,7 @@
         <%- else %>
         {
           "title": "No result",
-          "description": "I couldn't find any commercial drugs with that name"
+          "description": "I couldn't find any commercial drugs with that name!"
         }
         <% end %>
       ]
@@ -44,14 +44,39 @@
         <%- else %>
         {
           "title": "No result",
-          "description": "I couldn't find any commercial drugs with that name"
+          "description": "I couldn't find any generic drugs with that name!"
         }
         <% end %>
       ]
     }
   },
+  "Users": {
+    "name": "Users",
+    "results": [
+      <%- if @user_results %>
+      <% @user_results.each_with_index do |result, i| %>
+      {
+        "title": "<%= result.to_s %>",
+        "url": "<%= result.id %>",
+        "image": "<%= result.image_url %>",
+        "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+        "description": "Optional Description"
+      }
+      <%- unless i == @user_results.count - 1 %>
+    ,
+      <% end %>
+      <% end %>
+      <%- else %>
+      {
+        "title": "No result",
+        "description": "I couldn't find any users with that user name!"
+      }
+      <% end %>
+    ]
+  }
+},
   "action": {
-    "url": "/search/?term={query}",
+    "url": "/search?term={query}",
     "text": "View all results"
   }
 }

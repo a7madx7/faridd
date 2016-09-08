@@ -1,4 +1,6 @@
 class GenericsController < ApplicationController
+  semantic_breadcrumb :index, :generics_path
+
   def index
     # @generics = Generic.all.sort { |a, b| a.name <=> b.name }
     @generics = Generic.all.order(:name).paginate(per_page: 40, page: params[:page]).order(:name)

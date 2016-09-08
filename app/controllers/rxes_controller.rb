@@ -1,5 +1,6 @@
 class RxesController < ApplicationController
   before_action :set_rx, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :rxes_path
 
   # GET /rxes
   # GET /rxes.json

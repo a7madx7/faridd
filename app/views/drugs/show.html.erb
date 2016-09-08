@@ -1,30 +1,45 @@
-<div class="ui centered container">
-  <div class="ui <%= @drug.categories.first.present? ? @drug.categories.first.color : 'green' %> raised huge card">
-    <div class="content">
-      <div class="ui orange left floated ribbon label"><%= @drug.price %> EGP</div>
-      <div class="header"><%= @drug.name.capitalize %></div>
-      <div class="meta">Created <%= time_ago_in_words(@drug.created_at) %></div>
-      <div class="description">
-        <p><%= @drug.contents %></p>
-        <p>
-          <% @drug.generics.each do |generic| %>
-              <%= generic.name %>
-           <% end %>
-        </p>
-        <p><%= @drug.country %></p>
-      </div>
-    </div>
-    <div class="extra content">
-      <i class="tags icon"></i>
-      <% @drug.categories.each do |cat| %>
-            <%= cat.name %>
-      <% end %>
-     </div>
-    <div class="extra content">
-      <%= link_to 'Edit', edit_drug_path(@drug) %> |
-      <%= link_to 'Back', drugs_path %>
-    </div>
+<div class="ui raised piled segments">
+  <%- color = cycle(%w{orange green teal red blue purple}) %>
+  <div class="ui <%= color %> segment">
+    <%= link_to drug.name.upcase, drug_path(drug), class: "ui huge #{color} ribbon label" %>
+    <span><%= drug.country %></span>
+    <div class="ui horizontal divider"><%= drug.price %> EGP</div>
+    <p>
+      <%= drug.concentration %>
+      <%= drug.unit %>
+    </p>
+    <div class="ui <%= color %> ribbon label"> <%= pluralize(drug.generics.count, 'Active Ingredient') %></div>
+    <p>
+      <%- drug.categories.each do |category| %>
+        <div class="ui tag label">
+          <%= category.name %>
+          <%= semantic_icon(:delete) %>
+        </div>
+    <% end %>
+    </p>
   </div>
- </div>
+  <div class="ui segment">
+    <table class="ui sortable celled table">
+      <thead>
+      <tr>
+        <th class="sorted ascending">Name</th>
+        <th class="">Invented at</th>
+        <th>Notes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%= render 'generics/generic', obj: drug %>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+  </div>
+  <div class="ui segment">
+    <%= link_to 'Show', drug %>
+    <%= link_to 'Edit', edit_drug_path(drug) %>
+    <%= link_to 'Destroy', drug, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>
+
 
 

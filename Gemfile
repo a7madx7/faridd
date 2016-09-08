@@ -7,6 +7,7 @@ gem 'devise'
 gem 'will_paginate'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 gem 'will_paginate_semantic_ui'
+gem 'link_thumbnailer'
 
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server

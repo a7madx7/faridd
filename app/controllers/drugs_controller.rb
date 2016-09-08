@@ -1,5 +1,6 @@
 class DrugsController < ApplicationController
   before_action :set_drug, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :drugs_path
 
   # GET /drugs
   # GET /drugs.json
@@ -10,6 +11,7 @@ class DrugsController < ApplicationController
   # GET /drugs/1
   # GET /drugs/1.json
   def show
+    semantic_breadcrumb @drug.name, drug_path(@drug)
   end
 
   # GET /drugs/new
@@ -64,7 +66,7 @@ class DrugsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_drug
-      @drug = Drug.find(params[:id])
+      @drug = Drug.where(id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

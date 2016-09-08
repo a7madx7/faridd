@@ -7,12 +7,17 @@ ul.no-bullets{
 
 #logo{
   float: left;
-  font-size: 1.2em;
+  font-size: 1.1em;
   color:  #8A0753;
   text-transform: uppercase;
   letter-spacing: -1px;
   font-weight: bold;
 }
-.ajaxify_loader{
-  background-image: image_path('loader.gif');
+#search_input{
+  width: 700px;
+}
+#search_item{
+  margin: 0;
+  padding: 3px;
+  border-right: 0 solid;
 }
