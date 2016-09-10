@@ -1,0 +1,9 @@
+  <%- if drug.categories and drug.categories.count > 0 %>
+      <div class="ui horizontal divider">Categories</div>
+      <%- drug.categories.each do |cat| %>
+        <div class="ui tag label">
+          <%= cat.name %>
+          <%= semantic_icon(:delete) %>
+        </div>
+    <% end %>
+<% end %>

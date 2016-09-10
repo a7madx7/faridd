@@ -1,0 +1,22 @@
+<div class="ui show modal">
+  <i class="close icon"></i>
+  <div class="centered massive header">
+    <%= @drug.name %>
+  </div>
+  <div class="image content">
+    <div class="image">
+      <%= render 'drug_image', drug: @drug, size: 150 %>
+    </div>
+    <div class="content">
+        <%= render 'drugs/categories_listing', drug: @drug %>
+       <%= render 'drugs/generics_listing', drug: @drug %>
+    </div>
+  </div>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      <%= semantic_icon(:checkmark, :icon) %>
+      Ok
+    </div>
+  </div>
+</div>

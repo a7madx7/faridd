@@ -1,0 +1,5 @@
+$('#modal').html("<%= j(render 'drugs/show_modal') %>");
+$('.show.modal')
+    .modal('setting', 'transition', 'horizontal flip')
+    .modal({blurring: true})
+    .modal('show');

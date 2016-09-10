@@ -1,0 +1,9 @@
+<%- if drug.generics %>
+    <div class="ui ribbon teal label">Contains</div>
+    <br /> <br />
+    <div>
+      <% drug.generics.each do |generic| %>
+          <p><strong><%= generic.name %></strong></p>
+       <% end %>
+    </div>
+<% end %>
