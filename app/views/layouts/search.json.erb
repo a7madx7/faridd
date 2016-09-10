@@ -7,7 +7,7 @@
           <% @drug_results.each_with_index do |result, i| %>
           {
             "title": "<%= result.to_s %>",
-            "url": "<%= result.id %>",
+            "url": "<%= drug_path(result.id) %>",
             "image": "<%= result.image_url %>",
             "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
             "description": "Optional Description"
@@ -32,7 +32,7 @@
           <% @generic_results.each_with_index do |result, i| %>
           {
             "title": "<%= result.to_s %>",
-            "url": "<%= result.id %>",
+            "url": "<%= generic_path(result.id) %>",
             "image": "<%= result.image_url %>",
             "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
             "description": "Optional Description"
@@ -73,10 +73,9 @@
       }
       <% end %>
     ]
-  }
-},
+  },
   "action": {
-    "url": "/search?term={query}",
+    "url": "/search?term=<%= @term %>",
     "text": "View all results"
   }
 }

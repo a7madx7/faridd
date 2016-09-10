@@ -18,7 +18,7 @@
 
   <% if @menu %>
       <%- @menu.each do |name, data| %>
-          <%= link_to data[0], class: 'item' do %>
+          <%= link_to data[0], class: 'item', remote: true do %>
               <%= semantic_icon("purple #{data[1]}") %>
               <%= name.capitalize %>
           <% end %>

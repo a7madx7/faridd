@@ -3,17 +3,46 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :prepare_menu, unless: :devise_controller?
+  before_filter :globalize_search_term, only: [:search]
+  after_filter :invoke_thumbnailer, only: [:search]
 
   semantic_breadcrumb :index, :root_path
 
   def search
-    @drug_results = Drug.search(params[:term]).order(:name).first(5)
-    # @generic_results = Generic.search(params[:term]).order(:name).first(5)
-    # @user_results = User.search(column: 'username', term: params[:term]).order(:first_name).first(5)
+    @drug_results = Drug.search(@term).order(:name).first(5)
+    @generic_results = Generic.search(@term).order(:name).first(5)
+    # @user_results = User.search(column: 'username', term: @term).order(:first_name).first(5)
+
     respond_to do |format|
       format.js { render 'layouts/search' }
       format.json { render file: 'layouts/search', content_type: 'application/json' }
       format.html { render 'layouts/search' }
+    end
+  end
+
+
+  private
+  def globalize_search_term
+    @term = params[:term]
+  end
+
+  def invoke_thumbnailer
+    [@drug_results, @generic_results, @user_results].each do |result|
+      begin
+        result.each do |res|
+          unless res.image_url
+            begin
+              res.image_url = LinkThumbnailer.generate("http://en.wikipedia.org/wiki/#{res.name}")
+            rescue
+              res.image_url = nil
+            ensure
+              res.save
+            end
+          end
+        end
+      rescue
+        next
+      end
     end
   end
 

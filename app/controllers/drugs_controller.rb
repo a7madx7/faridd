@@ -1,6 +1,7 @@
 class DrugsController < ApplicationController
   before_action :set_drug, only: [:show, :edit, :update, :destroy]
   semantic_breadcrumb :index, :drugs_path
+  respond_to :html, :json, :js
 
   # GET /drugs
   # GET /drugs.json
@@ -12,6 +13,7 @@ class DrugsController < ApplicationController
   # GET /drugs/1.json
   def show
     semantic_breadcrumb @drug.name, drug_path(@drug)
+    @colors = %w{orange green teal red blue purple}
   end
 
   # GET /drugs/new
@@ -71,6 +73,9 @@ class DrugsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def drug_params
-      params.require(:drug).permit(:name, :generic_id, :country_id, :price, :concentration, :unit, :category)
+      params.require(:drug).permit(:name, :generic_id, :country_id,
+                                   :price, :concentration, :unit,
+                                   :category, :image_url, :form_id,
+                                   :contents, :company_id)
     end
 end

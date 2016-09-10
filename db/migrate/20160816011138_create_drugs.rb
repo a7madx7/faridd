@@ -1,6 +1,6 @@
 class CreateDrugs < ActiveRecord::Migration[5.0]
   def change
-    create_table :drugs do |t|
+    create_table :obj do |t|
       t.string :name
       t.references :country, foreign_key: true
       t.references :category, foreign_key: true

@@ -1,1 +1,1 @@
-json.array! @drugs, partial: 'drugs/drug', as: :drug
+json.array! obj, partial: 'drugs/drug', as: :drug

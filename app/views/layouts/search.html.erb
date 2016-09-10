@@ -1,10 +1,6 @@
 <%- if @drug_results %>
     <div class="ui dividing centered header">Commercial Drugs</div>
-    <% @drug_results.each do |result| %>
-        <div class="ui centered orange segment">
-          <%= link_to result.to_s, drug_path(result.id) %>
-        </div>
-    <% end %>
+    <%= render 'drugs/listing', obj: @drug_results %>
 <% end %>
 <%- if @generic_results %>
     <div class="ui dividing centered header">Generics</div>

@@ -3,7 +3,11 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.search(column = 'name', term)
     if term
-      @results = self.where("#{column.to_s} like ?", "%#{term}%")
+      if column == 'name'
+        @results = self.where('name like ?', "%#{term}%")
+      else
+        @results = self.where('username like ?', "%#{term}%")
+      end
     else
       return false
     end
