@@ -1,4 +1,6 @@
-<% obj.each do |drug| %>
+<%= semantic_will_paginate obj %>
+<div class="ui four column grid">
+  <% obj.each do |drug| %>
     <div class="column">
       <div class="ui <%= drug.categories.first.present? ? drug.categories.first.color : 'green' %> raised huge card">
         <div class="content">
@@ -25,11 +27,14 @@
               <% end %>
             </div>
         <% end %>
+
+        <!--Comment on a drug? -->
         <div class="extra content">
           <div class="ui large transparent left icon input">
             <%= semantic_icon(:comment) %>
             <input type="text" placeholder="Add a comment...">
           </div>
+
           <br /> <br />
           <%= link_to home_path do %>
               <%= semantic_icon(:like) %>
@@ -44,3 +49,6 @@
       </div>
     </div>
 <% end %>
+</div>c
+<%= semantic_will_paginate obj %>
+<div id="modal"></div>

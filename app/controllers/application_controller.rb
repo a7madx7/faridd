@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
     # @user_results = User.search(column: 'username', term: @term).order(:first_name).first(5)
 
     respond_to do |format|
-      format.js { render 'layouts/search' }
       format.json { render file: 'layouts/search', content_type: 'application/json' }
       format.html { render 'layouts/search' }
     end
@@ -30,15 +29,13 @@ class ApplicationController < ActionController::Base
     [@drug_results, @generic_results, @user_results].each do |result|
       begin
         result.each do |res|
-          unless res.image_url
-            begin
-              res.image_url = LinkThumbnailer.generate("http://en.wikipedia.org/wiki/#{res.name}")
-            rescue
-              res.image_url = nil
-            ensure
-              res.save
-            end
-          end
+          begin
+            res.image_url = LinkThumbnailer.generate("http://en.wikipedia.org/wiki/#{res.name}").images.first.src.to_s
+          rescue
+            next
+          ensure
+            res.save
+          end unless res.image_url
         end
       rescue
         next

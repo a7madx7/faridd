@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Faridd</title>
+    <title>Faridd.com The smartest drug app</title>
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
@@ -22,5 +21,7 @@
 </html>
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+<%= javascript_include_tag('ani') %>
 
 <%= debug(params) %>

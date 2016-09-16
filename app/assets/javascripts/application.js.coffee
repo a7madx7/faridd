@@ -35,16 +35,19 @@ prepare_seed = ->
   $('#user_password_confirmation').val '#1forever'
   return
 
+search = ->
+  $('#search_box').search
+    apiSettings: url: '/search?term={query}'
+    minCharacters: 3
+    type: 'category'
+
 ready = ->
   $('.ui.checkbox').checkbox()
   # todo: replace the class selector with the id selector for a more specific approach
   $('.ui.dropdown').dropdown
     allowAdditions: true
     transition: 'drop'
-  $('#search_box').search
-    apiSettings: url: '/search?term={query}'
-    minCharacters: 3
-    type: 'category'
+  search()
   $('table').tablesort()
   maxHeight = -1
   cards = $('.drugs.index .ui.card')
@@ -59,5 +62,6 @@ ready = ->
   return
 
 $(document).on("page:change", ->
-  ready());
+  ready);
 $(ready)
+#$('#search_input').on('keypress', search)

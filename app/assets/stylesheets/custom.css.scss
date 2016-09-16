@@ -14,7 +14,9 @@ ul.no-bullets{
   font-weight: bold;
 }
 #search_input{
-  width: 700px;
+  //width: 760px;
+  width: 54em !important;
+  min-width: 50em;
 }
 #search_item{
   margin: 0;
@@ -27,3 +29,7 @@ footer {
   border-top: 1px solid #eaeaea;
   padding: 3px;
 }
+//
+//.hidden.menu {
+//  display: none;
+//}

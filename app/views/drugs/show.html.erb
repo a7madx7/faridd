@@ -1,4 +1,4 @@
-<div class="ui raised piled segments">
+<div class="ui raised piled segments" id="drug_show_card">
   <div class="ui <%= cycle(@colors) %> segment">
     <%= link_to @drug.name.upcase, drug_path(@drug), class: "ui huge #{cycle(@colors)} ribbon label" %>
     <span><%= @drug.country %></span>
