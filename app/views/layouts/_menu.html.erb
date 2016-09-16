@@ -1,8 +1,8 @@
 <div class="ui pointing menu" id="main_menu">
-  <a class="active item" id="logo">
-    <%= semantic_icon('purple home') %>
-    Faridd
-  </a>
+  <%= link_to root_path, class: 'active item', id: 'logo' do %>
+      <%= semantic_icon('purple home') %>
+      Faridd
+  <% end %>
 
   <div class="fluid item" id="search_item" data-anijs="if: dblclick, do: tada animated">
     <div class="ui fluid category purple search" id="search_box">

@@ -2,7 +2,21 @@
   <%= @user.full_name %>
 </h1>
 
-<div class="ui orange centered segment">
-  <h2>@<%= @user.username %></h2>
-  Lives in <%= @user.country.name %>
+<div class="ui grid">
+  <div class="six wide column">
+    <div class="ui orange centered segment">
+      <div>
+        <h2>@<%= @user.username %></h2>
+        Lives in <%= @user.country.name %>
+      </div>
+
+      <div>
+        <%= gravatar_for(@user, size: 300) %>
+      </div>
+    </div>
+
+  </div>
+  <div class="ten wide column">
+
+  </div>
 </div>
