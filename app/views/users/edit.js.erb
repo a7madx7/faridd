@@ -1,0 +1,7 @@
+window.history.pushState('', 'Edit Profile', "<%= edit_user_path(@user) %>");
+var $main = $('#main');
+$main.html("<%= j render('layouts/loader_dimmer') %>");
+var $form = "<%= j(render(template: 'devise/registrations/edit')) %>";
+var $dimmer = $('#dimmer');
+$dimmer.append($form);
+$dimmer.removeClass('active');

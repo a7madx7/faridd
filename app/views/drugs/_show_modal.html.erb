@@ -1,18 +1,20 @@
 <div class="ui show modal">
   <i class="close icon"></i>
-  <div class="centered massive header">
-    <%= @drug.name %>
+  <div class="centered category header">
+    <%= @drug.name.upcase %>
   </div>
-  <div class="image content">
-    <div class="image">
-      <%= render 'drug_image', drug: @drug, size: 150 %>
-    </div>
     <div class="content">
-        <%= render 'drugs/categories_listing', drug: @drug %>
+      <div class="ui left vertical menu">
+        <a href="#" class="item" onclick="update_drug_modal_content()" data-remote="true">Active Ingredient(s)</a>
+        <a href="#" class="item" data-remote="true" >Drug categories</a>
+        <a href="#" class="item" data-remote="true" >Company</a>
+        <a href="#" class="item" data-remote="true" >Details</a>
+      </div>
+     <div class="right floated segment" id="drug_modal_content" style="display: none;">
+
        <%= render 'drugs/generics_listing', drug: @drug %>
+     </div>
     </div>
-  </div>
-  </div>
   <div class="actions">
     <div class="ui positive right labeled icon button">
       <%= semantic_icon(:checkmark, :icon) %>

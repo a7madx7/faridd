@@ -1,54 +1,8 @@
 <%= semantic_will_paginate obj %>
 <div class="ui four column grid">
   <% obj.each do |drug| %>
-    <div class="column">
-      <div class="ui <%= drug.categories.first.present? ? drug.categories.first.color : 'green' %> raised huge card">
-        <div class="content">
-          <div class="image content">
-            <div class="centered image">
-              <%= render 'drugs/drug_image', drug: drug, size: 120 %>
-            </div>
-          </div>
-          <br />
-          <div class="ui orange left floated ribbon label"><%= drug.price %> EGP</div>
-          <%= link_to truncate(drug.name.upcase, length: 15), drug_path(drug.id), class: 'header', remote: true %>
-          <div class="meta">Created <%= time_ago_in_words(drug.created_at) %> ago</div>
-          <div class="description">
-            <p><%= drug.contents %></p>
-            <%= render 'drugs/generics_listing', drug: drug %>
-            <p><%= drug.country %></p>
-          </div>
-        </div>
-        <%- if drug.categories.count > 0 %>
-            <div class="extra content">
-              <i class="tags icon"></i>
-              <% drug.categories.each do |cat| %>
-                  <p> <%= cat.name %></p>
-              <% end %>
-            </div>
-        <% end %>
-
-        <!--Comment on a drug? -->
-        <div class="extra content">
-          <div class="ui large transparent left icon input">
-            <%= semantic_icon(:comment) %>
-            <input type="text" placeholder="Add a comment...">
-          </div>
-
-          <br /> <br />
-          <%= link_to home_path do %>
-              <%= semantic_icon(:like) %>
-              Like
-          <% end %>  |
-          <%= link_to home_path do %>
-              <%= semantic_icon(:share) %>
-              Share
-          <% end %>  |
-          <%= link_to 'Edit', edit_drug_path(drug) %>
-        </div>
-      </div>
-    </div>
-<% end %>
+    <%= render 'drug_card', drug: drug %>
+  <% end %>
 </div>c
 <%= semantic_will_paginate obj %>
 <div id="modal"></div>

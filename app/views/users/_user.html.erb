@@ -1,22 +1,28 @@
-<h1 class="centered dividing header">
+<h1 class="centered dividing username header">
   <%= @user.full_name %>
 </h1>
 
 <div class="ui grid">
   <div class="six wide column">
-    <div class="ui orange centered segment">
-      <div>
-        <h2>@<%= @user.username %></h2>
-        Lives in <%= @user.country.name %>
+    <div class="ui orange segment">
+      <div class="ui green bottom attached label">
+        <h2><strong>@</strong><%= @user.username %></h2>
       </div>
-
+      <div class="content">
+        <h3><i class="<%= @user.country.code.downcase %> flag"></i>Lives in <%= @user.country.name %></h3>
+        <h3><i class="<%= @user.gender.downcase %> icon"></i><%= @user.gender %></h3>
+        <h3>
+          <i class="<%= icon_for(@user) %> icon"></i>
+          Works as a <%= @user.profession.capitalize %>
+        </h3>
+        <h4><i class="inbox icon"></i> Email: <%= @user.email %></h4>
+      </div>
       <div>
-        <%= gravatar_for(@user, size: 300) %>
+        <%= gravatar_for(@user, size: 200) %>
       </div>
     </div>
-
   </div>
   <div class="ten wide column">
-
+    <%= render(@user.articles) %>
   </div>
 </div>

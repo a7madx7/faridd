@@ -13,7 +13,18 @@ class Drug < ApplicationRecord
   belongs_to :country
   belongs_to :form
 
+  validates :name, presence: true, uniqueness: true, length: (2..64)
+
   def to_s
-    "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price}"
+    "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price} EGP"
+  end
+
+  def identical_drugs(attr = 'generics')
+    # self is a drug
+    # generics tells you each and every generic this drug has
+    # a simple way is to search Drug where it has the same generics count
+    # todo: learn querying in rails pretty damn good first!
+    # Drug.where('generics')
+    Drug.where(attr.to_sym => send(attr)).all
   end
 end

@@ -1,7 +1,8 @@
 class DrugsController < ApplicationController
-  before_action :set_drug, only: [:show, :edit, :update, :destroy]
+  before_action :set_drug, only: [:show, :edit, :update, :destroy, :identical_drugs]
   semantic_breadcrumb :index, :drugs_path
   respond_to :html, :json, :js
+  before_filter :set_identical_drugs, only: [:show, :identical_drugs]
 
   # GET /drugs
   # GET /drugs.json
@@ -65,6 +66,9 @@ class DrugsController < ApplicationController
     end
   end
 
+  def identical_drugs
+
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_drug
@@ -77,5 +81,9 @@ class DrugsController < ApplicationController
                                    :price, :concentration, :unit,
                                    :category, :image_url, :form_id,
                                    :contents, :company_id)
+    end
+
+    def set_identical_drugs
+      @identical_drugs = @drug.identical_drugs
     end
 end

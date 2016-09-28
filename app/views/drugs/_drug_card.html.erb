@@ -1,0 +1,51 @@
+<div class="column" id="drug_card">
+  <div class="ui <%= drug.categories.first.present? ? drug.categories.first.color : 'green' %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
+    <div class="content">
+      <%= link_to truncate(drug.name.upcase, length: 33), drug_path(drug.id), class: 'ui green left floated ribbon label', remote: true %>
+      <br />
+      <div class="image content">
+        <div class="centered image">
+          <%= render 'drugs/drug_image', drug: drug, size: 120 %>
+        </div>
+      </div>
+      <br />
+      <div class="ui orange left floated ribbon label">Identical Drugs</div>
+      <br>
+      <div class="ui segment">
+        There are
+        <%= number_to_human(drug.identical_drugs.count) %> identical drugs <br />
+        <%= link_to 'Show them?', identical_drugs_path(drug), remote: true %>
+
+      </div>
+      <div class="meta">Created <%= time_ago_in_words(drug.created_at) %> ago</div>
+      <div class="description">
+        <p><%= drug.contents %></p>
+        <%= render 'drugs/generics_listing', drug: drug %>
+        <p><%= drug.country %></p>
+      </div>
+    </div>
+
+    <%= render 'categories_listing', drug: drug %>
+
+    <!--Comment on a drug? -->
+    <div class="extra content">
+      <div class="ui massive blue star rating" data-rating="3" data-max-rating="5"></div>
+      <div class="ui horizontal divider">
+        <%= drug.price %> EGP
+      </div>
+      <div class="">
+        <%= link_to home_path do %>
+            <%= semantic_icon(:like) %>
+            Like
+        <% end %>  |
+        <%= link_to home_path do %>
+            <%= semantic_icon(:share) %>
+            Share
+        <% end %>  |
+        <%= link_to 'Edit', edit_drug_path(drug) %>
+      </div>
+      <div class="ui <%= drug.categories.first.color %> bottom attached label"><%= drug.company.name %></div>
+    </div>
+  </div>
+
+</div>

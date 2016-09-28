@@ -59,9 +59,11 @@ ready = ->
     return
   # prepare_dropdowns();
   # prepare_seed();
+  $sidebar = $('.ui.sidebar')
+  $('#logo').on('mouseenter', -> $sidebar.sidebar('toggle'))
   return
 
+$(-> ready())
 $(document).on("page:change", ->
-  ready);
-$(ready)
+  ready());
 #$('#search_input').on('keypress', search)

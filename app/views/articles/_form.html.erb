@@ -1,0 +1,33 @@
+<%= form_for(article, class: 'ui form segment') do |f| %>
+  <% if article.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+      <% article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <div class="ui left icon input">
+      <%= f.text_field :title, placeholder: 'Your article title goes here...' %>
+      <i class="pencil icon"></i>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :content %>
+    <div class="ui left icon input">
+      <%= f.text_area :content %>
+      <i class="edit icon"></i>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -17,4 +17,11 @@ class User::RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+
+  def edit
+    respond_to do |format|
+      format.html { render 'users/edit' }
+      format.js { render 'users/edit' }
+    end
+  end
 end

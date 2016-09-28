@@ -1,7 +1,7 @@
 <%- if drug.generics %>
     <div class="ui ribbon teal label">Contains</div>
     <br /> <br />
-    <div>
+    <div class="ui <%= drug.categories.first.color %> segment">
       <% drug.generics.each do |generic| %>
           <p><strong><%= generic.name %></strong></p>
        <% end %>

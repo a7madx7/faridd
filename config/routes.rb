@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'welcome/about', as: :about
   get 'trade_names', to: 'drugs#index', as: :trade_names
   get 'search', to: 'application#search', as: :search
+  get 'identical_drugs/:id', to: 'drugs#identical_drugs', as: :identical_drugs
 
   # get 'user/:id', to: 'users#show', as: :user
   # get 'users', to: 'users#index', as: :users_path

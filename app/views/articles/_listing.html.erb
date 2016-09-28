@@ -1,0 +1,40 @@
+<%= semantic_will_paginate obj %>
+<div class="ui four column grid">
+  <% obj.each do |art| %>
+      <div class="column">
+        <div class="ui green raised huge card">
+          <div class="content">
+            <%= link_to truncate(art.title.capitalize, length: 15), article_path(art.id), class: 'ui orange left floated ribbon label', remote: true %>
+            <div class="meta">Created <%= time_ago_in_words(art.created_at) %> ago</div>
+            <div class="description">
+              <p><%= art.content %></p>
+            </div>
+          </div>
+          <%- if art.categories.count > 0 %>
+              <div class="extra content">
+                <i class="tags icon"></i>
+                <% art.categories.each do |cat| %>
+                    <p> <%= cat.name %></p>
+                <% end %>
+              </div>
+          <% end %>
+
+          <div class="extra content">
+            <%= comment_for(art) %>
+            <br /> <br />
+            <%= link_to home_path do %>
+                <%= semantic_icon(:like) %>
+                Like
+            <% end %>  |
+            <%= link_to home_path do %>
+                <%= semantic_icon(:share) %>
+                Share
+            <% end %>  |
+            <%= link_to 'Edit', edit_article_path(art) %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>c
+<%= semantic_will_paginate obj %>
+<div id="modal"></div>

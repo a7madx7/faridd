@@ -29,7 +29,43 @@ footer {
   border-top: 1px solid #eaeaea;
   padding: 3px;
 }
-//
-//.hidden.menu {
-//  display: none;
-//}
+
+footer a, div a, li a, a, .ui a{
+  background-color: white;
+  color: red;
+  &:link {
+    background-color: transparent;
+    color: red;
+  }
+  &:visited {
+    color: darkblue;
+  }
+  &:hover {
+    color: hotpink;
+  }
+  &:active {
+    color: blueviolet;
+  }
+}
+.username{
+  font-size: 1.3em;
+  font-family: Hack, Verdana, Helvetica, Sans-Serif, sans-serif;
+  font-weight: bold;
+  padding-bottom: 3px;
+  margin-bottom: 5px;
+}
+
+.created_at{
+  border-top: 1px solid #eaeaea;
+  margin-top: 15px;
+  padding-top: 7px;
+}
+
+.category{
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: -1px;
+  letter-spacing: -1px;
+  text-decoration: solid;
+  text-transform: uppercase;
+}

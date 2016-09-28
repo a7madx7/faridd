@@ -44,55 +44,8 @@
           </div>
         </div>
 
-        <div class="two fields">
-          <div class="field">
-            <%= f.label 'Country' %>
-            <div class="ui fluid search selection dropdown" id="country_selection">
-              <input type="hidden" name="user[country]">
-              <i class="dropdown icon"></i>
-              <div class="default text">Select Country</div>
-              <div class="menu">
-                <% Country.all.each do |c| %>
-                    <div class="item" data-value="<%= c.code.downcase %>"><i class="<%= c.code.downcase %> flag"></i><%= c.name %></div>
-                <% end %>
-              </div>
-            </div>
-          </div>
+        <%= render 'dropdowns' %>
 
-          <div class="field">
-            <%= f.label 'Profession' %>
-            <div class="ui fluid search selection dropdown" id="profession_selection">
-              <input type="hidden" name="user[profession]">
-              <i class="dropdown icon"></i>
-              <div class="default text">Select Profession</div>
-              <div class="menu">
-                <% %w{Student Pharmacist Physician Dentist Company}.each do |c| %>
-                    <div class="item" data-value="<%= c.downcase %>"><i class="<%= if c.downcase == 'company'
-                                                                                     'users'
-                                                                                   else
-                                                                                     c.downcase == 'student' ? 'student' : 'doctor'
-                                                                                   end %> icon"></i><%= c.capitalize %></div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="one field">
-          <div class="field">
-            <%= f.label 'Gender' %>
-            <div class="ui fluid search selection dropdown" id="gender_selection">
-              <input type="hidden" name="user[gender]">
-              <i class="dropdown icon"></i>
-              <div class="default text">Select Your Gender</div>
-              <div class="menu">
-                <% %w{Male Female}.each do |c| %>
-                    <div class="item" data-value="<%= c.downcase %>"><i class="<%= c.downcase %> icon"></i><%= c.capitalize %></div>
-                <% end %>
-              </div>
-            </div>
-            </div>
-        </div>
         <div class="two fields">
           <div class="field">
             <%= f.label 'Password' %>

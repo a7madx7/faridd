@@ -1,14 +1,12 @@
 <%- if notice %>
     <div class="ui positive message">
       <%= semantic_icon('close') %>
-      <div class="header">Please notice</div>
-      <p><%= notice %></p>
+      <div class="header"><%= notice %></div>
     </div>
 <% end %>
 <%- if alert %>
     <div class="ui negative message">
       <%= semantic_icon('close') %>
-      <div class="header">Please notice</div>
-      <p><%= alert %></p>
+      <div class="header"><%= alert %></div>
     </div>
 <% end %>

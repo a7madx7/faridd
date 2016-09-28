@@ -1,3 +1,2 @@
-$('#main_menu').transition('fade down');
-$('#main').replaceWith("<%= j render 'drugs/listing', obj: @drugs %>");//.transition('scale');
-window.history.pushState('', 'All drugs', <%= drugs_url %>);
+$('#main').html("<%= j render 'drugs/listing', obj: @drugs %>");
+window.history.pushState('', 'All drugs', "<%= drugs_url %>");
