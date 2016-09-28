@@ -31,8 +31,8 @@ prepare_seed = ->
   $('#user_username').val 'a7madx7'
   $('#user_first_name').val 'Ahmad'
   $('#user_last_name').val 'Hamdi'
-  $('#user_password').val '#1forever'
-  $('#user_password_confirmation').val '#1forever'
+  $('#user_password').val '123testing'
+  $('#user_password_confirmation').val '123testing'
   return
 
 search = ->
