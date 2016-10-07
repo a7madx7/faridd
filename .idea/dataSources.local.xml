@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails faridd: test" uuid="237134e8-d6bb-403e-884d-2a04af040a6f">
+      <auth-required>false</auth-required>
+    </data-source>
+    <data-source name="Rails faridd: development" uuid="6e88a65a-a47b-4b5d-97e8-3e45109d47f5">
+      <auth-required>false</auth-required>
+    </data-source>
+  </component>
+</project>

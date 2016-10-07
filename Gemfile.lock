@@ -130,6 +130,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    parallel (1.9.0)
     pkg-config (1.1.7)
     puma (3.6.0)
     rack (2.0.1)
@@ -228,6 +229,7 @@ DEPENDENCIES
   link_thumbnailer
   listen (~> 3.0.5)
   paperclip
+  parallel
   puma (~> 3.0)
   rails (~> 5.0.0)
   sass-rails (~> 5.0)

@@ -7,11 +7,13 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="pusher">
-    <%= render 'layouts/flash' %>
-    <%= render 'layouts/menu' %>
-    <%= render 'layouts/sidebar' %>
-    <!--Moved yield to the layouts/menu -->
+  <body>
+   <div class="pusher">
+     <%= render 'layouts/flash' %>
+     <%= render 'layouts/menu' %>
+     <!--Moved yield to the layouts/menu -->
+   </div>
+   <%= render 'layouts/sidebar' %>
   </body>
 
 <% unless devise_controller? %>
@@ -25,4 +27,5 @@
 <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
 <%= javascript_include_tag('ani') %>
 <%= javascript_include_tag('anijs-scrollreveal') %>
+<%= javascript_include_tag('alertify.min') %>
 <%= debug(params) %>

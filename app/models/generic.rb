@@ -7,4 +7,9 @@ class Generic < ApplicationRecord
   # def invented_at
   #   invented_at.nil? ? 'Not yet known!' : invented_at
   # end
+  class << self
+    def search(q)
+      where('name like :value', value: "%#{q}%")
+    end
+  end
 end

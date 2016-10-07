@@ -1,9 +1,18 @@
-<%- if drug.generics %>
+<%- if drug.generics and drug.generics.count > 0 %>
     <div class="ui ribbon teal label">Contains</div>
     <br /> <br />
     <div class="ui <%= drug.categories.first.color %> segment">
-      <% drug.generics.each do |generic| %>
-          <p><strong><%= generic.name %></strong></p>
+      <% drug.generics.each_with_index do |generic, i| %>
+          <p><strong><%= link_to truncate(generic.name.upcase, length: 25), generic_path(generic) %></strong></p>
+          <br>
        <% end %>
+    </div>
+
+<% else %>
+    <div class="ui ribbon red label">No ingredients listed</div>
+    <br /> <br />
+    <div class="ui <%= drug.categories.take.color %> segment">
+      There seems to be no listed active ingredients for the current shown drug
+      <%= link_to 'Want to add them?', new_generic_path %>
     </div>
 <% end %>

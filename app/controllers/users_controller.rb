@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :set_user, only: [:show, :edit, :destroy]
-  respond_to :js, :html, :json
+  respond_to :js, :html, :json, :xml
 
   def show
     respond_to do |format|

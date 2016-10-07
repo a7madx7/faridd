@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/search'
+
   resources :articles
   resources :rxes
   resources :patients
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   resources :companies
   resources :categories
   resources :drugs
+  resources :countries
   devise_for :users, controllers: { registrations: 'user/registrations' }
 
   resources :generics
@@ -15,7 +18,7 @@ Rails.application.routes.draw do
   get 'welcome/home', as: :home
   get 'welcome/about', as: :about
   get 'trade_names', to: 'drugs#index', as: :trade_names
-  get 'search', to: 'application#search', as: :search
+  get 'search', to: 'search#search', as: :search
   get 'identical_drugs/:id', to: 'drugs#identical_drugs', as: :identical_drugs
 
   # get 'user/:id', to: 'users#show', as: :user

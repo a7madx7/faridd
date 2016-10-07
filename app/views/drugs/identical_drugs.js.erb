@@ -1,2 +1,3 @@
+alert("<%=  @identical_drugs %>");
 $('#main').html("<%= j(render 'drugs/listing', obj: @identical_drugs) %>");
 window.history.pushState('', 'Similar Drugs', "<%=  identical_drugs_path(@drug) %>");

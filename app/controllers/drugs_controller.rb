@@ -7,6 +7,10 @@ class DrugsController < ApplicationController
   # GET /drugs
   # GET /drugs.json
   def index
+    # Parallel.each(Drug.all, in_processes: 12, progress: "Fetching drugs") do |d|
+    #
+    # end
+
     @drugs = Drug.all.order(:name).paginate(per_page: 20, page: params[:page])
   end
 

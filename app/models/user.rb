@@ -37,4 +37,10 @@ class User < ApplicationRecord
   def to_s
     full_name
   end
+
+  class << self
+    def search(q)
+      where('username like :value or email like :value', value: "%#{q}%")
+    end
+  end
 end

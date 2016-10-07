@@ -41,6 +41,14 @@ search = ->
     minCharacters: 3
     type: 'category'
 
+alertification = ->
+  # fade out the flash message
+  $('.pusher').children('.ui.message').fadeOut(5000)
+  $message = $('.ui.message')
+  if $message and $message.hasClass('negative')
+    alertify.error($message.text())
+  else if $message and $message.hasClass('positive')
+    alertify.success($message.text())
 ready = ->
   $('.ui.checkbox').checkbox()
   # todo: replace the class selector with the id selector for a more specific approach
@@ -61,6 +69,7 @@ ready = ->
   # prepare_seed();
   $sidebar = $('.ui.sidebar')
   $('#logo').on('mouseenter', -> $sidebar.sidebar('toggle'))
+  alertification()
   return
 
 $(-> ready())

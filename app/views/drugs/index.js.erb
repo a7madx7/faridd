@@ -1,2 +1,3 @@
 $('#main').html("<%= j render 'drugs/listing', obj: @drugs %>");
+ready();
 window.history.pushState('', 'All drugs', "<%= drugs_url %>");

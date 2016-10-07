@@ -54,6 +54,7 @@ def drug_seed
      h.company = Company.where(name: d['company']).first_or_create
      h.categories << Category.where(name: d['category'].downcase).first_or_create
      h.form = Form.where('name like ?', "%#{d['form']}%").first_or_create
+     h.contents = d['contents']
      h.price = d['price'].to_s.to_f
 
      d['active_ingredient'].each { |ac|  h.generics << Generic.where(name: ac).first_or_create }

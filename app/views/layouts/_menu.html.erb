@@ -4,19 +4,22 @@
       Faridd
   <% end %>
 
-  <div class="fluid item" id="search_item" data-anijs="if: dblclick, on: #search_item, do: tada animated">
-    <div class="ui fluid category purple search" id="search_box">
-      <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="Search everything..." id="search_input">
-        <i class="search icon"></i>
-      </div>
-      <div class="results"></div>
-    </div>
-  </div>
 
   <%= render 'layouts/menu_items' %>
 </div>
+<br>
 <div class="ui blue <%= controller_name %> <%= action_name %> container" id="main">
-  <br><br>
+  <div class="ui relaxed centered grid">
+    <div class="fluid centered bottom pointing item" id="search_item" data-anijs="if: dblclick, on: #search_item, do: tada animated">
+      <div class="ui fluid category purple search" id="search_box">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search everything..." id="search_input">
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+    </div>
+  </div>
+  <br>
   <%= yield %>
 </div>

@@ -1,8 +1,8 @@
 <%= semantic_will_paginate obj %>
 <div class="ui four column grid">
   <% obj.each do |drug| %>
-    <%= render 'drug_card', drug: drug %>
+    <%= render 'drugs/drug_card', drug: drug %>
   <% end %>
-</div>c
+</div>
 <%= semantic_will_paginate obj %>
 <div id="modal"></div>

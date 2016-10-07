@@ -10,6 +10,8 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
+    country_code = @company.country.present? ? @company.country.code.downcase : 'eg'
+    @country = Country.where(code: country_code.upcase).take
   end
 
   # GET /companies/new

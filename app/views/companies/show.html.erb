@@ -1,24 +1,20 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @company.name %>
-</p>
-
-<p>
-  <strong>Drug:</strong>
-  <%= @company.drug %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @company.country %>
-</p>
-
-<p>
-  <strong>Reputation:</strong>
-  <%= @company.reputation %>
-</p>
-
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<h1 class="ui dividing centered header"><strong><%= @company.name %></strong></h1>
+<div class="ui relaxed grid">
+  <div class="four wide column">
+    <div class="ui orange segment">
+        <div class="ui green bottom attached label">
+          <%= "#{@company.name} has #{pluralize(@company.drugs.count, 'Drug')} in #{@company.country.nil? ? 'Egypt' : @company.country.name }" %>
+        </div>
+        <div class="content">
+          <h3><i class="<%= @country.code.downcase %> flag"></i>Operates in <%= @country.name %></h3>
+          <h4><i class="inbox icon"></i> Email: Company Email</h4>
+          <br /> <br />
+        </div>
+      </div>
+      <div>
+      </div>
+  </div>
+  <div class="twelve wide column">
+    <%= render 'drugs/listing', obj: @company.drugs.paginate(per_page: 40, page: params[:page]) %>
+  </div>
+</div>
