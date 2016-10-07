@@ -4,8 +4,14 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  # scope :with_cheap_drugs, joins(:drugs) & Drug.cheap
+
   # color label categories in the faridd eco system.
   # accessibility feature
+  def to_s
+    name
+  end
+
   def color
     if name['antimicrobial'] or name['cancer'] or name['hiv'] or name['antibiotic']
       'red'
@@ -21,4 +27,5 @@ class Category < ApplicationRecord
       'teal'
     end
   end
+
 end

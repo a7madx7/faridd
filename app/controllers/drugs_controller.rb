@@ -71,7 +71,7 @@ class DrugsController < ApplicationController
   end
 
   def identical_drugs
-
+    # todo: render ajax identical drugs view here
   end
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -88,6 +88,6 @@ class DrugsController < ApplicationController
     end
 
     def set_identical_drugs
-      @identical_drugs = @drug.identical_drugs
+      @identical_drugs = @drug.identical_drugs(@drug.generics)
     end
 end

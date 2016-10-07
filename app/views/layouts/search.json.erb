@@ -33,8 +33,7 @@
           {
             "title": "<%= result.to_s %>",
             "url": "<%= generic_path(result.id) %>",
-            "image": "<%= result.picture %>",
-            "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+            "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png",
             "description": "Optional Description"
           }
           <%- unless i >= @generic_results.count - 1 and @generic_results.count > 1 %>
@@ -56,9 +55,8 @@
         <% @user_results.each_with_index do |result, i| %>
         {
           "title": "<%= result.to_s %>",
-          "url": "<%= result.id %>",
-          "image": "<%= result.image_url %>",
-          "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+          "url": "<%= user_path(result.id) %>",
+          "image": "<%= result.picture %>",
           "description": "Optional Description"
         }
         <%- unless i == @user_results.count - 1 %>

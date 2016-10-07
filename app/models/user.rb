@@ -38,6 +38,11 @@ class User < ApplicationRecord
     full_name
   end
 
+  def picture
+    unless image_url
+      'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png'
+    end
+  end
   class << self
     def search(q)
       where('username like :value or email like :value', value: "%#{q}%")
