@@ -1,22 +1,49 @@
-<%= form_for(rx) do |f| %>
-  <% if rx.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(rx.errors.count, "error") %> prohibited this rx from being saved:</h2>
+<br />
 
-      <ul>
-      <% rx.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+
+<div class="ui orange attached centered segment">
+  <%= form_for(rx, html: { class: 'ui fluid form' }) do |f| %>
+      <% if rx.errors.any? %>
+          <div class="row">
+            <div id="ui red inverted segment">
+              <h2><%= pluralize(rx.errors.count, "error") %> prohibited this rx from being saved:</h2>
+
+              <ul>
+                <% rx.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
       <% end %>
-      </ul>
-    </div>
+      <%= render 'rxes/patient_select', f: f %>
+      <%= render 'diagnosis_select' %>
+      <%= render 'prescription_select' %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :patient_id %>
-    <%= f.text_field :patient_id %>
+    <div class="ui new_prescription middle aligned divided relaxed hidden list">
+      <div class="ui massive dividing header">Rx</div>
+    </div>
+</div>
+<div class="ui bottom attached massive three steps">
+  <div class="active step">
+    <i class="purple user icon"></i>
+    <div class="content">
+      <div class="title">Patient</div>
+      <div class="description">Please choose or create a patient</div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="step">
+    <i class="purple doctor icon"></i>
+    <div class="content">
+      <div class="title">Diagnosis</div>
+      <div class="description">Please fill in your diagnosis of the case</div>
+    </div>
   </div>
-<% end %>
+  <div class="prescription step">
+    <i class="purple lab icon"></i>
+    <div class="content">
+      <div class="title">Rx</div>
+      <div class="description">Issue a new prescription</div>
+    </div>
+  </div>
+</div>

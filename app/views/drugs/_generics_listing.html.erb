@@ -1,6 +1,9 @@
 <%- if drug.generics and drug.generics.count > 0 %>
-    <div class="ui ribbon teal label">Contains</div>
+    <div class="ui ribbon teal label">
+      <i class="tasks icon"></i>Contains
+    </div>
     <br /> <br />
+    <p class="ui teal label"><%="#{drug.contents.to_i} units" %></p>
     <div class="ui <%= drug.categories.first.color %> segment">
       <% drug.generics.each_with_index do |generic, i| %>
           <p><strong><%= link_to truncate(generic.name.upcase, length: 25), generic_path(generic) %></strong></p>

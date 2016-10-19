@@ -1,4 +1,6 @@
-$('#modal').html("<%= j(render 'drugs/show_modal') %>");
+var $modal = $('#modal');
+$modal.html('');
+$modal.html("<%= j(render 'drugs/show_modal') %>");
 $('.show.modal')
     .modal('setting', 'transition', 'horizontal flip')
     .modal({blurring: true})

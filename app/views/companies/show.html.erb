@@ -1,5 +1,5 @@
 <h1 class="ui dividing centered header"><strong><%= @company.name %></strong></h1>
-<div class="ui relaxed grid">
+<div class="ui grid">
   <div class="four wide column">
     <div class="ui orange segment">
         <div class="ui green bottom attached label">
@@ -14,7 +14,7 @@
       <div>
       </div>
   </div>
-  <div class="twelve wide column">
-    <%= render 'drugs/listing', obj: @company.drugs.paginate(per_page: 40, page: params[:page]) %>
-  </div>
+    <div class="twelve wide column">
+      <%= render 'drugs/listing', obj: @company.drugs.paginate(per_page: 40, page: params[:page]) %>
+    </div>
 </div>

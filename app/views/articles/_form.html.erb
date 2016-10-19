@@ -1,4 +1,4 @@
-<%= form_for(article, class: 'ui form segment') do |f| %>
+<%= form_for(article, html: { class: 'ui form stacked segment' }) do |f| %>
   <% if article.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
@@ -14,20 +14,27 @@
   <div class="field">
     <%= f.label :title %>
     <div class="ui left icon input">
-      <%= f.text_field :title, placeholder: 'Your article title goes here...' %>
-      <i class="pencil icon"></i>
+      <%= f.text_field :title, placeholder: 'Write a unique title here to get more readers' %>
+      <i class="edit icon"></i>
     </div>
   </div>
 
   <div class="field">
     <%= f.label :content %>
-    <div class="ui left icon input">
-      <%= f.text_area :content %>
-      <i class="edit icon"></i>
+    <div class="ui input">
+      <%= f.text_area :content, placeholder: 'Make sure to leave true knowledge for the yet to come generations :)' %>
     </div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <div class="ui labeled bottom attached button" type="submit" id="create_new_article_button">
+      <div class="ui blue button">
+        <i class="edit icon"></i> Post
+      </div>
+      <div class="ui basic blue left pointing label">
+        <%= current_user.articles.count  %>
+      </div>
+    </div>
+
   </div>
 <% end %>

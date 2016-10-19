@@ -1,7 +1,9 @@
 <div class="column" id="drug_card">
   <div class="ui <%= drug.categories.first.present? ? suppress(Exception) { drug.categories.first.color } : 'green' %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
     <div class="content">
-      <%= suppress(Exception) { link_to truncate(drug.name.upcase, length: 33), drug_path(drug), class: 'ui green left floated ribbon label', remote: true  } %>
+      <%= link_to drug_path(drug), class: 'ui green ribbon label', remote: true  do %>
+        <i class="registered icon"></i><%= truncate(drug.name.upcase, length: 33) %>
+      <% end %>
       <br />
       <div class="image content">
         <div class="centered image">
@@ -9,10 +11,12 @@
         </div>
       </div>
       <br />
-      <a href="<%= country_path(drug.country.present? ? drug.country.id : 70) %>" class="ui green right floated icon label" data-remote='true'>
+      <a href="<%= country_path(drug.country.present? ? drug.country.id : 70) %>" class="ui right floated label" data-remote='true'>
         <i class="<%= drug.country.present? ? drug.country.code.to_sym : 'eg' %> flag" ></i>
       </a>
-      <div class="ui orange left floated ribbon label">Identical Drugs</div>
+      <div class="ui orange ribbon label">
+        <i class="idea icon"></i>Identical Drugs
+      </div>
       <br>
       <div class="ui segment">
         There are
@@ -22,7 +26,6 @@
       </div>
       <div class="meta">Created <%= time_ago_in_words(drug.created_at) %> ago</div>
       <div class="description">
-        <p><%= drug.contents %></p>
         <%= render 'drugs/generics_listing', drug: drug %>
       </div>
     </div>

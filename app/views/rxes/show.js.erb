@@ -1,0 +1,7 @@
+var $modal = $('#modal');
+$modal.html('');
+$modal.html("<%= j(render 'rxes/show_modal') %>");
+$('.show.modal')
+    .modal('setting', 'transition', 'horizontal flip')
+    .modal({blurring: true})
+    .modal('show');

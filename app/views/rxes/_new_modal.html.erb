@@ -1,0 +1,17 @@
+<div class="ui new modal">
+  <div class="centered category green header">
+    Issue a new prescription
+  </div>
+  <div class="content">
+   <p>
+     <%= render 'rxes/form', rx: @rx %>
+   </p>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button" onclick="$('#new_rx').submit();">
+      <%= semantic_icon(:checkmark, :icon) %>
+      Issue
+    </div>
+    <div class="ui negative button">Cancel</div>
+  </div>
+</div>

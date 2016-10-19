@@ -31,26 +31,15 @@ class Drug < ApplicationRecord
     def has_generics
       Drug.joins(:generics)
     end
+
+    def look_alike_drugs
+
+    end
+
   end
 
   # todo: set a default scope
   # scope :cheap, cheaper_than(30)
-
-  def new_price
-    if price < 10
-      price + 2
-    elsif price > 10 and price < 30
-
-    else
-      price
-    end
-  end
-
-  def to_s
-    "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price} EGP"
-  end
-
-
   def identical_drugs_by(attr = 'price')
     # self is a drug
     # .generics tells you each and every generic this drug has
@@ -59,12 +48,12 @@ class Drug < ApplicationRecord
     # Drug.all.map { |drug| drug.send(attr.to_sym) == send(attr.to_sym) ? drug : nil }.compact
     # Drug.joins(:drug_generics).where(attr.to_sym => attr)
     # get me all drugs that have the exact same relations to generics as this drug
-    joins(:generics) & Drug.where('drug.generics = ?', attr)
+    Drug.where(generics: self.generics)
   end
   alias_method :identical_drugs, :identical_drugs_by
 
-  def look_alike_drugs
-
+  def to_s
+    "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price} EGP"
   end
 
   def same_category

@@ -37,9 +37,10 @@ prepare_seed = ->
 
 search = ->
   $('#search_box').search
-    apiSettings: url: '/search?term={query}'
+    apiSettings: url: '/search?mode=all&term={query}'
     minCharacters: 3
     type: 'category'
+  return
 
 alertification = ->
   # fade out the flash message
@@ -49,30 +50,39 @@ alertification = ->
     alertify.error($message.text())
   else if $message and $message.hasClass('positive')
     alertify.success($message.text())
-ready = ->
-  $('.ui.checkbox').checkbox()
-  # todo: replace the class selector with the id selector for a more specific approach
-  $('.ui.dropdown').dropdown
-    allowAdditions: true
-    transition: 'drop'
-  search()
+  return
+
+sorter = ->
   $('table').tablesort()
   maxHeight = -1
   cards = $('.drugs.index .ui.card')
   cards.each ->
     maxHeight = if maxHeight > $(this).height() then maxHeight else $(this).height()
-    return
   cards.each ->
     $(this).height maxHeight
-    return
+  return
+
+responsive_elements = ->
+  $('.ui.checkbox').checkbox()
+  # todo: replace the class selector with the id selector for a more specific approach
+  dropdown_effects = ['drop','horizontal flip','fade up','scale']
+  rand = dropdown_effects[Math.floor(Math.random() * dropdown_effects.length)]
+  $('.ui.pointing.dropdown').dropdown
+    allowAdditions: true
+    transition: "#{rand}"
+    on: 'hover'
+  return
+
+ready = ->
+  responsive_elements()
+  search()
+  sorter()
   # prepare_dropdowns();
   # prepare_seed();
-  $sidebar = $('.ui.sidebar')
-  $('#logo').on('mouseenter', -> $sidebar.sidebar('toggle'))
+  #  $sidebar = $('.ui.sidebar')
+  #  $('.ui.right.item').mouseenter(-> $sidebar.sidebar('toggle'))
   alertification()
   return
 
-$(-> ready())
-$(document).on("page:change", ->
-  ready());
-#$('#search_input').on('keypress', search)
+$(ready)
+$(document).on("page:change", ready);

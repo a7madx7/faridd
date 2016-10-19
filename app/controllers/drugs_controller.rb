@@ -2,7 +2,7 @@ class DrugsController < ApplicationController
   before_action :set_drug, only: [:show, :edit, :update, :destroy, :identical_drugs]
   semantic_breadcrumb :index, :drugs_path
   respond_to :html, :json, :js
-  before_filter :set_identical_drugs, only: [:show, :identical_drugs]
+  before_action :set_identical_drugs, only: [:show, :identical_drugs]
 
   # GET /drugs
   # GET /drugs.json

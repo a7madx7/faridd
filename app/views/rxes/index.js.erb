@@ -1,0 +1,4 @@
+var $main = $('#main');
+$main.html("<%= j render 'layouts/loader_dimmer' %>");
+$main.html("<%= j render 'rxes/listing', obj: @rxes %>");
+window.history.pushState('', 'All prescriptions', "<%= rx_url %>");

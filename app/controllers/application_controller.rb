@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
-  before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :prepare_menu, unless: :devise_controller?
-  after_filter :invoke_thumbnailer, only: [:search]
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  after_action :invoke_thumbnailer, only: [:search]
 
   semantic_breadcrumb :index, :root_path
 
@@ -36,21 +35,21 @@ class ApplicationController < ActionController::Base
     if current_user
       case current_user.profession.downcase
         when 'pharmacist'
-          @menu = { 'generics' => [ generics_path, 'lab' ], 'trade names' => ['/trade_names', 'registered'],
-                    'formulations' => ['/formulations', 'idea'],
-                    'rxs' => ['/rxs', 'heartbeat'], 'questions' => ['/questions', 'book'],
-                    'trade center' => ['/trade_center', 'percent'] }
+          @menu = { 'generics' => ['lab'], 'drugs' => ['registered'],
+                    'formulations' => ['idea'],
+                    'rxes' => ['heartbeat'], 'questions' => ['book'],
+                    'trade center' => ['percent'] }
         when 'physician'
-          @menu = { 'generics' => [generics_path, 'lab'], 'rxs' => ['/rxs', 'heartbeat'],
-                    'questions' => ['/questions', 'book'],
-                    'clinic' => ['/clinic', 'doctor'], 'patients' => ['/patients', 'user'] }
+          @menu = { 'generics' => ['lab'], 'rxs' => ['heartbeat'],
+                    'questions' => [ 'book'],
+                    'clinic' => ['doctor'], 'patients' => ['user'] }
         when 'student'
-          @menu = { 'generics' => [generics_path, 'lab'], 'trade names' => ['/trade_names', 'registered'],
-                    'formulations' => ['/formulations', 'idea'],
-                    'questions' => ['/questions', 'book'] }
+          @menu = { 'generics' => ['lab'], 'drugs' => ['registered'],
+                    'formulations' => ['idea'],
+                    'questions' => ['book'] }
         else
-          @menu = { 'trade names' => ['/trade_names', 'registered'],
-                    'trade center' => ['/trade_center', 'percent'] }
+          @menu = { 'drugs' => ['registered'],
+                    'trade center' => ['percent'] }
       end
     else
 

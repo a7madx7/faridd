@@ -1,3 +1,4 @@
-$('#main').html("<%= j render 'drugs/listing', obj: @drugs %>");
-ready();
+var $main = $('#main');
+$main.html("<%= j render 'layouts/loader_dimmer' %>");
+$main.html("<%= j render 'drugs/listing', obj: @drugs %>");
 window.history.pushState('', 'All drugs', "<%= drugs_url %>");

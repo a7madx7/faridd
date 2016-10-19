@@ -9,4 +9,4 @@ prepare_form = ->
   $("#user_gender").popup({ popup: ".ui.popup" })
   $("#user_country").popup({ popup: ".ui.popup" })
   $("#user_profession").popup({ popup: ".ui.popup" })
-$(prepare_form())
+$(prepare_form)

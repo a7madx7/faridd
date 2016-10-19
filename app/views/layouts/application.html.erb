@@ -5,12 +5,14 @@
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
   </head>
 
   <body>
    <div class="pusher">
-     <%= render 'layouts/flash' %>
      <%= render 'layouts/menu' %>
+     <%= render 'layouts/flash' %>
+     <%= render 'layouts/loader_dimmer' %>
      <!--Moved yield to the layouts/menu -->
    </div>
    <%= render 'layouts/sidebar' %>
@@ -18,14 +20,18 @@
 
 <% unless devise_controller? %>
     <footer class="centered">
-      <p>In the memory of Mohamed Farid Awd</p>
+      <p class="ui message">In the memory of Mohamed Farid Awd</p>
     </footer>
 <% end %>
 </html>
 
+
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-<link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
-<%= javascript_include_tag('ani') %>
-<%= javascript_include_tag('anijs-scrollreveal') %>
+
+<% if Rails.env.production? %>
+    <%= javascript_include_tag('ani') %>
+    <%= javascript_include_tag('anijs-scrollreveal') %>
+<% end %>
 <%= javascript_include_tag('alertify.min') %>
+
 <%= debug(params) %>

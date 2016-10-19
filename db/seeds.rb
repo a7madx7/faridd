@@ -22,11 +22,11 @@ def read(file)
 end
 def form_seed
   ['amp', 'vial',
-   'cap', 'tab', 'enteric coated tab', 'powder',
+   'cap', 'tab', 'enteric coated tab', 'film coated tab', 'powder',
    'susp', 'emulsion', 'spray', 'syrup',
    'drops', 'ear drops', 'eye drops',
    'cream', 'ointment', 'gel', 'eye(ointment-gel)',
-   'mouth wash'].each do |df|
+   'mouth wash', 'suppository', 'cream gel'].each do |df|
       Form.create(name: df)
     end
 end
@@ -50,7 +50,7 @@ def drug_seed
    Drug.where(name: d['name'].downcase).first_or_create do |h|
      h.name = d['name']
 
-     h.country = Country.where(code: 'eg').first_or_create
+     h.country = Country.where(code: 'EG').first_or_create
      h.company = Company.where(name: d['company']).first_or_create
      h.categories << Category.where(name: d['category'].downcase).first_or_create
      h.form = Form.where('name like ?', "%#{d['form']}%").first_or_create
@@ -71,9 +71,35 @@ def user_seed
                        country_id: 70, first_name: 'Guest', last_name: 'User', profession: 'Physician', gender: 'female')
 end
 
+def diagnosis_seed
+  10.times { |n| Diagnosis.first_or_create(name: "Diagnosis number #{n + 1}") }
+end
+
+def articles_seed
+  666.times { |n|
+    a = Article.create(title: "Title number #{n} for this article",
+                   content: 'This should be the content of this article',
+                    user_id: User.first.id)
+
+    a.categories << Category.first
+  }
+end
+
+def question_seed
+  999.times {
+    Question.first_or_create(title: 'Ho can I become a pharmacist?',
+                                     content: 'I wish to be a successful pharmacist in the future, how can I do that?',
+                                     rating: 5,
+                                     user_id: User.first.id)
+  }
+end
+
 user_seed
 form_seed
 country_seed
 companies_seed
 categories_seed
 drug_seed
+suppress(Exception) { diagnosis_seed }
+suppress(Exception) { articles_seed }
+suppress(Exception) { question_seed }

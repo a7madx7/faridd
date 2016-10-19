@@ -1,0 +1,23 @@
+function addScript( src ) {
+  if(document.getElementById('rxes_script') != null){
+    return false;
+  }
+  var s = document.createElement( 'script' );
+  s.setAttribute( 'src', src );
+  s.setAttribute('id', 'rxes_script');
+  document.body.appendChild( s );
+}
+
+// todo: won't work on any page but the root path
+addScript('assets/rxes.js');
+//$.getScript('rxes.js').done(function (script, text) {
+//  addScript(script);
+//});
+var $modal = $("#modal");
+$new_modal = "<%= j(render 'rxes/new_modal') %>";
+$modal.children().remove().end().html($new_modal);
+$('.new.modal')
+  .modal('setting', 'transition', 'vertical flip')
+  .modal({blurring: true, closable: false})
+  .modal('show');
+

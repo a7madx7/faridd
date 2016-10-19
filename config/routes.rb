@@ -19,11 +19,13 @@ Rails.application.routes.draw do
   get 'welcome/about', as: :about
   get 'trade_names', to: 'drugs#index', as: :trade_names
   get 'search', to: 'search#search', as: :search
+
   get 'identical_drugs/:id', to: 'drugs#identical_drugs', as: :identical_drugs
 
-  # get 'user/:id', to: 'users#show', as: :user
-  # get 'users', to: 'users#index', as: :users_path
-  # get ''
+  # todo: fix it
+  get '/formulations', to: 'drugs#index', as: :formulation_path
+  get '/formulations/new', to: 'drugs#index', as: :new_formulation
+
   resources :users
   root 'welcome#home'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

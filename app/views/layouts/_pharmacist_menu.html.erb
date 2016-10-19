@@ -1,0 +1,185 @@
+<a class="item">
+  <%= semantic_icon('purple mail') %>
+  Messages
+</a>
+<a class="item">
+  <%= semantic_icon('purple user') %>
+  Friends
+</a>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple book') %>
+  &nbsp;
+  <span class="text">Articles</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>Write</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to articles_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recent articles</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple lab') %>
+  &nbsp;
+  <span class="text">Generics</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to new_generic_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>New</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to generics_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recently added</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple registered') %>
+  &nbsp;
+  <span class="text">Drugs</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to new_drug_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>New</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to drugs_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recently added</span>
+    <% end %>
+    <%= link_to new_article_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple idea') %>
+  &nbsp;
+  <span class="text">Formulations</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to '/formulations/new', class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>New</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to '/formulations', class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to '/formulations/recent', class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recently added</span>
+    <% end %>
+    <%= link_to '/formulations/trending', class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple heartbeat') %>
+  &nbsp;
+  <span class="text">Rxs</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to '/rxes/dispense', class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>Dispense Rx</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to rxes_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to '/rxes/recent', class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recently added</span>
+    <% end %>
+    <%= link_to '/rxes/trending', class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple book') %>
+  &nbsp;
+  <span class="text">Q&A</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to new_question_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>Ask a new question</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to questions_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All</span>
+    <% end %>
+    <%= link_to '/questions/recent', class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recent questions</span>
+    <% end %>
+    <%= link_to '/questions/trending', class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Top trending</span>
+    <% end %>
+  </div>
+</div>
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple percent') %>
+  &nbsp;
+  <span class="text">Trade Center</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="menu">
+    <%= link_to '/trade_center', class: 'item' do %>
+        <%= semantic_icon(:purple, :edit) %>
+        <span>Create an offer</span>
+    <% end %>
+    <div class="ui separator"></div>
+    <%= link_to '/offers', class: 'item' do %>
+        <%= semantic_icon(:purple, :tv) %>
+        <span>All Offers</span>
+    <% end %>
+    <%= link_to '/offers/recent', class: 'item' do %>
+        <%= semantic_icon(:purple, :paw) %>
+        <span>Recent offers</span>
+    <% end %>
+    <%= link_to '/offers/trending', class: 'item' do %>
+        <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Best value</span>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'layouts/settings_item_menu' %>

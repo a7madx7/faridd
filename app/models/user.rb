@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :user_articles
   has_many :articles, through: :user_articles
 
+  has_many :rxs
+
   # todo: enable paperclip here
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
 
@@ -39,7 +41,9 @@ class User < ApplicationRecord
   end
 
   def picture
-    unless image_url
+    if image_url
+      image_url
+    else
       'https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png'
     end
   end

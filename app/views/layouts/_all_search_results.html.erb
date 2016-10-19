@@ -1,6 +1,6 @@
 <%- if @drug_results %>
     <div class="ui dividing centered header">Commercial Drugs</div>
-    <%= render 'drugs/listing', obj: @drug_results.paginate(per_page: 20, page: params[:page]) %>
+    <%= render 'drugs/listing', obj: @drug_results %>
 <% end %>
 <%- if @generic_results %>
     <div class="ui dividing centered header">Generics</div>

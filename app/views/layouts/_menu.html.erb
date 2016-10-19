@@ -4,22 +4,12 @@
       Faridd
   <% end %>
 
-
   <%= render 'layouts/menu_items' %>
 </div>
 <br>
-<div class="ui blue <%= controller_name %> <%= action_name %> container" id="main">
-  <div class="ui relaxed centered grid">
-    <div class="fluid centered" id="search_item" data-anijs="if: dblclick, on: #search_item, do: tada animated">
-      <div class="ui fluid category purple search" id="search_box">
-        <div class="ui icon input">
-          <input class="prompt" type="text" placeholder="Search Everything ( Drugs, Generics, Drug categories, Companies, Prescriptions, Deals & Users ) !!" id="search_input">
-          <i class="search icon"></i>
-        </div>
-        <div class="results"></div>
-      </div>
-    </div>
-  </div>
-  <br>
+<%= render 'layouts/search_box' %>
+<br>
+
+<div class="ui blue <%= controller_name %> <%= action_name %> <%= 'container' unless controller_name =~ /comp|count/ %>" id="main">
   <%= yield %>
 </div>

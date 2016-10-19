@@ -1,10 +1,13 @@
 class RxesController < ApplicationController
   before_action :set_rx, only: [:show, :edit, :update, :destroy]
   semantic_breadcrumb :index, :rxes_path
+  respond_to :js, :html, :json
 
   # GET /rxes
   # GET /rxes.json
   def index
+    new
+    render :new
     @rxes = Rx.all
   end
 

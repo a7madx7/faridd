@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file:///media/data/drugs/.idea/drugs.iml" filepath="/media/data/drugs/.idea/drugs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/faridd.iml" filepath="$PROJECT_DIR$/.idea/faridd.iml" />
     </modules>
   </component>

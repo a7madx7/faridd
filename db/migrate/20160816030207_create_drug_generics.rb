@@ -3,8 +3,6 @@ class CreateDrugGenerics < ActiveRecord::Migration[5.0]
     create_table :drug_generics do |t|
       t.integer :drug_id, null: true
       t.integer :generic_id, null: true
-
-      t.timestamps
     end
   end
 end

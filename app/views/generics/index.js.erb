@@ -1,2 +1,3 @@
-$('#main').html("<%= j render 'generics/index', obj: @generics %>");
+
+$('#main').html("<%= j render 'generics/listing', obj: @generics %>");
 window.history.pushState('', 'All generics', "<%= generics_url %>");

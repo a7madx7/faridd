@@ -9,5 +9,9 @@ class Company < ApplicationRecord
     def search(q)
       where('name like :value', value: "%#{q}%")
     end
+
+    def sponsored
+      where('sponsored = true')
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920214956) do
+ActiveRecord::Schema.define(version: 20161014215856) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20160920214956) do
   create_table "countries", force: :cascade do |t|
     t.string   "code"
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "diagnosis", force: :cascade do |t|
+    t.string   "name"
+    t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -153,8 +160,10 @@ ActiveRecord::Schema.define(version: 20160920214956) do
 
   create_table "rxes", force: :cascade do |t|
     t.integer  "patient_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+    t.integer  "diagnosis_id"
     t.index ["patient_id"], name: "index_rxes_on_patient_id"
   end
 

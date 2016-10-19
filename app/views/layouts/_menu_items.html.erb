@@ -1,42 +1,5 @@
-<a class="item">
-  <%= semantic_icon('purple mail') %>
-  Messages
-</a>
-<a class="item">
-  <%= semantic_icon('purple user') %>
-  Friends
-</a>
-<div class='ui dropdown icon item'>
-    <%= semantic_icon('purple book') %>
-    &nbsp;
-    Articles
-    <div class="menu">
-      <%= link_to new_article_path, class: 'item' do %>
-          <%= semantic_icon(:purple, :edit) %>
-          <span>Write</span>
-      <% end %>
-      <div class="ui separator"></div>
-      <%= link_to articles_path, class: 'item' do %>
-          <%= semantic_icon(:purple, :tv) %>
-          <span>All articles</span>
-      <% end %>
-      <%= link_to new_article_path, class: 'item' do %>
-          <%= semantic_icon(:purple, :paw) %>
-          <span>Recent articles</span>
-      <% end %>
-      <%= link_to new_article_path, class: 'item' do %>
-          <%= semantic_icon(:purple, :line, :chart) %>
-          <span>Top trending</span>
-      <% end %>
-    </div>
-</div>
-<% if @menu %>
-    <%- @menu.each do |name, data| %>
-        <%= link_to data[0], class: 'item', remote: true do %>
-            <%= semantic_icon("purple #{data[1]}") %>
-            <%= name.capitalize %>
-        <% end %>
-    <% end %>
+<% if current_user %>
+  <% if current_user.profession %>
+        <%= render ("layouts/#{current_user.profession.downcase}_menu") %>
+  <% end %>
 <% end %>
-
-<%= render 'layouts/settings_menu' %>

@@ -1,33 +1,33 @@
-  <div class="ui right dropdown item">
-    <%= semantic_icon('purple settings') %>
-    <%- if signed_in? %>
-          <%- if signed_in? %>
-              <div class="menu">
-                <%= link_to user_path(current_user), class: 'item', remote: true do %>
-                    <%= semantic_icon(:user) %>
-                    Go to profile
-                <% end %>
-                <%= link_to edit_user_path(current_user), class: 'item', remote: true do %>
-                    <%= semantic_icon(:edit) %>
-                    Update your info
-                <% end %>
-                <%= link_to destroy_user_session_path, method: :delete, class: 'item' do %>
-                    <%= semantic_icon(:sign, :out) %>
-                    Sign out
-                <% end %>
-              </div>
-          <% end %>
-    <% else %>
-          Your account
-          <div class="menu">
-            <%= link_to new_user_registration_path, class: 'item' do %>
-                <%= semantic_icon(:edit) %>
-                Sign up
+<%- if signed_in? %>
+      <%- if signed_in? %>
+          <div class="menu" >
+            <%= link_to user_path(current_user), class: 'purple item', remote: true do %>
+                <%= semantic_icon(:user) %>
+                Go to profile
             <% end %>
-            <%= link_to new_user_session_path, class: 'item' do %>
-                <%= semantic_icon(:sign, :in) %>
-                Log in
+            <div class="horizontal divider"></div>
+            <%= link_to edit_user_path(current_user), class: 'purlple item', remote: true do %>
+                <%= semantic_icon(:edit) %>
+                Update your info
+            <% end %>
+            <div class="horizontal divider"></div>
+            <%= link_to destroy_user_session_path, method: :delete, class: 'purple item' do %>
+                <%= semantic_icon(:sign, :out) %>
+                Sign out
             <% end %>
           </div>
-    <% end %>
-  </div>
+      <% end %>
+  <% else %>
+      Your account
+      <div class="menu">
+        <%= link_to new_user_registration_path, class: 'item' do %>
+            <%= semantic_icon(:edit) %>
+            Sign up
+        <% end %>
+        <div class="horizontal divider"></div>
+        <%= link_to new_user_session_path, class: 'item' do %>
+            <%= semantic_icon(:sign, :in) %>
+            Log in
+        <% end %>
+      </div>
+  <% end %>
