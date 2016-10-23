@@ -2,8 +2,8 @@ class Category < ApplicationRecord
   has_many :drug_categories
   has_many :drugs, through: :drug_categories
 
-  validates :name, presence: true, uniqueness: true
-
+  validates :name, presence: true, uniqueness: true, length: (2..128)
+  validates :color, length: (0..64), allow_nil: true, allow_blank: true
   # scope :with_cheap_drugs, joins(:drugs) & Drug.cheap
 
   # color label categories in the faridd eco system.

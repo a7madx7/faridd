@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014215856) do
+ActiveRecord::Schema.define(version: 20161019204234) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20161014215856) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "color"
+    t.string   "color", null: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(version: 20161014215856) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name", unique: true, null: false
     t.integer  "drug_id"
     t.integer  "country_id"
-    t.float    "reputation"
+    t.decimal  "reputation", null: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_companies_on_country_id"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20161014215856) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "diagnosis", force: :cascade do |t|
+  create_table "diagnoses", force: :cascade do |t|
     t.string   "name"
     t.text     "comment"
     t.datetime "created_at", null: false
@@ -165,6 +165,12 @@ ActiveRecord::Schema.define(version: 20161014215856) do
     t.integer  "user_id"
     t.integer  "diagnosis_id"
     t.index ["patient_id"], name: "index_rxes_on_patient_id"
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_articles", force: :cascade do |t|
