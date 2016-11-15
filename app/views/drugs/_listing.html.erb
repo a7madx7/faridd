@@ -1,7 +1,10 @@
 <%= semantic_will_paginate obj %>
-<div class="ui four column grid">
+<div class="ui four column relaxed grid">
   <% obj.each do |drug| %>
-    <%= render 'drugs/drug_card', drug: drug %>
+    <%- cache drug do %>
+      <%= render 'drugs/drug_card', drug: drug %>
+      <div class="ui dividing right rail"></div>
+    <% end %>
   <% end %>
 </div>
 <%= semantic_will_paginate obj %>

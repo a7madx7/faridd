@@ -78,3 +78,17 @@ footer a, div a, li a, a, div.ui a, a.header{
 .hidden{
   display: none;
 }
+
+#main_menu{
+  background-color: #9C8AA5;
+}
+
+#logo::after{
+  background-color: #9C8AA5;
+}
+
+.generic_description{
+  font-size: 1.3em;
+  letter-spacing: 3px;
+  line-height: 1.3em;
+}

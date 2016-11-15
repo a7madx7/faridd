@@ -9,8 +9,27 @@ class SearchController < ApplicationController
      respond_to do |format|
        format.json { render 'rxes/add_drug', layout: false, content_type: 'application/json'}
      end
-   elsif mode =~ /diagnosis/
+   elsif @mode =~ /^diagnosis/
      @results = Diagnosis.where(name: @term).order(:name).first(9)
+   elsif @mode =~ /^generics/
+     @results = Generic.where(name: @term).order(:name).first(9)
+   elsif @mode =~ /^category/
+     @results = Category.search(@term).order(:name).first(9)
+     respond_to do |format|
+       format.json { render 'search/add_model', layout: false, content_type: 'application/json'}
+     end
+   elsif @mode =~ /^unit/
+     @results = Unit.search(@term).order(:name).first(9)
+
+     respond_to do |format|
+       format.json { render 'search/add_model', layout: false, content_type: 'application/json'}
+     end
+   elsif @mode =~ /company/
+     @results = Company.search(@term).order(:name).first(9)
+
+     respond_to do |format|
+       format.json { render 'search/add_model', layout: false, content_type: 'application/json'}
+     end
    else
      @drug_results = Drug.search(@term).order(:name).first(6)
      @generic_results = Generic.search(@term).order(:name).first(6)

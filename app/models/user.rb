@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :rxs
   has_many :questions
+  has_many :likes
 
   # todo: enable paperclip here
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: '/images/:style/missing.png'
@@ -24,6 +25,14 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates_uniqueness_of :username, :email
 
+  def method_missing(name, *args, &block)
+    case name
+      when /.*name/
+        "#{first_name} #{last_name}"
+      else
+        'UNKNOWN METHOD'
+    end
+  end
   def country=(val)
     if val.is_a? String
       Country.where(code: val.upcase).first
@@ -31,12 +40,6 @@ class User < ApplicationRecord
       country = val
     end
   end
-  # validate profession with a narrow group of values [pharmacist, physician, dentist, company]
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
   def to_s
     full_name
   end

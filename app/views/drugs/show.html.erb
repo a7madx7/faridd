@@ -1,12 +1,8 @@
 <div class="ui raised piled segments" id="drug_show_card">
   <div class="ui <%= cycle(@colors) %> segment">
     <%= link_to @drug.name.upcase, drug_path(@drug), class: "ui huge #{cycle(@colors)} ribbon label" %>
-    <span><%= @drug.country %></span>
+    <div class="left floated label"><i class="<%= @drug.country.code.downcase %> flag"></i></div>
     <div class="ui horizontal divider"><%= @drug.price %> EGP</div>
-    <p>
-      <%= @drug.concentration %>
-      <%= @drug.unit %>
-    </p>
     <div class="ui <%= cycle(@colors) %> ribbon label"> <%= pluralize(@drug.generics.count, 'Active Ingredient') %></div>
     <%= render 'drugs/categories_listing', drug: @drug %></div>
   <div class="ui segment">
@@ -14,21 +10,25 @@
       <thead>
       <tr>
         <th class="sorted ascending">Name</th>
-        <th class="">Invented at</th>
-        <th>Notes</th>
+        <th class="">External Links</th>
+        <th>Concentration</th>
+        <th>Summary</th>
+        <th>Photo</th>
       </tr>
       </thead>
       <tbody>
-      <%= render 'generics/generic', obj: @drug %>
+      <%= render 'generics/drug_generics_listing', obj: @drug %>
       </tbody>
       <tfoot>
       </tfoot>
     </table>
   </div>
-  <div class="ui segment">
-    <%= link_to 'Show', @drug %>
-    <%= link_to 'Edit', edit_drug_path(@drug) %>
-    <%= link_to 'Destroy', @drug, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+  <div class="ui centered segment">
+   <div class="ui buttons">
+     <%= link_to 'Edit', edit_drug_path(@drug), class: 'ui positive button' %>
+     <div class="or"></div>
+     <%= link_to 'Destroy', @drug, method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: 'ui negative button' %>
+   </div>
   </div>
 </div>
 

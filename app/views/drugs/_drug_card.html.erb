@@ -1,10 +1,14 @@
-<div class="column" id="drug_card">
-  <div class="ui <%= drug.categories.first.present? ? suppress(Exception) { drug.categories.first.color } : 'green' %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
+
+
+<div class="drug_card column">
+  <%- @color = drug.categories.first.present? ? suppress(Exception) { drug.categories.first.color } : 'green' %>
+  <div class="ui <%= @color %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
     <div class="content">
-      <%= link_to drug_path(drug), class: 'ui green ribbon label', remote: true  do %>
-        <i class="registered icon"></i><%= truncate(drug.name.upcase, length: 33) %>
+      <%= link_to drug_path(drug), class: "ui #{@color} ribbon label"  do %>
+        <i class="registered icon"></i><%= truncate(drug.name.upcase, length: 33) %> -
       <% end %>
-      <br />
+      <br /><br />
+      <br>
       <div class="image content">
         <div class="centered image">
           <%= render 'drugs/drug_image', drug: drug, size: 120 %>
@@ -12,18 +16,22 @@
       </div>
       <br />
       <a href="<%= country_path(drug.country.present? ? drug.country.id : 70) %>" class="ui right floated label" data-remote='true'>
-        <i class="<%= drug.country.present? ? drug.country.code.to_sym : 'eg' %> flag" ></i>
+        <i class="<%= drug.country.present? ? drug.country.code.downcase.to_sym : 'eg' %> flag" ></i>
       </a>
-      <div class="ui orange ribbon label">
-        <i class="idea icon"></i>Identical Drugs
-      </div>
-      <br>
-      <div class="ui segment">
+      <div class="ui attached segment">
+        <%- if drug.company %>
+            <%= link_to truncate(drug.company.name.upcase, length: 21), company_path(drug.company), class: "ui #{@color} top attached label" %>
+            <br>
+        <%- else %>
+            UNKNOWN COMPANY
+        <% end %>
+        <br>
         There are
         <%= suppress(Exception) { number_to_human(drug.identical_drugs.count) } %> identical drugs <br />
         <%= suppress(Exception) { link_to 'Show them?', identical_drugs_path(drug), remote: true } %>
 
       </div>
+      <br>
       <div class="meta">Created <%= time_ago_in_words(drug.created_at) %> ago</div>
       <div class="description">
         <%= render 'drugs/generics_listing', drug: drug %>
@@ -31,14 +39,12 @@
     </div>
     
     <%= render 'drugs/categories_listing', drug: drug %>
-    <div class="ui horizontal divider">Rating</div>
+    <div class="ui massive heart rating" data-rating="3" data-max-rating="5"></div>
     <!--Comment on a drug? -->
+    <div class="ui horizontal divider">
+      <%= drug.price %> EGP
+    </div>
     <div class="extra content">
-      <div class="ui massive heart rating" data-rating="3" data-max-rating="5"></div>
-      <div class="ui horizontal divider">
-        <%= drug.price %> EGP
-      </div>
-      <div class="">
         <%= link_to home_path do %>
             <%= semantic_icon(:like) %>
             Like
@@ -48,13 +54,6 @@
             Share
         <% end %>  |
         <%= link_to 'Edit', edit_drug_path(drug) %>
-      </div>
-      <%- if drug.company %>
-          <div class="ui <%= drug.categories.first.color %> bottom attached label"><%= link_to drug.company.name, company_path(drug.company) %></div>
-      <%- else %>
-          <div class="ui <%= drug.categories.first.color %> bottom attached label">UNKNOWN COMPANY</div>
-      <% end %>
     </div>
   </div>
-
 </div>

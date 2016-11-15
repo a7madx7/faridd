@@ -55,7 +55,7 @@ end
 def unit_seed
  puts 'Started seeding concentration units...'
  begin
-   ['ml', 'mg', '%', 'p.p.m', 'g', 'kg', 'mcg', 'pico gram', 'nano gram', 'm.i.u', 'million', 'billion', 'u/ml', 'unit', 'i.u.'].each do |unit|
+   ['ml', 'mg', '%', 'ppm', 'g', 'kg', 'mcgm', 'pico gram', 'nano gram', 'miu', 'million', 'billion', 'u/ml', 'unit', 'i.u.'].each do |unit|
      begin
        Unit.create(name: unit)
      rescue Exception => ex
@@ -91,7 +91,19 @@ def category_company_seed
       if d['category'].nil?
         Category.create(name: "A NOT LISTED CATEGORY")
       else
-        Category.create(name: d['category'].downcase)
+        newly_created_cat = Category.create(name: d['category'].downcase)
+        # assign category id
+        if d['parent_category']
+         parent_cat_relation = Category.where(name: d['parent_category'].downcase)
+         if parent_cat_relation.first.present?
+            parent = Category.create(name: d['parent_category'].downcase)
+            newly_created_cat.parent = parent
+            newly_created_cat.save
+         else # if the parent cat is already created
+            newly_created_cat.parent = parent_cat_relation.first
+            newly_created_cat.save
+         end
+        end
       end
     rescue Exception => ex
       puts "Error creating a category: #{ex.message}"
@@ -109,7 +121,7 @@ def category_company_seed
       next
     end
   end
-  puts 'Finished seeding categories, companiess.'
+  puts 'Finished seeding categories, companies.'
 end
 
 def drug_seed
@@ -118,70 +130,101 @@ def drug_seed
    # d is a decoded json line representing a drug object
     begin
       unless d['name'].nil?
-          drug = Drug.where(name: d['name'].downcase).first_or_create! do |h|
-            h.name = d['name'].downcase
+        drug = Drug.where(name: d['name'].downcase).first_or_create! do |drug|
+          drug.name = d['name'].downcase
 
-            h.country = Country.where(code: 'EG').first
-            unless d['company'].nil?
-              h.company = Company.where(name: d['company'].downcase).first
-            end
-            unless d['category'].nil?
-              h.categories << Category.where(name: d['category'].downcase).first
-            end
-            unless d['form'].nil?
-              h.form = Form.where('name like ?', "%#{d['form']}%").first
-            end
-            unless d['contents'].nil?
-              h.contents = d['contents'].to_f
-            end
-            unless d['price'].nil?
-              h.price = d['price'].to_s.to_f
-            end
-            # Start seeding the generics to the drugs.
-            begin
-              # d is a single decoded json line
-              unless d['active_ingredient'].nil?
-                d['active_ingredient'].each do |ac|
-                  begin
-                    h.generics << Generic.where(name: ac['name']).first_or_create
-                  rescue Exception => ex
-                    puts "Generic loading inside drug error: #{ex.message}"
-                    next
+          drug.country = Country.where(code: 'EG').first
+          unless d['company'].nil?
+            drug.company = Company.where(name: d['company'].downcase).first
+          end
+          unless d['category'].nil?
+            drug.categories << Category.where(name: d['category'].downcase).first
+          end
+          unless d['form'].nil?
+            drug.form = Form.where('name like ?', "%#{d['form']}%").first
+          end
+          unless d['contents'].nil?
+            drug.contents = d['contents'].to_f
+          end
+          unless d['price'].nil?
+            drug.price = d['price'].to_s.to_f
+          end
+          # Start seeding the generics to the drugs.
+          begin
+            # d is a single decoded json line
+            unless d['active_ingredient'].nil?
+              d['active_ingredient'].each do |ac|
+                begin
+                  g = Generic.where(name: ac['name'].downcase).first_or_create
+
+                  # add the wiki stuff to each and every generic you've got.
+                  require 'wikipedia'
+                  unless g.wikipedia_page_url
+                    Wikipedia.find(g.name).tap do |page|
+                      g.wikipedia_page_url = page.fullurl
+                      g.wikipedia_image_urls = page.image_urls
+                      g.wikipedia_links = page.links
+                      g.wikipedia_extlinks = page.extlinks
+                      g.wikipedia_summary = page.summary
+
+                      g.save
+                    end
                   end
+
+                  drug.generics << g
+
+                rescue Exception => ex
+                  puts "Generic loading inside drug error: #{ex.message}"
+                  next
+                ensure
+
                 end
               end
-            rescue Exception => err
-              puts "Error loading whole generics: #{err.message}"
-              next
             end
+          rescue Exception => err
+            puts "Error loading whole generics: #{err.message}"
+            next
           end
         end
+
+        # find the drug that has the same drug id as the current one
+        # loop through its generics
+        # assign a unit and concentration value to them
+        begin
+         unless d['active_ingredient'].nil?
+           d['active_ingredient'].each do |ai|
+             DrugGeneric.where(drug_id: drug.id).first.tap do |medicine|
+               begin
+                 unit = Unit.where(name: ai['unit'].downcase).first_or_create
+                 medicine.unit_id = unit.id
+               rescue Exception => ex
+                 puts "Error while assigning unit id to the drug generic object: #{ex.message}"
+                 puts "DrugGeneric Object: #{medicine.to_s}"
+                 puts "ai: #{ai.to_s}"
+                 puts "unit: #{ai['unit']}"
+                 raise
+               end
+
+               begin
+                 # todo: bug -> assigns wrong concentration to the wrong generic
+                 medicine.concentration = ai['concentration']
+               rescue Exception => ex
+                 puts puts "Error while assigning concentration to the drug generic object: #{ex.message}"
+               end
+
+               medicine.save
+             end
+           end
+         end
+        rescue Exception => ex
+          puts "Error updating DrugGeneric unit and concentration: #{ex.message}"
+          break
+        end
+      end
     rescue Exception => ex
       puts "Error while creating the drug object: #{ex.message}"
       next
     end
-
-     # find the drug that has the same drug id as the current one
-     # loop through its generics
-     # assign a unit and concentration value to them
-     d['active_ingredient'].each do |ai|
-       DrugGeneric.find(drug_id: drug.id).tap do |medicine|
-
-         begin
-           medicine.unit_id = Unit.where(name: ai[:unit].downcase).first.id
-         rescue Exception => ex
-           puts "Error while assigning unit id to the drug generic object: #{ex.message}"
-         end
-
-         begin
-           medicine.concentration = ai[:concentration]
-         rescue Exception => ex
-           puts puts "Error while assigning concentration to the drug generic object: #{ex.message}"
-         end
-         medicine.save
-       end
-     end
-
    # puts "Created #{drug}"
   end
   puts 'Finished seeding drugs.'
@@ -222,13 +265,18 @@ end
 
 def articles_seed
   puts 'Started seeding articles...'
-  666.times do |n|
-    begin
-      a = Article.create!(title: "Title number #{n} for this article",
-                         content: "This should be the content of article number #{n}",
-                         user_id: 1)
+  Article.all.each { |article| article.destroy; article.save }
 
-      a.categories << Category.first
+  66.times do |n|
+    begin
+      a = Article.create!(title: "Title number #{n + 1} for this article",
+                         content: "This should be the content of article number #{n + 1}",
+                         user_id: Random.rand(1..6))
+
+      begin
+        a.categories << Category.first
+      rescue
+      end
     rescue Exception => ex
       puts "Article seeding error: #{ex.message}"
       next
@@ -244,7 +292,7 @@ def question_seed
       Question.create!(title: "#{n + 1} How can I become a pharmacist?",
                                content: "#{n + 1} I wish to be a successful pharmacist in the future, how can I do that?",
                                rating: 5,
-                               user_id:  1)
+                               user_id:  Random.rand(1..6))
     rescue Exception => ex
       puts ex.message
       next
@@ -253,15 +301,15 @@ def question_seed
   puts 'Finished seeding questions.'
 end
 
-user_seed
-country_seed
-form_seed
-unit_seed
+# user_seed
+# country_seed
+# form_seed
+# unit_seed
 
-category_company_seed
+# category_company_seed
 
-diagnoses_seed
+# diagnoses_seed
 articles_seed
-question_seed
+# question_seed
 
-drug_seed
+# drug_seed

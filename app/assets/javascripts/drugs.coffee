@@ -12,25 +12,41 @@ loader_ajax = ->
     sorter())
   return
 
-ready = ->
-  $('.ui.rating').rating( { initialRating: 3, maxRating: 5 } )
-  $('#drug_show_card').hide().transition('fly left')
-  $('.ui.four.column.grid').hide().transition('fly left')
+data_init = ->
+  $category_drop_down = $('#category')
+  $category_drop_down.dropdown(
+    apiSettings: url: "/search?mode=category&term={query}"
+    allowAdditions: true
+    maxSelections: 5
+  )
+  $unit_drop_down = $('#unit')
+  $unit_drop_down.dropdown(
+    apiSettings: url: "/search?mode=unit&term={query}"
+  )
+  $company_drop_down = $('#company')
+  $company_drop_down.dropdown(
+    apiSettings: url: "/search?mode=company&term={query}"
+  )
+  return
+  
+sorter = ->
   $('table').tablesort()
   maxHeight = -1
   cards = $('.drugs.index .ui.card')
-  if cards
-    cards.each ->
+  cards.each ->
     maxHeight = if maxHeight > $(this).height() then maxHeight else $(this).height()
-    return
   cards.each ->
     $(this).height maxHeight
-    return
-  loader_ajax()
+  return
 
+drugs_ready = ->
+  data_init()
+  $('.ui.rating').rating( { initialRating: 3, maxRating: 5 } )
+  #  $('#drug_show_card').hide().transition('fly left')
+  $('.ui.four.column.grid').hide().transition('fly left')
+  sorter()
+  #  loader_ajax()
 
-$(ready)
-$(document).on('page:change', ready)
+$(drugs_ready)
 
-update_drug_modal_content = ->
-  $('#drug_modal_content').html("<%= j(render 'drugs/categories_ul', cats: @drug.categories) %>")
+$(document).on('page:change', drugs_ready)

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Faridd.com The smartest drug app</title>
+    <title><%= controller_name.capitalize %> <%= action_name.capitalize %></title>
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
+    <!--<link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">-->
   </head>
 
   <body>
@@ -20,7 +20,8 @@
 
 <% unless devise_controller? %>
     <footer class="centered">
-      <p class="ui message">In the memory of Mohamed Farid Awd</p>
+      <p class="ui message">In the memory of <a href="https://facebook.com/mfaridd">Mohamed Farid Awd</a> By his friend
+        <a href="https://facebook.com/a7madx7">Dr. Ahmad Hamdi Emara</a></p>
     </footer>
 <% end %>
 </html>

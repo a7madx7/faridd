@@ -2,6 +2,11 @@ class GenericsController < ApplicationController
   semantic_breadcrumb :index, :generics_path
   respond_to :js, :json, :html
   before_action :set_generic, only: [:show, :edit, :update, :destroy]
+  before_action :get_wiki, only: [:show]
+
+  def new
+    @generic = Generic.new
+  end
 
   def index
     # @generics = Generic.all.sort { |a, b| a.name <=> b.name }
@@ -12,18 +17,34 @@ class GenericsController < ApplicationController
 
   end
   def update
+
   end
 
   def edit
+
   end
 
   def destroy
-  end
-
-  def new
+    @generic.destroy
+    respond_to do |format|
+      format.html { redirect_to generics_url, notice: 'Generic was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def create
+    @generic = Generic.new(generic_params)
+
+    respond_to do |format|
+      if @generic.save(generic_params)
+        format.html { redirect_to @generic, notice: 'Generic has been successfully created!' }
+        format.json { render :show, status: :ok, location: @generic }
+      else
+        format.html { render :new }
+        format.json { render json: @generic.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   private
@@ -34,6 +55,10 @@ class GenericsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def generic_params
-    params.require(:generic).permit(:name, :image_url, :invented_at)
+    params.require(:generic).permit(:name, :image_url, :invented_at, :country)
+  end
+
+  def get_wiki
+    @generic.wiki('wikipedia_page_url')
   end
 end

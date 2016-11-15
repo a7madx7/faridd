@@ -1,0 +1,26 @@
+<%- obj.generics.each do |generic| %>
+    <tr>
+      <td> <%= generic.name.upcase %></td>
+      <td class="positive">
+        <%- if generic.extlinks %>
+            <% generic.extlinks.each do |extlink| %>
+                <%- @thumbnail = thumbnail(extlink) %>
+                <%- if @thumbnail %>
+                   <%- if @thumbnail.images.count > 0 %>
+                        <%= link_to extlink, class: 'ui brown link', description: @thumbnail.description, favicon: @thumbnail.favicon do %>
+                            <%= image_tag(@thumbnail.images.first.src.to_s, class: 'ui small image link') %>
+                            <%= @thumbnail.title %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to extlink, extlink, class: 'ui brown link' %>
+                    <% end %>
+                <%- else %>
+                    <%= link_to File.basename(extlink), extlink, class: 'ui brown link' %>
+                <%- end %>
+            <% end %>
+        <% end %>
+      </td>
+      <td class=""><%= generic.associated_drug_generic(obj.id).concentration.present? ? generic.associated_drug_generic(obj.id).concentration.upcase : 'NOT MENTIONED'%></td>
+      <td class="positive"><p><%= h generic.summary %></p></td>
+      <td class="positive"><image class="ui small image" src="<%= generic.wikipedia_images[0] %>"></image></td>
+<% end %>

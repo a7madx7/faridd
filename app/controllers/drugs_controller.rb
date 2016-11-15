@@ -7,10 +7,6 @@ class DrugsController < ApplicationController
   # GET /drugs
   # GET /drugs.json
   def index
-    # Parallel.each(Drug.all, in_processes: 12, progress: "Fetching drugs") do |d|
-    #
-    # end
-
     @drugs = Drug.all.order(:name).paginate(per_page: 20, page: params[:page])
   end
 
@@ -73,6 +69,21 @@ class DrugsController < ApplicationController
   def identical_drugs
     # todo: render ajax identical drugs view here
   end
+
+  def pricey
+    @drugs = Drug.pricey.paginate(per_page: 20, page: params[:page])
+  end
+  def cheap
+    @drugs = Drug.cheap.paginate(per_page: 20, page: params[:page])
+  end
+
+  def recent
+    @drugs = Drug.recent.paginate(per_page: 20, page: params[:page])
+  end
+
+  def trending
+    @drugs = Drug.trending.paginate(per_page: 20, page: params[:page])
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_drug
@@ -90,4 +101,5 @@ class DrugsController < ApplicationController
     def set_identical_drugs
       @identical_drugs = @drug.identical_drugs(@drug.generics)
     end
+
 end

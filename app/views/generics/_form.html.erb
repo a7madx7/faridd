@@ -1,0 +1,36 @@
+<br>
+<%= form_for(generic, html: { class: 'ui fluid form segment' }) do |f| %>
+    <% if generic.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(generic.errors.count, "error") %> prohibited this drug from being saved:</h2>
+
+          <ul>
+            <% generic.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="ui labeled fluid input field">
+      <%= f.label :name, class: 'ui right pointing purple label' %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="ui labeled fluid input field">
+      <%= f.label :categories, class: 'ui right pointing purple label' %>
+      <div class="ui fluid multiple search selection dropdown">
+        <input type="hidden" name="country">
+        <i class="dropdown icon"></i>
+        <div class="default text">Add Categories</div>
+        <div class="menu">
+          <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui horizontal divider">FINISH</div>
+    <div class="centered actions">
+      <%= f.submit "#{if action_name == 'new'
+                        'Create a new generic' else 'Update info' end}", class: 'ui positive button' %>
+    </div>
+<% end %>

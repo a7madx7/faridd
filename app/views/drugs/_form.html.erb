@@ -1,4 +1,5 @@
-<%= form_for(drug) do |f| %>
+<br>
+<%= form_for(drug, html: { class: 'ui fluid form segment' }) do |f| %>
   <% if drug.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(drug.errors.count, "error") %> prohibited this drug from being saved:</h2>
@@ -11,42 +12,84 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
+  <div class="ui labeled fluid input field">
+    <%= f.label :name, class: 'ui right pointing purple label' %>
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= f.label :generic_id %>
-    <%= f.text_field :generic_id %>
+    <div class="ui two fields">
+      <div class="ui labeled input field">
+        <!-- todo: concentration is not a direct property of drug -->
+        <%= f.label :concentration, class: 'ui right pointing purple label' %>
+        <%= f.text_field :concentration, placeholder: 'Concentration value...'%>
+      </div>
+
+      <div class="ui input field">
+        <div class="ui floating dropdown labeled search purple icon button" id="unit">
+          <input type="hidden" name="drug[unit]">
+          <i class="percent icon"></i>
+          <div class="default text">Add drug unit</div>
+          <div class="menu">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ui labeled fluid input field">
+      <%= f.label :company, class: 'ui right pointing purple label' %>
+      <div class="ui fluid search selection dropdown" id="company">
+        <input type="hidden" name="drug[company]">
+        <i class="dropdown icon"></i>
+        <div class="default text">Select Producing Company</div>
+        <div class="menu">
+        </div>
+      </div>
+    </div>
+
+  <div class="ui labeled fluid input field">
+    <%= f.label :generics, class: 'ui right pointing purple label' %>
+    <div class="ui fluid multiple search selection dropdown" id="generics">
+      <input type="hidden" name="drug[generics]">
+      <i class="dropdown icon"></i>
+      <div class="default text">Add Generics</div>
+      <div class="menu">
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :country_id %>
-    <%= f.text_field :country_id %>
+  <div class="ui labeled fluid input field">
+    <%= f.label :country, class: 'ui right pointing purple label' %>
+    <div class="ui fluid multiple search selection dropdown" id="country">
+      <input type="hidden" name="drug[country]">
+      <i class="dropdown icon"></i>
+      <div class="default text">Select Country</div>
+      <div class="menu">
+        <% Country.all.each do |c| %>
+            <div class="item" data-value="<%= c.code.downcase %>"><i class="<%= c.code.downcase %> flag"></i><%= c.name %></div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :price %>
-    <%= f.text_field :price %>
+  <div class="ui labeled fluid input field">
+    <%= f.label :price, class: 'ui right pointing purple label' %>
+    <%= f.text_field :price, placeholder: 'Price' %>
   </div>
 
-  <div class="field">
-    <%= f.label :concentration %>
-    <%= f.text_field :concentration %>
+  <div class="ui labeled fluid input field">
+    <%= f.label :categories, class: 'ui right pointing purple label' %>
+    <div class="ui fluid multiple search selection dropdown" id="category">
+      <input type="hidden" name="drug[categories]">
+      <i class="dropdown icon"></i>
+      <div class="default text">Add Categories</div>
+      <div class="menu">
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :unit %>
-    <%= f.text_field :unit %>
-  </div>
-
-  <div class="field">
-    <%= f.label :category %>
-    <%= f.text_field :category %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="ui  horizontal divider">FINISH</div>
+  <div class="centered actions">
+    <%= f.submit "#{if action_name == 'new'
+                      'Create a new drug' else 'Update info' end}", class: 'ui positive button' %>
   </div>
 <% end %>

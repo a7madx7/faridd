@@ -2,12 +2,14 @@
   <%= semantic_icon('purple mail') %>
   Messages
 </a>
-<a class="item">
-  <%= semantic_icon('purple user') %>
-  Friends
-</a>
+
+<%= link_to users_path, class: 'item' do %>
+    <%= semantic_icon(:purple, :user) %>
+    <span>Friends</span>
+<% end %>
+
 <div class='ui pointing dropdown link icon item'>
-  <%= semantic_icon('purple book') %>
+  <%= semantic_icon('purple edit') %>
   &nbsp;
   <span class="text">Articles</span>
   <%= semantic_icon(:dropdown) %>
@@ -21,16 +23,59 @@
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <%= link_to recent_articles_path, class: 'item' do %>
         <%= semantic_icon(:purple, :paw) %>
         <span>Recent articles</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <%= link_to trending_articles_path, class: 'item' do %>
         <%= semantic_icon(:purple, :line, :chart) %>
         <span>Top trending</span>
     <% end %>
   </div>
 </div>
+
+<div class='ui pointing dropdown link icon item'>
+  <%= semantic_icon('purple tags') %>
+  &nbsp;
+  <span class="text">Categories</span>
+  <%= semantic_icon(:dropdown) %>
+  <div class="ui vertical menu">
+    <div class="ui dropdown item">
+      Most popular categories
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <%- Category.most_popular.each do |cat| %>
+            <!--<%- cache cat do %>-->
+                <%= link_to category_path(cat), class: 'item' do %>
+                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
+                <% end %>
+                <!--<% end %>-->
+        <% end %>
+      </div>
+    </div>
+    <div class="ui dropdown item">
+      Least popular categories
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <%- Category.least_popular.each do |cat| %>
+            <%- cache cat do %>
+                <%= link_to category_path(cat), class: 'item' do %>
+                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
+                <% end %>
+                <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="ui separator"></div>
+    <%= link_to categories_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :tags) %>
+        <span>View All</span>
+    <% end %>
+  </div>
+</div>
+
 <div class='ui pointing dropdown link icon item'>
   <%= semantic_icon('purple lab') %>
   &nbsp;
@@ -71,11 +116,22 @@
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <div class="ui separator"></div>
+    <%= link_to recent_drugs_path, class: 'item' do %>
         <%= semantic_icon(:purple, :paw) %>
         <span>Recently added</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <div class="horizontal divider"></div>
+    <%= link_to cheap_drugs_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :dollar) %>
+        <span>Show cheap drugs</span>
+    <% end %>
+    <%= link_to pricey_drugs_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :dollar) %>
+        <span>Show pricey drugs</span>
+    <% end %>
+    <div class="horizontal divider"></div>
+    <%= link_to trending_drugs_path, class: 'item' do %>
         <%= semantic_icon(:purple, :line, :chart) %>
         <span>Top trending</span>
     <% end %>
@@ -91,7 +147,7 @@
         <%= semantic_icon(:purple, :edit) %>
         <span>New</span>
     <% end %>
-    <div class="ui separator"></div>
+    <div class="horizontal divider"></div>
     <%= link_to '/formulations', class: 'item' do %>
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
@@ -116,7 +172,7 @@
         <%= semantic_icon(:purple, :edit) %>
         <span>Dispense Rx</span>
     <% end %>
-    <div class="ui separator"></div>
+    <div class="horizontal divider"></div>
     <%= link_to rxes_path, class: 'item' do %>
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
@@ -141,7 +197,7 @@
         <%= semantic_icon(:purple, :edit) %>
         <span>Ask a new question</span>
     <% end %>
-    <div class="ui separator"></div>
+    <div class="horizontal divider"></div>
     <%= link_to questions_path, class: 'item' do %>
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
@@ -166,7 +222,7 @@
         <%= semantic_icon(:purple, :edit) %>
         <span>Create an offer</span>
     <% end %>
-    <div class="ui separator"></div>
+    <div class="horizontal divider"></div>
     <%= link_to '/offers', class: 'item' do %>
         <%= semantic_icon(:purple, :tv) %>
         <span>All Offers</span>

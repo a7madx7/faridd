@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
   has_many :drugs
+  has_many :likes
   belongs_to :country
 
   validates :name, presence: true, length: (2..128), uniqueness: true
@@ -13,7 +14,7 @@ class Company < ApplicationRecord
   # todo: validate name against bad words in articles down here (strict validation)
   class << self
     def search(q)
-      where('name like :value', value: "%#{q}%")
+      where('name like :value', value: "%%#{q}")
     end
 
     def sponsored

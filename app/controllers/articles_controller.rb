@@ -1,13 +1,19 @@
 class ArticlesController < ApplicationController
+  include ERB::Util
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :endcode_attr, only: [:create, :update]
+  
   respond_to :js, :html, :json
 
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.order(:title).paginate(per_page: 20, page: params[:page])
   end
 
+  def recent
+    @articles = Article.recent.paginate(per_page: 20, page: params[:page])
+  end
   # GET /articles/1
   # GET /articles/1.json
   def show
@@ -26,6 +32,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(article_params)
+    @article.users << current_user
 
     respond_to do |format|
       if @article.save
@@ -42,12 +49,14 @@ class ArticlesController < ApplicationController
   # PATCH/PUT /articles/1.json
   def update
     respond_to do |format|
-      if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { render :show, status: :ok, location: @article }
-      else
-        format.html { render :edit }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+      if @article.users.select { |user| user.id == current_user.id}
+        if @article.update(article_params)
+          format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+          format.json { render :show, status: :ok, location: @article }
+        else
+          format.html { render :edit }
+          format.json { render json: @article.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -62,12 +71,21 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def recent
+    @articles = Article.recent.paginate(per_page: 20, page: params[:page])
+  end
+  def trending
+    @articles = Article.trending.paginate(per_page: 20, page: params[:page])
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
     end
 
+    def endcode_attr
+
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :content)

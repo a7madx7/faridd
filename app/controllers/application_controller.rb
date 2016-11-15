@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   after_action :invoke_thumbnailer, only: [:search]
 
   semantic_breadcrumb :index, :root_path
@@ -30,6 +32,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :first_name, :last_name, :profession, :gender, :username, :country])
   end
 
+  private
   def prepare_menu
     @menu ||= {}
     if current_user
@@ -56,5 +59,4 @@ class ApplicationController < ActionController::Base
     end
     @menu
   end
-
 end

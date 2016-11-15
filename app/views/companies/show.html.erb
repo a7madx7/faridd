@@ -1,9 +1,9 @@
-<h1 class="ui dividing centered header"><strong><%= @company.name %></strong></h1>
+<h1 class="ui dividing centered header"><strong><%= @company.name.upcase %></strong></h1>
 <div class="ui grid">
   <div class="four wide column">
     <div class="ui orange segment">
         <div class="ui green bottom attached label">
-          <%= "#{@company.name} has #{pluralize(@company.drugs.count, 'Drug')} in #{@company.country.nil? ? 'Egypt' : @company.country.name }" %>
+          <%= "#{@company.name.upcase} has #{pluralize(@company.drugs.count, 'Drug')} in #{@company.country.nil? ? 'Egypt' : @company.country.name }" %>
         </div>
         <div class="content">
           <h3><i class="<%= @country.code.downcase %> flag"></i>Operates in <%= @country.name %></h3>

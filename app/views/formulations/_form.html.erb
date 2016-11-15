@@ -1,0 +1,53 @@
+<%= form_for(formulation, html: { class: 'ui form segment' } ) do |f| %>
+  <% if formulation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(formulation.errors.count, "error") %> prohibited this formulation from being saved:</h2>
+
+      <ul>
+      <% formulation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="ui fluid labeled input field">
+    <%= f.label :generics, class: 'ui right pointing purple label' %>
+    <div class="ui multiple search selection dropdown">
+      <input type="hidden" name="country">
+      <i class="dropdown icon"></i>
+      <div class="default text">Add Generics</div>
+      <div class="menu">
+        <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="ui right labeled fluid left icon input">
+    <i class="edit icon"></i>
+    <%= f.text_area :steps %>
+  </div>
+  <br>
+  <div class="ui fluid labeled input field">
+    <%= f.label :categories, class: 'ui right pointing purple label' %>
+    <div class="ui fluid multiple search selection dropdown">
+      <input type="hidden" name="country">
+      <i class="dropdown icon"></i>
+      <div class="default text">Add Categories</div>
+      <div class="menu">
+
+      </div>
+    </div>
+  </div>
+
+    <!--<div class="extra content">-->
+      <!--<div class="ui large transparent left icon input">-->
+        <!--<i class="heart outline icon"></i>-->
+        <!--<input type="text" placeholder="Add Comment...">-->
+      <!--</div>-->
+    <!--</div>-->
+
+  <div class="centered actions">
+    <%= f.submit 'Author this formulation', class: 'ui blue button' %>
+  </div>
+<% end %>

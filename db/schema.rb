@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019204234) do
+ActiveRecord::Schema.define(version: 20161103154101) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -41,14 +41,16 @@ ActiveRecord::Schema.define(version: 20161019204234) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "image_url"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "color", null: true
+    t.string   "name",               null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "color"
+    t.integer  "parent_category_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -61,10 +63,10 @@ ActiveRecord::Schema.define(version: 20161019204234) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name", unique: true, null: false
+    t.string   "name",       null: false
     t.integer  "drug_id"
     t.integer  "country_id"
-    t.decimal  "reputation", null: true
+    t.decimal  "reputation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_id"], name: "index_companies_on_country_id"
@@ -93,8 +95,10 @@ ActiveRecord::Schema.define(version: 20161019204234) do
   create_table "drug_generics", force: :cascade do |t|
     t.integer  "drug_id"
     t.integer  "generic_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "unit_id"
+    t.string   "concentration"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "drugs", force: :cascade do |t|
@@ -104,8 +108,8 @@ ActiveRecord::Schema.define(version: 20161019204234) do
     t.float    "price"
     t.float    "concentration"
     t.string   "unit"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.decimal  "contents"
     t.integer  "form_id"
     t.integer  "company_id"
@@ -120,15 +124,41 @@ ActiveRecord::Schema.define(version: 20161019204234) do
     t.string "name"
   end
 
+  create_table "formulations", force: :cascade do |t|
+    t.integer  "generic_id"
+    t.text     "steps"
+    t.integer  "category_id"
+    t.integer  "comment_id"
+    t.integer  "like_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "generics", force: :cascade do |t|
     t.string   "name"
     t.datetime "invented_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "image_url"
+    t.string   "wikipedia_page_url"
+    t.text     "wikipedia_description"
+    t.text     "wikipedia_summary"
+    t.string   "wikipedia_image_urls"
+    t.string   "wikipedia_links"
+    t.string   "wikipedia_extlinks"
   end
 
   create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.integer  "drug_id"
+    t.integer  "user_id"
+    t.decimal  "discount"
+    t.datetime "expiry"
+    t.integer  "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

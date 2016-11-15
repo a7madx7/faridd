@@ -73,7 +73,9 @@ responsive_elements = ->
     on: 'hover'
   return
 
-ready = ->
+assign_css = ->
+  # add css classes here
+application_ready = ->
   responsive_elements()
   search()
   sorter()
@@ -84,5 +86,7 @@ ready = ->
   alertification()
   return
 
-$(ready)
-$(document).on("page:change", ready);
+$ ->
+  application_ready()
+
+$(document).on("page:change", application_ready);

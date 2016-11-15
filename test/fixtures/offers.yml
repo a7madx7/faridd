@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  drug_id: 1
+  user_id: 1
+  discount: 9.99
+  expiry: 2016-10-28 13:12:12
+  amount: 1
+
+two:
+  drug_id: 1
+  user_id: 1
+  discount: 9.99
+  expiry: 2016-10-28 13:12:12
+  amount: 1

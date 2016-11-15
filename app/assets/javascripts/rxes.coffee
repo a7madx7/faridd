@@ -24,8 +24,8 @@ add_drugs = ->
   return
 
 add_diagnosis = ->
-  $drug_selection = $('.ui.diagnosis.dropdown')
-  $drug_selection.dropdown
+  $diagnosis_selection = $('.ui.diagnosis.dropdown')
+  $diagnosis_selection.dropdown
     apiSettings: url: '/search?mode=diagnosis&term={query}'
     allowAdditions: true
     maxSelections: 33

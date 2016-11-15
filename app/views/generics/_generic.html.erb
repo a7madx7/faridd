@@ -1,6 +1,48 @@
-<%- obj.generics.each do |generic| %>
-      <tr>
-        <td> <%= generic.name %></td>
-        <td class="positive"><%= generic.invented_at.nil? ? 'Not known yet!' : generic.invented_at %></td>
-        <td class="positive">Approved</td>
-<% end %>
+<li class="fluid purple card">
+  <%= link_to generic_path(g) do %>
+      <%- if g.wikipedia_images and g.wikipedia_images.length > 0 %>
+          <%- unless action_name == 'index' %>
+              <div class="ui medium rounded images">
+                <%- g.wikipedia_images.each do |image| %>
+                   <%= image_tag(image, class: 'ui image') %>
+                <% end %>
+              </div>
+          <%- else %>
+              <%= suppress(Exception) { image_tag(g.wikipedia_images[0], class: 'ui image') } %>
+          <% end %>
+      <%- else %>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png" class = "ui image">
+      <% end %>
+      <div class="content">
+        <div class="header"><%= g.name.upcase %></div>
+        <div class="meta">
+          <a href="#">Drugs containing this generic</a>
+        </div>
+        <div class="description <%= 'generic_description' if action_name == 'show' %>">
+          <%- if action_name == 'index' %>
+              <%- if g.wikipedia_summary %>
+                  <%= truncate(g.wikipedia_summary.html_safe, length: 350) %>
+              <% end %>
+          <% else %>
+              <%= g.wikipedia_summary.html_safe if g.wikipedia_summary %>
+          <% end %>
+        </div>
+      </div>
+      <div class="extra content">
+        <div class="left floated">
+          <i class="trademark icon"></i>
+          Contained by
+          <%= pluralize(g.drugs.count, 'drug') %>
+        </div>
+        <div class="left floated">
+          <i class="time icon"></i>
+          Added
+          <%= time_ago_in_words(g.created_at) %>
+          ago
+        </div>
+        <div class="actions">
+          <%= link_to 'Delete this generic as a faridd.com admin', generic_path(g), class: 'ui red button', method: :delete, data: { confirm: 'Are you sure?'} %>
+        </div>
+      </div>
+  <% end %>
+</li>

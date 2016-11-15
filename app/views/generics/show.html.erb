@@ -1,0 +1,4 @@
+<ul class="no-bullets ui centered attached orange segment">
+  <%= render 'generics/generic', g: @generic %>
+</ul>
+<%= link_to "View #{@generic.name} on wikipedia", @generic.wikipedia_page_url, class: 'ui centered bottom attached orange button' %>

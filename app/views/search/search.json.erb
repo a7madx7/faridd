@@ -1,9 +1,9 @@
 {
   "results": {
+    <%- if @drug_results and @drug_results.count > 0 %>
     "Drugs": {
       "name": "Drugs",
       "results": [
-        <%- if @drug_results and @drug_results.count > 0 %>
         <% @drug_results.each_with_index do |result, i| %>
         {
           "title": "<%= result.to_s %>",
@@ -16,19 +16,15 @@
       ,
         <% end %>
         <% end %>
-
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any commercial drugs with that name!"
-        }
-        <% end %>
       ]
     },
+    <% end %>
+
+    <%- if @generic_results and @generic_results.count > 0 %>
     "Generics": {
       "name": "Generics",
       "results": [
-        <%- if @generic_results and @generic_results.count > 0 %>
+
         <% @generic_results.each_with_index do |result, i| %>
         {
           "title": "<%= result.to_s %>",
@@ -40,38 +36,31 @@
       ,
         <% end %>
         <% end %>
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any generic drugs with that name!"
-        }
-        <% end %>
+
       ]
     },
-    "Users": {
-      "name": "Users",
-      "results": [
-        <%- if @user_results %>
-        <% @user_results.each_with_index do |result, i| %>
-        {
-          "title": "<%= result.to_s %>",
-          "url": "<%= user_path(result.id) %>",
-          "image": "<%= result.picture %>",
-          "description": "<%= result.profession %>"
-        }
-        <%- unless i == @user_results.count - 1 %>
-      ,
-        <% end %>
-        <% end %>
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any users with that user name!"
-        }
-        <% end %>
-      ]
-    }
+    <% end %>
+
+    <%- if @user_results and @user_results.count > 0 %>
+      "Users": {
+        "name": "Users",
+        "results": [
+          <% @user_results.each_with_index do |result, i| %>
+            {
+              "title": "<%= result.to_s %>",
+              "url": "<%= user_path(result.id) %>",
+              "image": "<%= result.picture %>",
+              "description": "<%= result.profession %>"
+            }
+            <%- unless i == @user_results.count - 1 %>
+            ,
+            <% end %>
+          <% end %>
+        ]
+      }
+  <% end %>
   },
+
   "action": {
     "url": "/search?term=<%= @term %>&mode=all",
     "text": "View all results"

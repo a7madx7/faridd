@@ -11,8 +11,8 @@ gem 'will_paginate_semantic_ui'
 # todo: enable those gems
 gem 'link_thumbnailer'
 gem 'paperclip'
-
 gem 'parallel'
+gem 'wikipedia-client'
 
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server

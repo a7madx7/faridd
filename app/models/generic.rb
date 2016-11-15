@@ -1,6 +1,7 @@
 class Generic < ApplicationRecord
   has_many :drug_generics
   has_many :drugs, through: :drug_generics
+  has_many :likes
 
   validates :name, presence: true, length: (2..128), uniqueness: true
 
@@ -10,8 +11,8 @@ class Generic < ApplicationRecord
   # def invented_at
   #   invented_at.nil? ? 'Not yet known!' : invented_at
   # end
-  def to_s
-   name
+  def to_s(drug_id = nil)
+    "#{name.upcase} #{unit(drug_id)}"
   end
 
   class << self
@@ -22,5 +23,59 @@ class Generic < ApplicationRecord
     def same_as(drug)
       where('generic_id = ?', drug.generics)
     end
+  end
+
+  def unit(drug_id)
+    begin
+      drug_generic = associated_drug_generic(drug_id)
+      concentration = drug_generic.concentration
+      raise unless concentration
+      unit = Unit.find(DrugGeneric.where(generic_id: self.id).first.unit_id).name
+      "#{concentration} #{unit}"
+    rescue
+      ''
+    end
+  end
+
+  def associated_drug_generic(drug_id)
+    DrugGeneric.where(generic_id: self.id, drug_id: drug_id).first
+  end
+
+  def wikipedia_images
+    require 'json'
+  begin
+    ActiveSupport::JSON.decode(wiki('wikipedia_image_urls'))
+  rescue
+  end
+  end
+
+  def summary
+    wiki('wikipedia_summary')
+  end
+
+  def extlinks
+    require 'json'
+
+    external_links = wiki('wikipedia_extlinks')
+    return nil unless external_links
+    ActiveSupport::JSON.decode(external_links)
+  end
+  def wiki(condition)
+    unless self.send("#{condition}")
+
+      require 'wikipedia'
+
+      Wikipedia.find(self.name).tap do |page|
+        self.wikipedia_page_url = page.fullurl
+        self.wikipedia_image_urls = page.image_urls
+        self.wikipedia_links = page.links
+        self.wikipedia_extlinks = page.extlinks
+        self.wikipedia_summary = page.summary
+
+        self.save
+      end
+
+    end
+    self.send("#{condition}")
   end
 end

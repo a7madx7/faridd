@@ -3,10 +3,12 @@
       <i class="tasks icon"></i>Contains
     </div>
     <br /> <br />
-    <p class="ui teal label"><%="#{drug.contents.to_i} units" %></p>
     <div class="ui <%= drug.categories.first.color %> segment">
       <% drug.generics.each_with_index do |generic, i| %>
-          <p><strong><%= link_to truncate(generic.name.upcase, length: 25), generic_path(generic) %></strong></p>
+          <p>
+            <span class="ui <%= drug.categories.first.color %> round label"><%= i + 1 %></span>
+            <strong><%= link_to generic.to_s(drug.id), generic_path(generic) %></strong>
+          </p>
           <br>
        <% end %>
     </div>

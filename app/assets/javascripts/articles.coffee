@@ -2,19 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 has_errors = ->
-  $title = $('#new_article_title')
-  $content = $('#new_article_content')
-  if $title.val().empty() or $content.val().empty()
-    return true
+  $title = $('#article_title')
+  $content = $('#article_content')
+  if $title.val().length <= 6 or $content.val().length <= 12
+    true
   else
-    return false
-create_new_article = ->
-  $submit = $('#create_new_article_button')
-  $submit.children('.ui.button').html("<i class='edit icon'></i>Posting...")
-  if has_errors()
-    # show error messages
-  else
-    this.parentNode.parentNode.submit()
+    false
 
-
-$(-> $('#create_new_article_button').click -> create_new_article())
+$ ->
+  $submit = $('#article_submit_button')
+  $submit.click ->
+    if has_errors()
+      alertify.error("Your article doesn't meet faridd's article standards")
+    else
+      $submit = $('#article_submit_button')
+      $submit.children('.ui.button').html("<i class='edit icon'></i>Posting...")
+      $('.ui.stacked.segment.form').submit()
+      $submit.prop('enabled', false)
+  $('input').change -> $submit.prop('enabled', true)

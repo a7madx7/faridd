@@ -8,12 +8,16 @@ class Drug < ApplicationRecord
   has_many :rx_drugs
   has_many :rxs, through: :rx_drugs
 
+  has_many :likes
+
   belongs_to :company
 
   belongs_to :country
   belongs_to :form
 
   validates :name, presence: true, uniqueness: true, length: (2..64)
+  scope :cheap, -> { order(price: :asc) }
+  scope :pricey, -> { order(price: :desc) }
 
   class << self
     def search(q)
@@ -48,7 +52,18 @@ class Drug < ApplicationRecord
     # Drug.all.map { |drug| drug.send(attr.to_sym) == send(attr.to_sym) ? drug : nil }.compact
     # Drug.joins(:drug_generics).where(attr.to_sym => attr)
     # get me all drugs that have the exact same relations to generics as this drug
-    Drug.where(generics: self.generics)
+    g = generics.map do |generic|
+      Drug.joins(:drug_generics).where('drug_generics.generic_id = :value', value: generic.id)
+    end
+    # todo: enable logging here to see what actually happens
+    # logger g
+    # Drug.joins(:drug_generics, :generics).order('drug_generics_drugs_join.generic_id')
+    # Drug.joins(posts: [:comments])
+    # SELECT "users".*
+    # FROM "users"
+    # INNER JOIN "posts" ON "posts"."user_id" = "users"."id"
+    # INNER JOIN "comments" "comments_posts"
+    #   ON "comments_posts"."post_id" = "posts"."id"
   end
   alias_method :identical_drugs, :identical_drugs_by
 
@@ -56,24 +71,13 @@ class Drug < ApplicationRecord
     "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price} EGP"
   end
 
-  def same_category
-
-  end
-
-  def same_price
-
-  end
-
-  def same_company
-
-  end
-
-  def same_country
-
-  end
-
-  def same_dosage_form
-
+  def method_missing(name, *args, &block)
+    unless block_given?
+      if name =~ /^same/
+        prefix, separator_match, name = name.to_s.partition('_')
+        where("#{name} = :value", value: args.first.to_s)
+      end
+    end
   end
 
   def same_company_same_price
@@ -85,10 +89,10 @@ class Drug < ApplicationRecord
   end
 
   def picture
-    if form
-      form.picture(self)
-    else
-      'http://marshallan.org/wp-content/uploads/2015/02/drugs.jpg'
-    end
+      if form
+        form.picture(self)
+      else
+        'http://marshallan.org/wp-content/uploads/2015/02/drugs.jpg'
+      end
   end
 end

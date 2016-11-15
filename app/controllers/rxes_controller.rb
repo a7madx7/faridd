@@ -6,8 +6,6 @@ class RxesController < ApplicationController
   # GET /rxes
   # GET /rxes.json
   def index
-    new
-    render :new
     @rxes = Rx.all
   end
 

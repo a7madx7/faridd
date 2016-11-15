@@ -1,20 +1,29 @@
-<div class="ui green card">
+<div class="card">
   <div class="content">
-    <div class="right floated meta">14h</div>
-    <img class="ui avatar image" src="/images/avatar/large/elliot.jpg"> Drug
-  </div>
-  <div class="image">
-    <img>
-  </div>
-  <div class="content">
-    <span class="right floated">
-      <i class="heart outline like icon"></i>
-      17 likes
-    </span>
-    <i class="comment icon"></i>
-    <%= article.comments.count %> Comments
+    <%- if article.image_url %>
+        <img class="right floated mini ui image" src="<%= article.image_url %>">
+    <% end %>
+    <div class="header">
+      <%= article.title.html_safe %>
+    </div>
+    <div class="meta">
+      Since <%= time_ago_in_words(article.created_at) %> ago
+    </div>
+    <div class="description">
+      <%= article.content.html_safe %>
+    </div>
   </div>
   <div class="extra content">
-    <%= comment_for(article) %>
+    <div class="ui three brown buttons">
+      <div class="ui icon button">
+        <i class="thumbs up outline icon"></i>
+      </div>
+      <div class="ui icon button">
+        <i class="comment icon"></i>
+      </div>
+      <div class="ui icon button">
+        <i class="share icon"></i>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "results": [
+    <%- if @results and @results.count > 0 %>
+    <% @results.each_with_index do |result, i| %>
+    {
+      "name": "<%= result.name.upcase %>",
+      "value": "<%= result.id %>",
+      "text": "<%= result.name.upcase %>"
+    }
+    <%- unless i >= @results.count - 1 and @results.count > 1%>
+  ,
+    <% end %>
+    <% end %>
+    <% end %>
+  ]
+}

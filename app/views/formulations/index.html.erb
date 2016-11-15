@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Formulations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Generic</th>
+      <th>Steps</th>
+      <th>Category</th>
+      <th>Comment</th>
+      <th>Like</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @formulations.each do |formulation| %>
+      <tr>
+        <td><%= formulation.generic_id %></td>
+        <td><%= formulation.steps %></td>
+        <td><%= formulation.category_id %></td>
+        <td><%= formulation.comment_id %></td>
+        <td><%= formulation.like_id %></td>
+        <td><%= link_to 'Show', formulation %></td>
+        <td><%= link_to 'Edit', edit_formulation_path(formulation) %></td>
+        <td><%= link_to 'Destroy', formulation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Formulation', new_formulation_path %>
