@@ -40,10 +40,12 @@
   <span class="text">Categories</span>
   <%= semantic_icon(:dropdown) %>
   <div class="ui vertical menu">
+
     <div class="ui dropdown item">
       Most popular categories
       <i class="dropdown icon"></i>
       <div class="menu">
+        <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
         <%- Category.most_popular.each do |cat| %>
             <!--<%- cache cat do %>-->
                 <%= link_to category_path(cat), class: 'item' do %>
@@ -54,10 +56,12 @@
         <% end %>
       </div>
     </div>
+
     <div class="ui dropdown item">
       Least popular categories
       <i class="dropdown icon"></i>
       <div class="menu">
+        <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
         <%- Category.least_popular.each do |cat| %>
             <%- cache cat do %>
                 <%= link_to category_path(cat), class: 'item' do %>
@@ -68,7 +72,43 @@
         <% end %>
       </div>
     </div>
+
     <div class="ui separator"></div>
+
+    <div class="ui dropdown item">
+      Pricey categories
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
+        <%- Category.pricey.each do |cat| %>
+            <%- cache cat[0] do %>
+                <%= link_to category_path(cat[0]), class: 'item' do %>
+                    <%= semantic_icon("#{cat[0].color.present? ? cat[0].color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat[0].name.upcase} (#{number_to_currency(cat[1])})" %></strong></span>
+                <% end %>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="ui dropdown item">
+      Cheap categories
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
+        <%- Category.cheap.each do |cat| %>
+            <%- cache cat[0] do %>
+                <%= link_to category_path(cat[0]), class: 'item' do %>
+                    <%= semantic_icon("#{cat[0].color.present? ? cat[0].color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat[0].name.upcase} (#{number_to_currency(cat[1])})" %></strong></span>
+                <% end %>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="ui separator"></div>
+
     <%= link_to categories_path, class: 'item' do %>
         <%= semantic_icon(:purple, :tags) %>
         <span>View All</span>

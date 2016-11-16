@@ -12,7 +12,11 @@ class Generic < ApplicationRecord
   #   invented_at.nil? ? 'Not yet known!' : invented_at
   # end
   def to_s(drug_id = nil)
-    "#{name.upcase} #{unit(drug_id)}"
+    if drug_id
+      "#{name.upcase} #{unit(drug_id)}"
+    else
+      "#{name.upcase}"
+    end
   end
 
   class << self
@@ -25,14 +29,30 @@ class Generic < ApplicationRecord
     end
   end
 
-  def unit(drug_id)
+  def image
+    return 'https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png' unless wikipedia_image_urls
     begin
-      drug_generic = associated_drug_generic(drug_id)
-      concentration = drug_generic.concentration
-      raise unless concentration
-      unit = Unit.find(DrugGeneric.where(generic_id: self.id).first.unit_id).name
-      "#{concentration} #{unit}"
+      ActiveSupport::JSON.decode(wikipedia_image_urls)[0]
     rescue
+      'https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png'
+    end
+  end
+
+  def description
+    wikipedia_summary ? wikipedia_summary : 'Faridd can search for a description for this generic, just click!'
+  end
+  def unit(drug_id)
+    if drug_id
+      begin
+        drug_generic = associated_drug_generic(drug_id)
+        concentration = drug_generic.concentration
+        raise unless concentration
+        unit = Unit.find(DrugGeneric.where(generic_id: self.id).first.unit_id).name
+        "#{concentration} #{unit}"
+      rescue
+        ''
+      end
+    else
       ''
     end
   end
@@ -43,10 +63,10 @@ class Generic < ApplicationRecord
 
   def wikipedia_images
     require 'json'
-  begin
-    ActiveSupport::JSON.decode(wiki('wikipedia_image_urls'))
-  rescue
-  end
+    begin
+      ActiveSupport::JSON.decode(wiki('wikipedia_image_urls'))
+    rescue
+    end
   end
 
   def summary
@@ -60,9 +80,9 @@ class Generic < ApplicationRecord
     return nil unless external_links
     ActiveSupport::JSON.decode(external_links)
   end
+
   def wiki(condition)
     unless self.send("#{condition}")
-
       require 'wikipedia'
 
       Wikipedia.find(self.name).tap do |page|

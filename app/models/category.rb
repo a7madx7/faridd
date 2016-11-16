@@ -60,5 +60,29 @@ class Category < ApplicationRecord
     def least_popular
       @least_popular_categories ||= all.sort { |a, b| a.drugs.count <=> b.drugs.count }.first(20)
     end
+
+    def pricey
+      @pricey_categories ||= all.map { |cat| [cat, cat.drugs.sum(:price)] }
+                                 .sort { |a, b| b[1] <=> a[1] }
+                                 .first(10)
+    end
+
+    def cheap
+      @cheap_categories ||= all.map { |cat|
+        sum = cat.drugs.sum(:price)
+        next if sum < 100
+        [cat, sum]
+      }
+      .compact
+      .sort { |a, b|
+        a[1] <=> b[1]
+      }.first(10)
+
+    end
   end
+
+  #todo: if the category is 50 EGP cheap or any other predefined value
+  #then we have to remove it and assign the drug to anoter category
+  # some categories can have only one drug but the drug is very expensive
+  # so this kind of category will be left alone
 end

@@ -10,7 +10,7 @@
           "url": "<%= drug_path(result.id) %>",
           "image": "<%= result.picture %>",
           "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
-          "description": "<%= result.categories.first.name %>"
+          "description": "<%= result.description %>"
         }
         <%- unless i >= @drug_results.count - 1 and @drug_results.count > 1%>
       ,
@@ -19,18 +19,16 @@
       ]
     },
     <% end %>
-
     <%- if @generic_results and @generic_results.count > 0 %>
     "Generics": {
       "name": "Generics",
       "results": [
-
         <% @generic_results.each_with_index do |result, i| %>
         {
           "title": "<%= result.to_s %>",
           "url": "<%= generic_path(result.id) %>",
-          "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png",
-          "description": "Optional Description"
+          "image": "<%= result.image %>",
+          "description": "<%= result.description %>"
         }
         <%- unless i >= @generic_results.count - 1 and @generic_results.count > 1 %>
       ,

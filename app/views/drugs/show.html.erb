@@ -1,9 +1,13 @@
 <div class="ui raised piled segments" id="drug_show_card">
-  <div class="ui <%= cycle(@colors) %> segment">
-    <%= link_to @drug.name.upcase, drug_path(@drug), class: "ui huge #{cycle(@colors)} ribbon label" %>
-    <div class="left floated label"><i class="<%= @drug.country.code.downcase %> flag"></i></div>
-    <div class="ui horizontal divider"><%= @drug.price %> EGP</div>
-    <div class="ui <%= cycle(@colors) %> ribbon label"> <%= pluralize(@drug.generics.count, 'Active Ingredient') %></div>
+  <div class="ui <%= @color %> segment">
+    <%= link_to drug_path(@drug), class: "ui huge #{@color} ribbon label"  do %>
+        <%= @drug.name.upcase %>
+    <% end %>
+    <div class="ui horizontal divider">
+      <%= @drug.price %> EGP
+      <i class="<%= @drug.country.code.downcase %> flag"></i>
+    </div>
+    <div class="ui <%= @color %> ribbon label"> <%= pluralize(@drug.generics.count, 'Active Ingredient') %></div>
     <%= render 'drugs/categories_listing', drug: @drug %></div>
   <div class="ui segment">
     <table class="ui sortable celled table">

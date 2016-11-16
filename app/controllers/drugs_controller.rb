@@ -13,8 +13,7 @@ class DrugsController < ApplicationController
   # GET /drugs/1
   # GET /drugs/1.json
   def show
-    semantic_breadcrumb @drug.name, drug_path(@drug)
-    @colors = %w{orange green teal red blue purple}
+    @color = @drug.categories.first.color.present? ? @drug.categories.first.color : 'green'
   end
 
   # GET /drugs/new

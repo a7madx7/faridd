@@ -3,8 +3,10 @@
       <%- if g.wikipedia_images and g.wikipedia_images.length > 0 %>
           <%- unless action_name == 'index' %>
               <div class="ui medium rounded images">
-                <%- g.wikipedia_images.each do |image| %>
-                   <%= image_tag(image, class: 'ui image') %>
+                <%- g.wikipedia_images.first(3).each do |image| %>
+                   <%- cache image do %>
+                        <%= image_tag(image, class: 'ui image') %>
+                    <% end %>
                 <% end %>
               </div>
           <%- else %>

@@ -71,6 +71,9 @@ class Drug < ApplicationRecord
     "#{name.split(' ').map { |part| part.capitalize }.join(' ') } #{price} EGP"
   end
 
+  def description
+    categories.first.name
+  end
   def method_missing(name, *args, &block)
     unless block_given?
       if name =~ /^same/

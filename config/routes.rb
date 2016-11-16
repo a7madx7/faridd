@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  get 'search/search'
   get '/trade_center', to: 'offers#index', as: :trade_center
   resources :offers
   resources :formulations
-  get 'search/search'
 
   get 'articles/recent', to: 'articles#recent', as: :recent_articles
   get 'articles/trending', to: 'articles#trending', as: :trending_articles

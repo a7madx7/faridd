@@ -1,57 +1,48 @@
 {
   "results": {
-    "Drugs": {
-      "name": "Drugs",
-      "results": [
-        <%- if @drug_results and @drug_results.count > 0 %>
-          <% @drug_results.each_with_index do |result, i| %>
-          {
-            "title": "<%= result.to_s %>",
-            "url": "<%= drug_path(result.id) %>",
-            "image": "<%= result.picture %>",
-            "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
-            "description": "<%= result.categories.first.name %>"
-          }
-          <%- unless i >= @drug_results.count - 1 and @drug_results.count > 1%>
-            ,
-          <% end %>
-          <% end %>
+    <%- if @drug_results and @drug_results.count > 0 %>
+      "Drugs": {
+        "name": "Drugs",
+        "results": [
+            <% @drug_results.each_with_index do |result, i| %>
+            {
+              "title": "<%= result.to_s %>",
+              "url": "<%= drug_path(result.id) %>",
+              "image": "<%= result.picture %>",
+              "price": "<%= result.price.present? ? result.price : 'Not Available' %>",
+              "description": "<%= result.description %>"
+            }
+            <%- unless i >= @drug_results.count - 1 and @drug_results.count > 1%>
+              ,
+            <% end %>
+            <% end %>
 
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any commercial drugs with that name!"
-        }
-        <% end %>
-      ]
-    },
+        ]
+      },
+    <% end %>
+    <%- if @generic_results and @generic_results.count > 0 %>
     "Generics": {
       "name": "Generics",
       "results": [
-        <%- if @generic_results and @generic_results.count > 0 %>
           <% @generic_results.each_with_index do |result, i| %>
           {
             "title": "<%= result.to_s %>",
             "url": "<%= generic_path(result.id) %>",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png",
-            "description": "Optional Description"
+            "image": "<%= result.image %>",
+            "description": "<%= result.description %>"
           }
           <%- unless i >= @generic_results.count - 1 and @generic_results.count > 1 %>
             ,
           <% end %>
         <% end %>
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any generic drugs with that name!"
-        }
-        <% end %>
+
       ]
     },
+    <% end %>
+    <%- if @user_results %>
     "Users": {
       "name": "Users",
       "results": [
-        <%- if @user_results %>
         <% @user_results.each_with_index do |result, i| %>
         {
           "title": "<%= result.to_s %>",
@@ -63,15 +54,10 @@
       ,
         <% end %>
         <% end %>
-        <%- else %>
-        {
-          "title": "No result",
-          "description": "I couldn't find any users with that user name!"
-        }
-        <% end %>
       ]
     }
   },
+  <% end %>
   "action": {
     "url": "/search?term=<%= @term %>&mode=all",
     "text": "View all results"

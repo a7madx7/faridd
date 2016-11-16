@@ -4,8 +4,7 @@
       <%- drug.categories.each do |cat| %>
           <div class="ui <%= cat.color %> label">
             <%= semantic_icon(:tag) %>
-            <%= link_to cat.name, category_path(cat), class: 'category' %>
-            <%= semantic_icon(:delete) %>
+            <%= link_to cat.name, category_path(cat), class: 'category', style: 'color: #ffffff; font-weight: bolder;' %>
           </div>
       <% end %>
     </div>

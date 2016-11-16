@@ -14,6 +14,7 @@ loader_ajax = ->
 
 data_init = ->
   $category_drop_down = $('#category')
+  alertify.success($category_drop_down.html())
   $category_drop_down.dropdown(
     apiSettings: url: "/search?mode=category&term={query}"
     allowAdditions: true
@@ -40,13 +41,14 @@ sorter = ->
   return
 
 drugs_ready = ->
-  data_init()
   $('.ui.rating').rating( { initialRating: 3, maxRating: 5 } )
   #  $('#drug_show_card').hide().transition('fly left')
   $('.ui.four.column.grid').hide().transition('fly left')
   sorter()
   #  loader_ajax()
+  data_init()
 
-$(drugs_ready)
+$ ->
+  drugs_ready()
 
 $(document).on('page:change', drugs_ready)
