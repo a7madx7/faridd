@@ -62,7 +62,7 @@ class Category < ApplicationRecord
     end
 
     def pricey
-      @pricey_categories ||= all.map { |cat| [cat, cat.drugs.sum(:price)] }
+      @pricey_categories ||= all.map { |cat| [cat.id, cat.drugs.sum(:price)] }
                                  .sort { |a, b| b[1] <=> a[1] }
                                  .first(10)
     end
@@ -71,13 +71,12 @@ class Category < ApplicationRecord
       @cheap_categories ||= all.map { |cat|
         sum = cat.drugs.sum(:price)
         next if sum < 100
-        [cat, sum]
+        [cat.id, sum]
       }
       .compact
       .sort { |a, b|
         a[1] <=> b[1]
       }.first(10)
-
     end
   end
 

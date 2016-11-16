@@ -80,11 +80,12 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- Category.pricey.each do |cat| %>
-            <%- cache cat[0] do %>
-                <%= link_to category_path(cat[0]), class: 'item' do %>
-                    <%= semantic_icon("#{cat[0].color.present? ? cat[0].color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat[0].name.upcase} (#{number_to_currency(cat[1])})" %></strong></span>
+        <%- session[:pricey_cats].each do |c| %>
+            <%- cat = Category.find(c[0]) %>
+            <%- cache cat do %>
+                <%= link_to category_path(cat), class: 'item' do %>
+                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat.name.upcase} (#{number_to_currency(c[1])})" %></strong></span>
                 <% end %>
             <% end %>
         <% end %>
@@ -96,11 +97,12 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- Category.cheap.each do |cat| %>
-            <%- cache cat[0] do %>
-                <%= link_to category_path(cat[0]), class: 'item' do %>
-                    <%= semantic_icon("#{cat[0].color.present? ? cat[0].color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat[0].name.upcase} (#{number_to_currency(cat[1])})" %></strong></span>
+        <%- session[:cheap_cats].each do |c| %>
+            <%- cat = Category.find(c[0]) %>
+            <%- cache cat do %>
+                <%= link_to category_path(cat), class: 'item' do %>
+                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
+                    <span><strong><%= "#{cat.name.upcase} (#{number_to_currency(c[1])})" %></strong></span>
                 <% end %>
             <% end %>
         <% end %>

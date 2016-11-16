@@ -3,28 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-
-  after_action :invoke_thumbnailer, only: [:search]
-
-  semantic_breadcrumb :index, :root_path
-
-  def invoke_thumbnailer
-    [@drug_results, @generic_results, @user_results].each do |result|
-      begin
-        result.each do |res|
-          begin
-            res.image_url = LinkThumbnailer.generate("http://en.wikipedia.org/wiki/#{res.name}").images.first.src.to_s
-          rescue
-            next
-          ensure
-            res.save
-          end unless res.image_url
-        end
-      rescue
-        next
-      end
-    end
-  end
+  before_action :prepare_stats
 
   protected
   def configure_permitted_parameters
@@ -58,5 +37,14 @@ class ApplicationController < ActionController::Base
 
     end
     @menu
+  end
+
+  def prepare_stats
+    unless session[:cheap_cats]
+      session[:cheap_cats] = Category.cheap
+    end
+    unless session[:pricey_cats]
+      session[:pricey_cats] = Category.pricey
+    end
   end
 end

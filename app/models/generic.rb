@@ -30,7 +30,7 @@ class Generic < ApplicationRecord
   end
 
   def image
-    return 'https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png' unless wikipedia_image_urls
+    return 'https://upload.wikimedia.org/wikipedia/commons/2/26/Tetraborate-xtal-3D-balls.png' if wikipedia_image_urls == ""
     begin
       ActiveSupport::JSON.decode(wikipedia_image_urls)[0]
     rescue
