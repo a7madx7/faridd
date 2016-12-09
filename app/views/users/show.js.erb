@@ -1,2 +1,2 @@
-$("#main").html("<%= j(render 'users/user') %>").hide().fadeIn();
+$("#main").html("<%= j(render 'users/user_page') %>").hide().fadeIn();
 window.history.pushState('', "Profile", "<%= user_path(@user) %>");

@@ -41,6 +41,7 @@ class Generic < ApplicationRecord
   def description
     wikipedia_summary ? wikipedia_summary : 'Faridd can search for a description for this generic, just click!'
   end
+
   def unit(drug_id)
     if drug_id
       begin
@@ -63,9 +64,11 @@ class Generic < ApplicationRecord
 
   def wikipedia_images
     require 'json'
-    begin
-      ActiveSupport::JSON.decode(wiki('wikipedia_image_urls'))
-    rescue
+    if wikipedia_image_urls
+      begin
+        ActiveSupport::JSON.decode(wiki('wikipedia_image_urls')).reject! { |a| a['Yes_check'] or a['X_mark'] or a['Lock-green'] }
+      rescue
+      end
     end
   end
 
@@ -85,7 +88,15 @@ class Generic < ApplicationRecord
     unless self.send("#{condition}")
       require 'wikipedia'
 
-      Wikipedia.find(self.name).tap do |page|
+      first_name, second_name = nil
+      if name['vit']
+        name['vit'] = 'Vitamin'
+      end
+      if name =~ /\-/
+        first_name, _, second_name = name.partition('-')
+      end
+
+      set_generic_wiki = Proc.new do |page|
         self.wikipedia_page_url = page.fullurl
         self.wikipedia_image_urls = page.image_urls
         self.wikipedia_links = page.links
@@ -95,6 +106,14 @@ class Generic < ApplicationRecord
         self.save
       end
 
+      if first_name
+        generic_wiki = Wikipedia.find(first_name)
+        generic_wiki = Wikipedia.find(second_name) unless generic_wiki.content
+        generic_wiki = Wikipedia.find(name) unless generic_wiki.content
+        set_generic_wiki.call(generic_wiki)
+      else
+        set_generic_wiki.call(Wikipedia.find(name))
+      end
     end
     self.send("#{condition}")
   end

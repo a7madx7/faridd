@@ -1,20 +1,29 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-loader_ajax = ->
-  $loader = $('#loader')
-  $loader.hide()
-  $(document).ajaxStart( ->
-    $loader.hide()
-    $loader.fadeIn('slow'))
-  .ajaxStop( ->
-    $loader.hide()
-    sorter())
+sorter = ->
+  $('table').tablesort()
+  maxHeight = -1
+  cards = $('.ui.card')
+  cards.each ->
+    maxHeight = if maxHeight > $(this).height() then maxHeight else $(this).height()
+  cards.each ->
+    $(this).height maxHeight
+  return
+
+responsive_elements = ->
+  #  $('.ui.checkbox').checkbox()
+  # todo: replace the class selector with the id selector for a more specific approach
+  dropdown_effects = ['drop','horizontal flip','fade up','scale']
+  rand = dropdown_effects[Math.floor(Math.random() * dropdown_effects.length)]
+  $('.ui.pointing.dropdown').dropdown
+    allowAdditions: true
+    transition: "#{rand}"
+    on: 'hover'
   return
 
 data_init = ->
   $category_drop_down = $('#category')
-  alertify.success($category_drop_down.html())
   $category_drop_down.dropdown(
     apiSettings: url: "/search?mode=category&term={query}"
     allowAdditions: true
@@ -33,22 +42,38 @@ data_init = ->
 sorter = ->
   $('table').tablesort()
   maxHeight = -1
-  cards = $('.drugs.index .ui.card')
+  cards = $('.ui.card')
   cards.each ->
     maxHeight = if maxHeight > $(this).height() then maxHeight else $(this).height()
   cards.each ->
     $(this).height maxHeight
   return
 
-drugs_ready = ->
-  $('.ui.rating').rating( { initialRating: 3, maxRating: 5 } )
-  #  $('#drug_show_card').hide().transition('fly left')
-  $('.ui.four.column.grid').hide().transition('fly left')
-  sorter()
-  #  loader_ajax()
-  data_init()
+ready = ->
+  controller = window.location.pathname
+  regex = new RegExp("^/drugs")
+  return false unless regex.test(controller)
+  $loader = $('#loader')
+  $loader.show()
+  try
+    $rating = $('.ui.rating')
+    if $rating.length
+      alertify.message($rating.html())
+      $rating.rating( { initialRating: 3, maxRating: 5 } )
+    #  $('#drug_show_card').hide().transition('fly left')
+    $('.ui.four.column.grid').hide().transition('fly left')
+    sorter()
+    responsive_elements()
+    #  loader_ajax()
+    data_init()
+    $loader.hide()
+  catch error
+    console.log(error)
+  finally
+    $loader.hide()
+    alertify.success("Drugs loaded!")
 
-$ ->
-  drugs_ready()
 
-$(document).on('page:change', drugs_ready)
+$ ready
+
+$(document).on 'page:load', ready

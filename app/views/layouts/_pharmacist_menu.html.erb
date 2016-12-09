@@ -47,12 +47,12 @@
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
         <%- Category.most_popular.each do |cat| %>
-            <!--<%- cache cat do %>-->
+            <%- cache cat do %>
                 <%= link_to category_path(cat), class: 'item' do %>
                     <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
                     <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
                 <% end %>
-                <!--<% end %>-->
+             <% end %>
         <% end %>
       </div>
     </div>
@@ -133,11 +133,11 @@
         <%= semantic_icon(:purple, :tv) %>
         <span>All</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <%= link_to recent_generics_path, class: 'item' do %>
         <%= semantic_icon(:purple, :paw) %>
         <span>Recently added</span>
     <% end %>
-    <%= link_to new_article_path, class: 'item' do %>
+    <%= link_to trending_generics_path, class: 'item' do %>
         <%= semantic_icon(:purple, :line, :chart) %>
         <span>Top trending</span>
     <% end %>

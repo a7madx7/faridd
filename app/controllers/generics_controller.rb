@@ -10,7 +10,7 @@ class GenericsController < ApplicationController
 
   def index
     # @generics = Generic.all.sort { |a, b| a.name <=> b.name }
-    @generics = Generic.all.order(:name).paginate(per_page: 40, page: params[:page]).order(:name)
+    @generics = Generic.all.paginate(per_page: 40, page: params[:page]).order(:name)
   end
 
   def show
@@ -47,6 +47,12 @@ class GenericsController < ApplicationController
 
   end
 
+  def recent
+    @generics = Generic.recent.paginate(per_page: 33, page: params[:page])
+  end
+  def trending
+    @generics = Generic.trending.paginate(per_page: 33, page: params[:page])
+  end
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_generic

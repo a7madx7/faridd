@@ -9,4 +9,11 @@ prepare_form = ->
   $("#user_gender").popup({ popup: ".ui.popup" })
   $("#user_country").popup({ popup: ".ui.popup" })
   $("#user_profession").popup({ popup: ".ui.popup" })
-$(prepare_form)
+
+ready = ->
+  controller = window.location.pathname
+  regex = new RegExp("^/users")
+  return false unless regex.test(controller)
+  prepare_form()
+
+$ ready

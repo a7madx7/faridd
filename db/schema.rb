@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103154101) do
+ActiveRecord::Schema.define(version: 20161208215734) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161103154101) do
     t.datetime "updated_at",         null: false
     t.string   "color"
     t.integer  "parent_category_id"
+    t.text     "description"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -108,8 +109,8 @@ ActiveRecord::Schema.define(version: 20161103154101) do
     t.float    "price"
     t.float    "concentration"
     t.string   "unit"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.decimal  "contents"
     t.integer  "form_id"
     t.integer  "company_id"

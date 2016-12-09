@@ -5,7 +5,7 @@
   <div class="ui <%= @color %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
     <div class="content">
       <%= link_to drug_path(drug), class: "ui #{@color} ribbon label"  do %>
-        <i class="registered icon"></i><%= truncate(drug.name.upcase, length: 33) %> -
+        <i class="registered icon"></i><%= truncate(drug.name.upcase, length: 33) %>
       <% end %>
       <br /><br />
       <br>
@@ -39,7 +39,7 @@
     </div>
     
     <%= render 'drugs/categories_listing', drug: drug %>
-    <div class="ui massive heart rating" data-rating="3" data-max-rating="5"></div>
+    <div class="ui massive heart rating" id="rating" data-rating="3" data-max-rating="5"></div>
     <!--Comment on a drug? -->
     <div class="ui horizontal divider">
       <%= drug.price %> EGP

@@ -1,0 +1,29 @@
+<h1 class="centered dividing username header">
+  <%= @user.full_name %>
+</h1>
+
+<div class="ui grid">
+  <div class="six wide column">
+    <div class="ui orange segment">
+      <div class="ui green bottom attached label">
+        <h2><strong>@</strong><%= @user.username %></h2>
+      </div>
+      <div class="content">
+        <h3><i class="<%= @user.country.code.downcase %> flag"></i>Lives in <%= @user.country.name %></h3>
+        <h3><i class="<%= @user.gender.downcase %> icon"></i><%= @user.gender %></h3>
+        <h3>
+          <i class="<%= icon_for(@user) %> icon"></i>
+          Works as a <%= @user.profession.capitalize %>
+        </h3>
+        <h4><i class="inbox icon"></i> Email: <%= @user.email %></h4>
+        <br>
+      </div>
+      <div>
+        <%= gravatar_for(@user, size: 150) %>
+        <br><br>
+      </div>
+    </div>
+  </div>
+  <!-- todo: fix the display of this listing -->
+  <%= render 'articles/listing', obj: @user.articles.paginate(per_page: 40, page: params[:page]) %>
+</div>

@@ -29,7 +29,7 @@ class Drug < ApplicationRecord
     end
 
     def has_company
-      Drug.joins(:companies)
+      Drug.joins(:company).where.not('companies.name like ?', '%unknown%')
     end
 
     def has_generics
@@ -42,29 +42,17 @@ class Drug < ApplicationRecord
 
   end
 
+  def ==(other)
+    (self.generics.count == other.generics.count) and (self.generics.ids == other.generics.ids)
+  end
   # todo: set a default scope
   # scope :cheap, cheaper_than(30)
   def identical_drugs_by(attr = 'price')
-    # self is a drug
-    # .generics tells you each and every generic this drug has
-    # a simple way is to search Drug where it has the same generics count
-    # todo: learn querying in rails pretty damn good first!
-    # Drug.all.map { |drug| drug.send(attr.to_sym) == send(attr.to_sym) ? drug : nil }.compact
-    # Drug.joins(:drug_generics).where(attr.to_sym => attr)
-    # get me all drugs that have the exact same relations to generics as this drug
-    g = generics.map do |generic|
-      Drug.joins(:drug_generics).where('drug_generics.generic_id = :value', value: generic.id)
-    end
-    # todo: enable logging here to see what actually happens
-    # logger g
-    # Drug.joins(:drug_generics, :generics).order('drug_generics_drugs_join.generic_id')
-    # Drug.joins(posts: [:comments])
-    # SELECT "users".*
-    # FROM "users"
-    # INNER JOIN "posts" ON "posts"."user_id" = "users"."id"
-    # INNER JOIN "comments" "comments_posts"
-    #   ON "comments_posts"."post_id" = "posts"."id"
+    g = generics
+    # Drug.joins(:generics).where('drug_generics.generic_id in (:gs) and drug_generics.concentration = :con', gs: g.ids, con: concentration).each.reject { |d| d != self}
+    Drug.joins(:generics).where('drug_generics.generic_id in (:gs)', gs: g.ids).each.reject { |d| d != self}
   end
+
   alias_method :identical_drugs, :identical_drugs_by
 
   def to_s
@@ -77,7 +65,7 @@ class Drug < ApplicationRecord
   def method_missing(name, *args, &block)
     unless block_given?
       if name =~ /^same/
-        prefix, separator_match, name = name.to_s.partition('_')
+        _, _, name = name.to_s.partition('_')
         where("#{name} = :value", value: args.first.to_s)
       end
     end

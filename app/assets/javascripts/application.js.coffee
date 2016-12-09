@@ -14,7 +14,7 @@
 #= require jquery_ujs
 #= require jquery-readyselector
 #= require semantic-ui
-#= require turbolinks
+#= require jquery.turbolinks
 #= require_tree
 
 prepare_dropdowns = ->
@@ -55,7 +55,7 @@ alertification = ->
 sorter = ->
   $('table').tablesort()
   maxHeight = -1
-  cards = $('.drugs.index .ui.card')
+  cards = $('.ui.card')
   cards.each ->
     maxHeight = if maxHeight > $(this).height() then maxHeight else $(this).height()
   cards.each ->
@@ -67,15 +67,17 @@ responsive_elements = ->
   # todo: replace the class selector with the id selector for a more specific approach
   dropdown_effects = ['drop','horizontal flip','fade up','scale']
   rand = dropdown_effects[Math.floor(Math.random() * dropdown_effects.length)]
+  $('.ui.dropdown').dropdown()
   $('.ui.pointing.dropdown').dropdown
     allowAdditions: true
     transition: "#{rand}"
     on: 'hover'
+  $('.ui.ribbon.label').on 'click', ->
+    $('#loader').show()
   return
-
 assign_css = ->
   # add css classes here
-application_ready = ->
+ready = ->
   responsive_elements()
   search()
   sorter()
@@ -86,7 +88,6 @@ application_ready = ->
   alertification()
   return
 
-$ ->
-  application_ready()
+$ ready
 
-$(document).on("page:change", application_ready);
+$(document).on "page:load", ready

@@ -1,0 +1,209 @@
+                  Prefix Verb   URI Pattern                                        Controller#Action
+           search_search GET    /search/search(.:format)                           search#search
+            trade_center GET    /trade_center(.:format)                            offers#index
+                  offers GET    /offers(.:format)                                  offers#index
+                         POST   /offers(.:format)                                  offers#create
+               new_offer GET    /offers/new(.:format)                              offers#new
+              edit_offer GET    /offers/:id/edit(.:format)                         offers#edit
+                   offer GET    /offers/:id(.:format)                              offers#show
+                         PATCH  /offers/:id(.:format)                              offers#update
+                         PUT    /offers/:id(.:format)                              offers#update
+                         DELETE /offers/:id(.:format)                              offers#destroy
+            formulations GET    /formulations(.:format)                            formulations#index
+                         POST   /formulations(.:format)                            formulations#create
+         new_formulation GET    /formulations/new(.:format)                        formulations#new
+        edit_formulation GET    /formulations/:id/edit(.:format)                   formulations#edit
+             formulation GET    /formulations/:id(.:format)                        formulations#show
+                         PATCH  /formulations/:id(.:format)                        formulations#update
+                         PUT    /formulations/:id(.:format)                        formulations#update
+                         DELETE /formulations/:id(.:format)                        formulations#destroy
+         recent_articles GET    /articles/recent(.:format)                         articles#recent
+       trending_articles GET    /articles/trending(.:format)                       articles#trending
+                articles GET    /articles(.:format)                                articles#index
+                         POST   /articles(.:format)                                articles#create
+             new_article GET    /articles/new(.:format)                            articles#new
+            edit_article GET    /articles/:id/edit(.:format)                       articles#edit
+                 article GET    /articles/:id(.:format)                            articles#show
+                         PATCH  /articles/:id(.:format)                            articles#update
+                         PUT    /articles/:id(.:format)                            articles#update
+                         DELETE /articles/:id(.:format)                            articles#destroy
+           rxes_dispense GET    /rxes/dispense(.:format)                           rxes#new
+                    rxes GET    /rxes(.:format)                                    rxes#index
+                         POST   /rxes(.:format)                                    rxes#create
+                  new_rx GET    /rxes/new(.:format)                                rxes#new
+                 edit_rx GET    /rxes/:id/edit(.:format)                           rxes#edit
+                      rx GET    /rxes/:id(.:format)                                rxes#show
+                         PATCH  /rxes/:id(.:format)                                rxes#update
+                         PUT    /rxes/:id(.:format)                                rxes#update
+                         DELETE /rxes/:id(.:format)                                rxes#destroy
+                patients GET    /patients(.:format)                                patients#index
+                         POST   /patients(.:format)                                patients#create
+             new_patient GET    /patients/new(.:format)                            patients#new
+            edit_patient GET    /patients/:id/edit(.:format)                       patients#edit
+                 patient GET    /patients/:id(.:format)                            patients#show
+                         PATCH  /patients/:id(.:format)                            patients#update
+                         PUT    /patients/:id(.:format)                            patients#update
+                         DELETE /patients/:id(.:format)                            patients#destroy
+                 answers GET    /answers(.:format)                                 answers#index
+                         POST   /answers(.:format)                                 answers#create
+              new_answer GET    /answers/new(.:format)                             answers#new
+             edit_answer GET    /answers/:id/edit(.:format)                        answers#edit
+                  answer GET    /answers/:id(.:format)                             answers#show
+                         PATCH  /answers/:id(.:format)                             answers#update
+                         PUT    /answers/:id(.:format)                             answers#update
+                         DELETE /answers/:id(.:format)                             answers#destroy
+        question_answers GET    /questions/:question_id/answers(.:format)          answers#index
+                         POST   /questions/:question_id/answers(.:format)          answers#create
+     new_question_answer GET    /questions/:question_id/answers/new(.:format)      answers#new
+    edit_question_answer GET    /questions/:question_id/answers/:id/edit(.:format) answers#edit
+         question_answer GET    /questions/:question_id/answers/:id(.:format)      answers#show
+                         PATCH  /questions/:question_id/answers/:id(.:format)      answers#update
+                         PUT    /questions/:question_id/answers/:id(.:format)      answers#update
+                         DELETE /questions/:question_id/answers/:id(.:format)      answers#destroy
+               questions GET    /questions(.:format)                               questions#index
+                         POST   /questions(.:format)                               questions#create
+            new_question GET    /questions/new(.:format)                           questions#new
+           edit_question GET    /questions/:id/edit(.:format)                      questions#edit
+                question GET    /questions/:id(.:format)                           questions#show
+                         PATCH  /questions/:id(.:format)                           questions#update
+                         PUT    /questions/:id(.:format)                           questions#update
+                         DELETE /questions/:id(.:format)                           questions#destroy
+                comments GET    /comments(.:format)                                comments#index
+                         POST   /comments(.:format)                                comments#create
+             new_comment GET    /comments/new(.:format)                            comments#new
+            edit_comment GET    /comments/:id/edit(.:format)                       comments#edit
+                 comment GET    /comments/:id(.:format)                            comments#show
+                         PATCH  /comments/:id(.:format)                            comments#update
+                         PUT    /comments/:id(.:format)                            comments#update
+                         DELETE /comments/:id(.:format)                            comments#destroy
+               companies GET    /companies(.:format)                               companies#index
+                         POST   /companies(.:format)                               companies#create
+             new_company GET    /companies/new(.:format)                           companies#new
+            edit_company GET    /companies/:id/edit(.:format)                      companies#edit
+                 company GET    /companies/:id(.:format)                           companies#show
+                         PATCH  /companies/:id(.:format)                           companies#update
+                         PUT    /companies/:id(.:format)                           companies#update
+                         DELETE /companies/:id(.:format)                           companies#destroy
+              categories GET    /categories(.:format)                              categories#index
+                         POST   /categories(.:format)                              categories#create
+            new_category GET    /categories/new(.:format)                          categories#new
+           edit_category GET    /categories/:id/edit(.:format)                     categories#edit
+                category GET    /categories/:id(.:format)                          categories#show
+                         PATCH  /categories/:id(.:format)                          categories#update
+                         PUT    /categories/:id(.:format)                          categories#update
+                         DELETE /categories/:id(.:format)                          categories#destroy
+            pricey_drugs GET    /drugs/pricey(.:format)                            drugs#pricey
+             cheap_drugs GET    /drugs/cheap(.:format)                             drugs#cheap
+            recent_drugs GET    /drugs/recent(.:format)                            drugs#recent
+          trending_drugs GET    /drugs/trending(.:format)                          drugs#trending
+         recent_generics GET    /generics/recent(.:format)                         generics#recent
+       trending_generics GET    /generics/trending(.:format)                       generics#trending
+                generics GET    /generics(.:format)                                generics#index
+                         POST   /generics(.:format)                                generics#create
+             new_generic GET    /generics/new(.:format)                            generics#new
+            edit_generic GET    /generics/:id/edit(.:format)                       generics#edit
+                 generic GET    /generics/:id(.:format)                            generics#show
+                         PATCH  /generics/:id(.:format)                            generics#update
+                         PUT    /generics/:id(.:format)                            generics#update
+                         DELETE /generics/:id(.:format)                            generics#destroy
+           drug_generics GET    /drugs/:drug_id/generics(.:format)                 generics#index
+                         POST   /drugs/:drug_id/generics(.:format)                 generics#create
+        new_drug_generic GET    /drugs/:drug_id/generics/new(.:format)             generics#new
+       edit_drug_generic GET    /drugs/:drug_id/generics/:id/edit(.:format)        generics#edit
+            drug_generic GET    /drugs/:drug_id/generics/:id(.:format)             generics#show
+                         PATCH  /drugs/:drug_id/generics/:id(.:format)             generics#update
+                         PUT    /drugs/:drug_id/generics/:id(.:format)             generics#update
+                         DELETE /drugs/:drug_id/generics/:id(.:format)             generics#destroy
+                   drugs GET    /drugs(.:format)                                   drugs#index
+                         POST   /drugs(.:format)                                   drugs#create
+                new_drug GET    /drugs/new(.:format)                               drugs#new
+               edit_drug GET    /drugs/:id/edit(.:format)                          drugs#edit
+                    drug GET    /drugs/:id(.:format)                               drugs#show
+                         PATCH  /drugs/:id(.:format)                               drugs#update
+                         PUT    /drugs/:id(.:format)                               drugs#update
+                         DELETE /drugs/:id(.:format)                               drugs#destroy
+               countries GET    /countries(.:format)                               countries#index
+                         POST   /countries(.:format)                               countries#create
+             new_country GET    /countries/new(.:format)                           countries#new
+            edit_country GET    /countries/:id/edit(.:format)                      countries#edit
+                 country GET    /countries/:id(.:format)                           countries#show
+                         PATCH  /countries/:id(.:format)                           countries#update
+                         PUT    /countries/:id(.:format)                           countries#update
+                         DELETE /countries/:id(.:format)                           countries#destroy
+        new_user_session GET    /users/sign_in(.:format)                           devise/sessions#new
+            user_session POST   /users/sign_in(.:format)                           devise/sessions#create
+    destroy_user_session DELETE /users/sign_out(.:format)                          devise/sessions#destroy
+           user_password POST   /users/password(.:format)                          devise/passwords#create
+       new_user_password GET    /users/password/new(.:format)                      devise/passwords#new
+      edit_user_password GET    /users/password/edit(.:format)                     devise/passwords#edit
+                         PATCH  /users/password(.:format)                          devise/passwords#update
+                         PUT    /users/password(.:format)                          devise/passwords#update
+cancel_user_registration GET    /users/cancel(.:format)                            user/registrations#cancel
+       user_registration POST   /users(.:format)                                   user/registrations#create
+   new_user_registration GET    /users/sign_up(.:format)                           user/registrations#new
+  edit_user_registration GET    /users/edit(.:format)                              user/registrations#edit
+                         PATCH  /users(.:format)                                   user/registrations#update
+                         PUT    /users(.:format)                                   user/registrations#update
+                         DELETE /users(.:format)                                   user/registrations#destroy
+                    home GET    /welcome/home(.:format)                            welcome#home
+                   about GET    /welcome/about(.:format)                           welcome#about
+             trade_names GET    /trade_names(.:format)                             drugs#index
+                  search GET    /search(.:format)                                  search#search
+         identical_drugs GET    /identical_drugs/:id(.:format)                     drugs#identical_drugs
+          user_questions GET    /users/:user_id/questions(.:format)                questions#index
+                         POST   /users/:user_id/questions(.:format)                questions#create
+       new_user_question GET    /users/:user_id/questions/new(.:format)            questions#new
+      edit_user_question GET    /users/:user_id/questions/:id/edit(.:format)       questions#edit
+           user_question GET    /users/:user_id/questions/:id(.:format)            questions#show
+                         PATCH  /users/:user_id/questions/:id(.:format)            questions#update
+                         PUT    /users/:user_id/questions/:id(.:format)            questions#update
+                         DELETE /users/:user_id/questions/:id(.:format)            questions#destroy
+            user_answers GET    /users/:user_id/answers(.:format)                  answers#index
+                         POST   /users/:user_id/answers(.:format)                  answers#create
+         new_user_answer GET    /users/:user_id/answers/new(.:format)              answers#new
+        edit_user_answer GET    /users/:user_id/answers/:id/edit(.:format)         answers#edit
+             user_answer GET    /users/:user_id/answers/:id(.:format)              answers#show
+                         PATCH  /users/:user_id/answers/:id(.:format)              answers#update
+                         PUT    /users/:user_id/answers/:id(.:format)              answers#update
+                         DELETE /users/:user_id/answers/:id(.:format)              answers#destroy
+              user_drugs GET    /users/:user_id/drugs(.:format)                    drugs#index
+                         POST   /users/:user_id/drugs(.:format)                    drugs#create
+           new_user_drug GET    /users/:user_id/drugs/new(.:format)                drugs#new
+          edit_user_drug GET    /users/:user_id/drugs/:id/edit(.:format)           drugs#edit
+               user_drug GET    /users/:user_id/drugs/:id(.:format)                drugs#show
+                         PATCH  /users/:user_id/drugs/:id(.:format)                drugs#update
+                         PUT    /users/:user_id/drugs/:id(.:format)                drugs#update
+                         DELETE /users/:user_id/drugs/:id(.:format)                drugs#destroy
+           user_generics GET    /users/:user_id/generics(.:format)                 generics#index
+                         POST   /users/:user_id/generics(.:format)                 generics#create
+        new_user_generic GET    /users/:user_id/generics/new(.:format)             generics#new
+       edit_user_generic GET    /users/:user_id/generics/:id/edit(.:format)        generics#edit
+            user_generic GET    /users/:user_id/generics/:id(.:format)             generics#show
+                         PATCH  /users/:user_id/generics/:id(.:format)             generics#update
+                         PUT    /users/:user_id/generics/:id(.:format)             generics#update
+                         DELETE /users/:user_id/generics/:id(.:format)             generics#destroy
+           user_articles GET    /users/:user_id/articles(.:format)                 articles#index
+                         POST   /users/:user_id/articles(.:format)                 articles#create
+        new_user_article GET    /users/:user_id/articles/new(.:format)             articles#new
+       edit_user_article GET    /users/:user_id/articles/:id/edit(.:format)        articles#edit
+            user_article GET    /users/:user_id/articles/:id(.:format)             articles#show
+                         PATCH  /users/:user_id/articles/:id(.:format)             articles#update
+                         PUT    /users/:user_id/articles/:id(.:format)             articles#update
+                         DELETE /users/:user_id/articles/:id(.:format)             articles#destroy
+           user_comments GET    /users/:user_id/comments(.:format)                 comments#index
+                         POST   /users/:user_id/comments(.:format)                 comments#create
+        new_user_comment GET    /users/:user_id/comments/new(.:format)             comments#new
+       edit_user_comment GET    /users/:user_id/comments/:id/edit(.:format)        comments#edit
+            user_comment GET    /users/:user_id/comments/:id(.:format)             comments#show
+                         PATCH  /users/:user_id/comments/:id(.:format)             comments#update
+                         PUT    /users/:user_id/comments/:id(.:format)             comments#update
+                         DELETE /users/:user_id/comments/:id(.:format)             comments#destroy
+                   users GET    /users(.:format)                                   users#index
+                         POST   /users(.:format)                                   users#create
+                new_user GET    /users/new(.:format)                               users#new
+               edit_user GET    /users/:id/edit(.:format)                          users#edit
+                    user GET    /users/:id(.:format)                               users#show
+                         PATCH  /users/:id(.:format)                               users#update
+                         PUT    /users/:id(.:format)                               users#update
+                         DELETE /users/:id(.:format)                               users#destroy
+                    root GET    /                                                  welcome#home

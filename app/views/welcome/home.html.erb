@@ -46,30 +46,11 @@
     </div>
   </div>
   <br><br>
+<%- if @users %>
   <div class="ui centered cards">
-    <%- if @users %>
         <%- @users.each do |user| %>
-            <div class="card">
-              <div class="content">
-                <img class="right floated mini ui circular image" src="<%= user.picture %>">
-                <div class="header">
-                  <%= user.full_name %>
-                </div>
-                <div class="meta">
-                  Friends of Veronika
-                </div>
-                <div class="description">
-                  Elliot requested permission to view your contact details
-                </div>
-              </div>
-              <div class="extra content">
-                <div class="ui two buttons">
-                  <div class="ui basic green button">Add friend</div>
-                  <div class="ui basic red button">Decline</div>
-                </div>
-              </div>
-            </div>
+            <%= render  'users/user', user: user %>
         <%- end %>
-    <% end %>
   </div>
+<% end %>
 </div>

@@ -10,5 +10,5 @@
       </td>
       <td class=""><%= generic.associated_drug_generic(obj.id).concentration.present? ? generic.associated_drug_generic(obj.id).concentration.upcase : 'NOT MENTIONED'%></td>
       <td class="positive"><p><%= h generic.summary %></p></td>
-      <td class="positive"><image class="ui small image" src="<%= generic.wikipedia_images[0] %>"></image></td>
+      <td class="positive"><image class="ui small image" src="<%= generic.image %>"></image></td>
 <% end %>

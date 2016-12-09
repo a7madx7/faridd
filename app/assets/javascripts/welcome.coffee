@@ -4,4 +4,10 @@
 animation = ->
   $('#main_menu').hide().transition('fly up')
 
-$(animation)
+ready = ->
+  controller = window.location.pathname
+  regex = new RegExp("^/welcome")
+  return false unless regex.test(controller)
+  animation()
+  
+$ ready

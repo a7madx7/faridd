@@ -1,32 +1,20 @@
-<h1 class="centered dividing username header">
-  <%= @user.full_name %>
-</h1>
-
-<div class="ui grid">
-  <div class="six wide column">
-    <div class="ui orange segment">
-      <div class="ui green bottom attached label">
-        <h2><strong>@</strong><%= @user.username %></h2>
-      </div>
-      <div class="content">
-        <h3><i class="<%= @user.country.code.downcase %> flag"></i>Lives in <%= @user.country.name %></h3>
-        <h3><i class="<%= @user.gender.downcase %> icon"></i><%= @user.gender %></h3>
-        <h3>
-          <i class="<%= icon_for(@user) %> icon"></i>
-          Works as a <%= @user.profession.capitalize %>
-        </h3>
-        <h4><i class="inbox icon"></i> Email: <%= @user.email %></h4>
-        <br>
-      </div>
-      <div>
-        <%= gravatar_for(@user, size: 150) %>
-        <br><br>
-      </div>
+<div class="card">
+  <div class="content">
+    <img class="right floated mini ui circular image" src="<%= user.picture %>">
+    <div class="header">
+      <%= user.full_name %>
+    </div>
+    <div class="meta">
+      Friends of Veronika
+    </div>
+    <div class="description">
+      A place holder for the description of that user.
     </div>
   </div>
-  <div class="ten wide column">
-    <div class="ui cards">
-      <%= render(@user.articles) %>
+  <div class="extra content">
+    <div class="ui two buttons">
+      <div class="ui basic green button">Add friend</div>
+      <div class="ui basic red button">Decline</div>
     </div>
   </div>
 </div>

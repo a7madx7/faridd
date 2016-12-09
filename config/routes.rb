@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   get 'drugs/recent', to: 'drugs#recent', as: :recent_drugs
   get 'drugs/trending', to: 'drugs#trending', as: :trending_drugs
 
+  get 'generics/recent', to: 'generics#recent', as: :recent_generics
+  get 'generics/trending', to: 'generics#trending', as: :trending_generics
+
   resources :generics
 
   resources :drugs do

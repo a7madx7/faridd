@@ -67,12 +67,15 @@ steps = ->
     $this = $(this)
     next_button_click($this)
 
-done = ->
+ready = ->
+  controller = window.location.pathname
+  regex = new RegExp("^/rxes")
+  return false unless regex.test(controller)
   responsive_elements()
   add_drugs()
   add_diagnosis()
   steps()
   return
 
-$(done)
-$(document).on("page:change", done);
+$ ready
+$(document).on "page:load", ready

@@ -1,0 +1,38 @@
+<div class="ui attached popup" id="category_popup_<%= obj.id %>">
+  <div class="<%= obj.color %> header">
+    <%= fine obj.to_s %>
+    <%- if obj.parent %>
+      <br>
+      Parent category: <%= fine obj.parent.to_s %>
+    <% end %>
+  </div>
+  <div class="content">
+    <%- if obj.description %>
+     <%= obj.description %>
+     <%- else %>
+        Click to view this category with all the drug it has.
+      <% end %>
+  </div>
+</div>
+
+<div class="ui card <%= obj.color %> <%= obj.text_orientation %> segment" id="category_card_<%= obj.id %>" >
+  <div class="content">
+   <%= link_to fine(obj.to_s), category_path(obj), class: "#{obj.parent.color} cat header link", data: { pop: obj.id } %>
+    <div class="meta">
+      <%- if obj.parent %>
+          <%= link_to category_path(obj.parent), class: "#{obj.parent.color} cat link",  data: { pop: obj.id } do %>
+              Parent category: <%= obj.parent %>
+          <% end %>
+          <br>
+    <% end %>
+      Created <%= time_ago_in_words(obj.created_at) %> ago
+      <br>
+      Last updated <%= time_ago_in_words(obj.updated_at) %>
+    </div>
+    <div class="description">
+      Contains
+      <%= link_to obj.drugs.count, category_path(obj), class: "#{obj.color} cat link",  data: { pop: obj.id } %>
+      drugs
+    </div>
+  </div>
+</div>

@@ -9,7 +9,22 @@ has_errors = ->
   else
     false
 
-$ ->
+responsive_elements = ->
+  $('.ui.checkbox').checkbox()
+  # todo: replace the class selector with the id selector for a more specific approach
+  dropdown_effects = ['drop','horizontal flip','fade up','scale']
+  rand = dropdown_effects[Math.floor(Math.random() * dropdown_effects.length)]
+  $('.ui.pointing.dropdown').dropdown
+    allowAdditions: true
+    transition: "#{rand}"
+    on: 'hover'
+  return
+
+ready = ->
+  controller = window.location.pathname
+  regex = new RegExp("^/articles")
+  return false unless regex.test(controller)
+  responsive_elements()
   $submit = $('#article_submit_button')
   $submit.click ->
     if has_errors()
@@ -20,3 +35,6 @@ $ ->
       $('.ui.stacked.segment.form').submit()
       $submit.prop('enabled', false)
   $('input').change -> $submit.prop('enabled', true)
+
+$ ready
+$(document).on 'page:load', ready

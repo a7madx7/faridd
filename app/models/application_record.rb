@@ -4,5 +4,11 @@ class ApplicationRecord < ActiveRecord::Base
   # todo: make model validation to include references to other models on creation in all models ( i.e. drug.company is a must )
   scope :recent, -> { order(created_at: :desc) }
   # todo: update the logic based on the view count of the item
-  scope :trending, -> { }
+  scope :trending, -> { all }
+
+  class << self
+    def count
+      self.count
+    end
+  end
 end

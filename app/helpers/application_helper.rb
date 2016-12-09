@@ -24,4 +24,8 @@ module ApplicationHelper
         icon = 'idea'
     end
   end
+
+  def fine name
+    name.gsub('"', '').upcase
+  end
 end

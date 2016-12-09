@@ -1,10 +1,10 @@
-<%= semantic_will_paginate @articles %>
+<%= semantic_will_paginate obj %>
 <h1 class="ui centered header">Articles</h1>
 <br><br>
 <div class="main feed">
   <div class="ui four cards">
-    <%- if @articles %>
-        <%- @articles.each do |art| %>
+    <%- if obj %>
+        <%- obj.each do |art| %>
             <%= render 'articles/article', article: art %>
         <%- end %>
     <% end %>
@@ -12,5 +12,5 @@
 </div>
 
 <br>
-<%= semantic_will_paginate @articles %>
+<%= semantic_will_paginate obj %>
 <div id="modal"></div>

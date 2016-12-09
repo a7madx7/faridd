@@ -88,21 +88,15 @@ def category_company_seed
   puts 'Started seeding categories and companies...'
   read(DRUG_DB_FILE) do |d|
     begin
-      if d['category'].nil?
+      if d['category'].nil? or d['category'].to_s.empty?
         Category.create(name: "A NOT LISTED CATEGORY")
       else
-        newly_created_cat = Category.create(name: d['category'].downcase)
+        newly_created_cat = Category.where(name: d['category'].downcase).first_or_create
         # assign category id
         if d['parent_category']
-         parent_cat_relation = Category.where(name: d['parent_category'].downcase)
-         if parent_cat_relation.first.present?
-            parent = Category.create(name: d['parent_category'].downcase)
-            newly_created_cat.parent = parent
-            newly_created_cat.save
-         else # if the parent cat is already created
-            newly_created_cat.parent = parent_cat_relation.first
-            newly_created_cat.save
-         end
+         parent = Category.where(name: d['parent_category'].downcase).first_or_create
+         newly_created_cat.parent = parent
+         newly_created_cat.save
         end
       end
     rescue Exception => ex
@@ -124,76 +118,78 @@ def category_company_seed
   puts 'Finished seeding categories, companies.'
 end
 
+# creates generics, and drugs.
 def drug_seed
   puts 'Started seeding drugs...'
   read(DRUG_DB_FILE) do |d|
    # d is a decoded json line representing a drug object
     begin
-      unless d['name'].nil?
+      unless d['name'].nil? # if the json line contains a name for that drug
         drug = Drug.where(name: d['name'].downcase).first_or_create! do |drug|
+          # create this drug
           drug.name = d['name'].downcase
 
+          # country
           drug.country = Country.where(code: 'EG').first
-          unless d['company'].nil?
+
+          # company
+          unless d['company'].nil? # if json line contains a company just add it
             drug.company = Company.where(name: d['company'].downcase).first
           end
-          unless d['category'].nil?
-            drug.categories << Category.where(name: d['category'].downcase).first
+
+          # categories
+          unless d['category'].nil? # if the json line contains a category
+            drug_category = Category.where(name: d['category'].downcase).first # get that category
+            # if parent_category is present
+            drug_category = Category.where(name: d['parent_category'].downcase).first if d['category'].to_s.empty? and d['parent_category'].present?
+            drug.categories << drug_category
           end
+
+          # form
           unless d['form'].nil?
             drug.form = Form.where('name like ?', "%#{d['form']}%").first
           end
+
+          # contents
           unless d['contents'].nil?
             drug.contents = d['contents'].to_f
           end
+
+          # price
           unless d['price'].nil?
             drug.price = d['price'].to_s.to_f
           end
-          # Start seeding the generics to the drugs.
-          begin
-            # d is a single decoded json line
-            unless d['active_ingredient'].nil?
-              d['active_ingredient'].each do |ac|
-                begin
-                  g = Generic.where(name: ac['name'].downcase).first_or_create
-
-                  # add the wiki stuff to each and every generic you've got.
-                  require 'wikipedia'
-                  unless g.wikipedia_page_url
-                    Wikipedia.find(g.name).tap do |page|
-                      g.wikipedia_page_url = page.fullurl
-                      g.wikipedia_image_urls = page.image_urls
-                      g.wikipedia_links = page.links
-                      g.wikipedia_extlinks = page.extlinks
-                      g.wikipedia_summary = page.summary
-
-                      g.save
-                    end
-                  end
-
-                  drug.generics << g
-
-                rescue Exception => ex
-                  puts "Generic loading inside drug error: #{ex.message}"
-                  next
-                ensure
-
-                end
-              end
-            end
-          rescue Exception => err
-            puts "Error loading whole generics: #{err.message}"
-            next
-          end
         end
 
+        # Start seeding the generics to the drugs.
+        begin
+          # d is a single decoded json line
+          unless d['active_ingredient'].nil?
+            d['active_ingredient'].each do |ac|
+              begin
+                g = Generic.where(name: ac['name'].downcase).first_or_create
+
+                drug.generics << g
+              rescue Exception => ex
+                puts "Generic loading inside drug error: #{ex.message}"
+                next
+              ensure
+
+              end
+            end
+          end
+        rescue Exception => err
+          puts "Error loading whole generics: #{err.message}"
+          next
+        end
         # find the drug that has the same drug id as the current one
         # loop through its generics
         # assign a unit and concentration value to them
         begin
          unless d['active_ingredient'].nil?
            d['active_ingredient'].each do |ai|
-             DrugGeneric.where(drug_id: drug.id).first.tap do |medicine|
+             db_generic = Generic.where(name: ai['name'].downcase).first
+             DrugGeneric.where(drug_id: drug.id, generic_id: db_generic.id).first.tap do |medicine|
                begin
                  unit = Unit.where(name: ai['unit'].downcase).first_or_create
                  medicine.unit_id = unit.id
@@ -265,7 +261,7 @@ end
 
 def articles_seed
   puts 'Started seeding articles...'
-  Article.all.each { |article| article.destroy; article.save }
+  # Article.all.each { |article| article.destroy; article.save }
 
   66.times do |n|
     begin
@@ -301,15 +297,15 @@ def question_seed
   puts 'Finished seeding questions.'
 end
 
-# user_seed
-# country_seed
-# form_seed
-# unit_seed
+user_seed
+country_seed
+form_seed
+unit_seed
 
-# category_company_seed
+category_company_seed
 
-# diagnoses_seed
+diagnoses_seed
 articles_seed
-# question_seed
+question_seed
 
-# drug_seed
+drug_seed

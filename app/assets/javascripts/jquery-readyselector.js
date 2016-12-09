@@ -2,7 +2,7 @@
     var ready = $.fn.ready;
     $.fn.ready = function (fn) {
         if (this.context === undefined) {
-            // The $().application_ready(fn) case.
+            // The $().ready(fn) case.
             ready(fn);
         } else if (this.selector) {
             ready($.proxy(function(){

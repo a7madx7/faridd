@@ -2,10 +2,17 @@
     <div class="ui horizontal divider">Categories</div>
     <div class="ui labels">
       <%- drug.categories.each do |cat| %>
-          <div class="ui <%= cat.color %> label">
+          <div class="ui <%= cat.color.present? ? cat.color : 'teal' %> label">
             <%= semantic_icon(:tag) %>
-            <%= link_to cat.name, category_path(cat), class: 'category', style: 'color: #ffffff; font-weight: bolder;' %>
+            <%= link_to cat, category_path(cat), class: 'category', style: 'color: #ffffff; font-weight: bolder;' %>
           </div>
+          <%- if cat.parent %>
+          <div class="ui <%= cat.parent.color.present? ? cat.parent.color : 'teal' %> label">
+            <%= semantic_icon(:tag) %>
+            Parent category:
+                <%= link_to cat.parent, category_path(cat.parent), class: 'category', style: 'color: #ffffff; font-weight: bolder;' %>
+          </div>
+          <% end %>
       <% end %>
     </div>
 <% end %>
