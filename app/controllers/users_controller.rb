@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   respond_to :js, :html, :json, :xml
 
   def show
+    @user.view_count += 1
+    @user.save
+
     respond_to do |format|
       format.html
       format.js
@@ -19,6 +22,10 @@ class UsersController < ApplicationController
 
   def destroy
 
+  end
+
+  def popular
+    @users = User.popular.paginate(per_page: 20, page: params[:page])
   end
 
   private

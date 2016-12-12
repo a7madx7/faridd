@@ -17,6 +17,8 @@ class ArticlesController < ApplicationController
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @article.view_count += 1
+    @article.save
   end
 
   # GET /articles/new
@@ -76,6 +78,9 @@ class ArticlesController < ApplicationController
   end
   def trending
     @articles = Article.trending.paginate(per_page: 20, page: params[:page])
+  end
+  def popular
+    @articles = Article.popular.paginate(per_page: 20, page: params[:page])
   end
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208215734) do
+ActiveRecord::Schema.define(version: 20161212001134) do
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.string   "image_url"
+    t.integer  "view_count"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.string   "color"
     t.integer  "parent_category_id"
     t.text     "description"
+    t.integer  "view_count"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -70,6 +72,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.decimal  "reputation"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "view_count"
     t.index ["country_id"], name: "index_companies_on_country_id"
     t.index ["drug_id"], name: "index_companies_on_drug_id"
   end
@@ -115,6 +118,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.integer  "form_id"
     t.integer  "company_id"
     t.string   "image_url"
+    t.integer  "view_count"
     t.index ["category_id"], name: "index_drugs_on_category_id"
     t.index ["company_id"], name: "index_drugs_on_company_id"
     t.index ["country_id"], name: "index_drugs_on_country_id"
@@ -147,6 +151,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.string   "wikipedia_image_urls"
     t.string   "wikipedia_links"
     t.string   "wikipedia_extlinks"
+    t.integer  "view_count"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -235,6 +240,7 @@ ActiveRecord::Schema.define(version: 20161208215734) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "view_count"
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

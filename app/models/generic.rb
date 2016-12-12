@@ -7,10 +7,10 @@ class Generic < ApplicationRecord
 
   # scope :same, same_as(drug)
 
+  scope :popular, -> {
+    Generic.order(view_count: :desc)
+  }
 
-  # def invented_at
-  #   invented_at.nil? ? 'Not yet known!' : invented_at
-  # end
   def to_s(drug_id = nil)
     if drug_id
       "#{name.upcase} #{unit(drug_id)}"

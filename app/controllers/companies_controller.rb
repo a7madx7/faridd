@@ -10,6 +10,8 @@ class CompaniesController < ApplicationController
   # GET /companies/1
   # GET /companies/1.json
   def show
+    @country.view_count += 1
+    @country.save
     country_code = @company.country.present? ? @company.country.code.downcase : 'eg'
     @country = Country.where(code: country_code.upcase).take
   end
@@ -61,6 +63,10 @@ class CompaniesController < ApplicationController
       format.html { redirect_to companies_url, notice: 'Company was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def popular
+    @companies = Company.popular.paginate(per_page: 20, page: params[:page])
   end
 
   private

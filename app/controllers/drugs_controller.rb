@@ -13,6 +13,8 @@ class DrugsController < ApplicationController
   # GET /drugs/1
   # GET /drugs/1.json
   def show
+    @drug.view_count += 1
+    @drug.save
     @color = @drug.categories.first.color.present? ? @drug.categories.first.color : 'green'
   end
 
@@ -82,6 +84,9 @@ class DrugsController < ApplicationController
 
   def trending
     @drugs = Drug.trending.paginate(per_page: 20, page: params[:page])
+  end
+  def popular
+    @drugs = Drug.popular.paginate(per_page: 20, page: params[:page])
   end
   private
     # Use callbacks to share common setup or constraints between actions.
