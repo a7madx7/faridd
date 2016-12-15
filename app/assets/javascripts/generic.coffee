@@ -6,7 +6,8 @@ ready = ->
   regex = new RegExp("^/generics")
   return false unless regex.test(controller)
   $loader = $('#loader')
-  $loader.show()
+  $('.fluid.card a').on 'click', ->
+    $loader.show()
   alertify.success('Generics loaded')
   $loader.hide()
 

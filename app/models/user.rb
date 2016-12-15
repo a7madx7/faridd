@@ -25,6 +25,10 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates_uniqueness_of :username, :email
 
+  scope :popular, -> {
+    User.order(view_count: :desc)
+  }
+
   def method_missing(name, *args, &block)
     case name
       when /.*name/

@@ -11,6 +11,10 @@ class Article < ApplicationRecord
   validates :title, presence: true, length: (3..128)
   validates :content, presence: true, length: (16..1024)
 
+  scope :popular, -> {
+    Article.order(view_count: :desc)
+  }
+
   class << self
 
   end

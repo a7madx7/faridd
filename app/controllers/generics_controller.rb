@@ -14,7 +14,12 @@ class GenericsController < ApplicationController
   end
 
   def show
-
+    @generic.view_count += 1
+    @generic.save
+    # if the user is using an older slug
+    if request.path != generic_path(@generic)
+      redirect_to @generic, status: :moved_permanently
+    end
   end
   def update
 
@@ -53,10 +58,14 @@ class GenericsController < ApplicationController
   def trending
     @generics = Generic.trending.paginate(per_page: 33, page: params[:page])
   end
+  def popular
+    @generics = Generic.popular.paginate(per_page: 20, page: params[:page])
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_generic
-    @generic = Generic.where(id: params[:id]).first
+    @generic = Generic.friendly.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

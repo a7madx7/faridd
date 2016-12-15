@@ -10,6 +10,8 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    @category.view_count += 1
+    @category.save
     @drugs = @category.drugs.paginate(per_page: 40, page: params[:page])
   end
 
@@ -60,6 +62,10 @@ class CategoriesController < ApplicationController
       format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def popular
+    @categories = Category.popular.paginate(per_page: 20, page: params[:page])
   end
 
   private

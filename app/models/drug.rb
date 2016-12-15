@@ -18,6 +18,9 @@ class Drug < ApplicationRecord
   validates :name, presence: true, uniqueness: true, length: (2..64)
   scope :cheap, -> { order(price: :asc) }
   scope :pricey, -> { order(price: :desc) }
+  scope :popular, -> {
+    Drug.order(view_count: :desc)
+  }
 
   class << self
     def search(q)
@@ -50,7 +53,7 @@ class Drug < ApplicationRecord
   def identical_drugs_by(attr = 'price')
     g = generics
     # Drug.joins(:generics).where('drug_generics.generic_id in (:gs) and drug_generics.concentration = :con', gs: g.ids, con: concentration).each.reject { |d| d != self}
-    Drug.joins(:generics).where('drug_generics.generic_id in (:gs)', gs: g.ids).each.reject { |d| d != self}
+    Drug.joins(:generics).where('drug_generics.generic_id in (:gs)', gs: g.ids).each.reject { |d| d != self }
   end
 
   alias_method :identical_drugs, :identical_drugs_by

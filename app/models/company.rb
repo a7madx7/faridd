@@ -11,6 +11,10 @@ class Company < ApplicationRecord
                             allow_nil: true,
                             allow_blank: true
 
+  scope :popular, -> {
+    Company.order(view_count: :desc)
+  }
+
   # todo: validate name against bad words in articles down here (strict validation)
   class << self
     def search(q)

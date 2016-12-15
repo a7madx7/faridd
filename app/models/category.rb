@@ -17,6 +17,9 @@ class Category < ApplicationRecord
       cat.drugs.where('price > 30')
   }
 
+  scope :popular, -> {
+    Category.order(view_count: :desc)
+  }
   def drugs_in
     # search drugs inside a certain category
     Drug.joins(:categories).where(categories: { id: [1,2,3,4,5] }).where('drugs.name like ?', "%ant%")
@@ -35,11 +38,11 @@ class Category < ApplicationRecord
       name.gsub('"', '')
     # /\s&.*/i
     elsif name =~ /&/i # matches Pregnancy &lactation
-      name.gsub(/&/, ' & ')
+      name.gsub('&', ' & ')
     # /[^\s]*&\s/i
     # /\s,.*/i
     elsif name =~ /,/i
-      name.gsub(/,/i, ', ')
+      name.gsub(',', ', ')
     end
     self.save
     name.upcase
@@ -64,6 +67,7 @@ class Category < ApplicationRecord
   def active_popular
     # Category.order(:updated_at, :view_count)
   end
+
   def passive_popular
     # Category.order(updated_at: :asc, :view_count)
   end
@@ -71,7 +75,7 @@ class Category < ApplicationRecord
   def color
     return 'teal' unless name
     name.downcase!
-    if name['antimicrobial'] or name['cancer'] or name['hiv'] or name['aids'] or name['biotic'] or name['cephalo'] or name['quinolon'] or name['tetra'] or name['toxin'] or name['vaccine'] or name['combination'] or name['hepatitis'] or name['marcolides']
+    if name['anti'] or name['cancer'] or name['hiv'] or name['aids'] or name['cephalo'] or name['quinolon'] or name['tetra'] or name['toxin'] or name['vaccine'] or name['combination'] or name['hepatitis'] or name['marcolides']
       'red'
     elsif name['vitamin'] or name['skin'] or name['supplement'] or name['complement'] or name['preparation'] or name['massage'] or name['care']
       'blue'

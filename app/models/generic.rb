@@ -7,10 +7,14 @@ class Generic < ApplicationRecord
 
   # scope :same, same_as(drug)
 
+  scope :popular, -> {
+    Generic.order(view_count: :desc)
+  }
 
-  # def invented_at
-  #   invented_at.nil? ? 'Not yet known!' : invented_at
-  # end
+
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :history]
+
   def to_s(drug_id = nil)
     if drug_id
       "#{name.upcase} #{unit(drug_id)}"
@@ -66,7 +70,12 @@ class Generic < ApplicationRecord
     require 'json'
     if wikipedia_image_urls
       begin
-        ActiveSupport::JSON.decode(wiki('wikipedia_image_urls')).reject! { |a| a['Yes_check'] or a['X_mark'] or a['Lock-green'] }
+        irrelative_images = %w(Yes_check X_mark Lock-green Commons Padlock Question Check Answer Wikipedia Wikimedia Porn)
+        decoded_images = ActiveSupport::JSON.decode(wiki('wikipedia_image_urls'))
+        irrelative_images.each do |ir|
+          decoded_images.reject! { |a| a[ir] }
+        end
+        decoded_images
       rescue
       end
     end
