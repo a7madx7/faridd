@@ -19,6 +19,7 @@
                          DELETE /formulations/:id(.:format)                        formulations#destroy
          recent_articles GET    /articles/recent(.:format)                         articles#recent
        trending_articles GET    /articles/trending(.:format)                       articles#trending
+        popular_articles GET    /articles/popular(.:format)                        articles#popular
                 articles GET    /articles(.:format)                                articles#index
                          POST   /articles(.:format)                                articles#create
              new_article GET    /articles/new(.:format)                            articles#new
@@ -76,6 +77,7 @@
                          PATCH  /comments/:id(.:format)                            comments#update
                          PUT    /comments/:id(.:format)                            comments#update
                          DELETE /comments/:id(.:format)                            comments#destroy
+       popular_companies GET    /companies/popular(.:format)                       companies#popular
                companies GET    /companies(.:format)                               companies#index
                          POST   /companies(.:format)                               companies#create
              new_company GET    /companies/new(.:format)                           companies#new
@@ -84,6 +86,7 @@
                          PATCH  /companies/:id(.:format)                           companies#update
                          PUT    /companies/:id(.:format)                           companies#update
                          DELETE /companies/:id(.:format)                           companies#destroy
+      popular_categories GET    /categories/popular(.:format)                      categories#popular
               categories GET    /categories(.:format)                              categories#index
                          POST   /categories(.:format)                              categories#create
             new_category GET    /categories/new(.:format)                          categories#new
@@ -96,8 +99,10 @@
              cheap_drugs GET    /drugs/cheap(.:format)                             drugs#cheap
             recent_drugs GET    /drugs/recent(.:format)                            drugs#recent
           trending_drugs GET    /drugs/trending(.:format)                          drugs#trending
+           popular_drugs GET    /drugs/popular(.:format)                           drugs#popular
          recent_generics GET    /generics/recent(.:format)                         generics#recent
        trending_generics GET    /generics/trending(.:format)                       generics#trending
+        popular_generics GET    /generics/popular(.:format)                        generics#popular
                 generics GET    /generics(.:format)                                generics#index
                          POST   /generics(.:format)                                generics#create
              new_generic GET    /generics/new(.:format)                            generics#new
@@ -122,6 +127,7 @@
                          PATCH  /drugs/:id(.:format)                               drugs#update
                          PUT    /drugs/:id(.:format)                               drugs#update
                          DELETE /drugs/:id(.:format)                               drugs#destroy
+       popular_countries GET    /countries/popular(.:format)                       countries#popular
                countries GET    /countries(.:format)                               countries#index
                          POST   /countries(.:format)                               countries#create
              new_country GET    /countries/new(.:format)                           countries#new
@@ -206,4 +212,12 @@ cancel_user_registration GET    /users/cancel(.:format)                         
                          PATCH  /users/:id(.:format)                               users#update
                          PUT    /users/:id(.:format)                               users#update
                          DELETE /users/:id(.:format)                               users#destroy
+              activities GET    /activities(.:format)                              activities#index
+                         POST   /activities(.:format)                              activities#create
+            new_activity GET    /activities/new(.:format)                          activities#new
+           edit_activity GET    /activities/:id/edit(.:format)                     activities#edit
+                activity GET    /activities/:id(.:format)                          activities#show
+                         PATCH  /activities/:id(.:format)                          activities#update
+                         PUT    /activities/:id(.:format)                          activities#update
+                         DELETE /activities/:id(.:format)                          activities#destroy
                     root GET    /                                                  welcome#home

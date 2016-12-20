@@ -126,4 +126,7 @@ class Generic < ApplicationRecord
     end
     self.send("#{condition}")
   end
+
+  include PublicActivity::Model
+  tracked owner: -> (controller, model) { controller&.current_user }
 end

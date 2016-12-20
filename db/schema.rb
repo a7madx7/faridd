@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215000300) do
+ActiveRecord::Schema.define(version: 20161218195632) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "trackable_type"
+    t.integer  "trackable_id"
+    t.string   "owner_type"
+    t.integer  "owner_id"
+    t.string   "key"
+    t.text     "parameters"
+    t.string   "recipient_type"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+  end
 
   create_table "answers", force: :cascade do |t|
     t.text     "content"
@@ -108,18 +124,14 @@ ActiveRecord::Schema.define(version: 20161215000300) do
   create_table "drugs", force: :cascade do |t|
     t.string   "name"
     t.integer  "country_id"
-    t.integer  "category_id"
     t.float    "price"
-    t.float    "concentration"
-    t.string   "unit"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.decimal  "contents"
     t.integer  "form_id"
     t.integer  "company_id"
     t.string   "image_url"
     t.integer  "view_count"
-    t.index ["category_id"], name: "index_drugs_on_category_id"
     t.index ["company_id"], name: "index_drugs_on_company_id"
     t.index ["country_id"], name: "index_drugs_on_country_id"
     t.index ["form_id"], name: "index_drugs_on_form_id"

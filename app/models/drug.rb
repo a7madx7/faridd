@@ -89,4 +89,7 @@ class Drug < ApplicationRecord
         'http://marshallan.org/wp-content/uploads/2015/02/drugs.jpg'
       end
   end
+
+  include PublicActivity::Model
+  tracked owner: -> (controller, model) { controller&.current_user }
 end

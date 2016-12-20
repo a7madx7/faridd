@@ -46,13 +46,14 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- Category.most_popular.each do |cat| %>
-            <%- cache cat do %>
-                <%= link_to category_path(cat), class: 'item' do %>
-                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
-                <% end %>
-             <% end %>
+        <%- if @most_popular_categories %>
+            <%- @most_popular_categories.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
+        <%- else %>
+            <%- Category.most_popular.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
         <% end %>
       </div>
     </div>
@@ -62,13 +63,14 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- Category.least_popular.each do |cat| %>
-            <%- cache cat do %>
-                <%= link_to category_path(cat), class: 'item' do %>
-                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
-                <% end %>
-                <% end %>
+        <%- if @least_popular_categories %>
+            <%- @least_popular_categories.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
+        <%- else %>
+            <%- Category.least_popular.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
         <% end %>
       </div>
     </div>

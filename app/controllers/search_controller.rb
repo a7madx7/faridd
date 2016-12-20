@@ -30,10 +30,10 @@ class SearchController < ApplicationController
      respond_to do |format|
        format.json { render 'search/add_model', layout: false, content_type: 'application/json'}
      end
-   else
-     @drug_results = Drug.search(@term).order(:name).first(6)
-     @generic_results = Generic.search(@term).order(:name).first(6)
-     @user_results = User.search(@term).order(:first_name).first(6)
+   else # if global search is triggered
+     @drug_results = Drug.search(@term).order(:name).limit(6)
+     @generic_results = Generic.search(@term).order(:name).limit(6)
+     @user_results = User.search(@term).order(:first_name).limit(6)
 
      respond_to do |format|
        format.json

@@ -1,0 +1,6 @@
+<%- cache cat do %>
+    <%= link_to category_path(cat), class: 'item' do %>
+        <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
+        <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
+    <% end %>
+<% end %>

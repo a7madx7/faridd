@@ -14,6 +14,8 @@ gem 'paperclip'
 gem 'parallel'
 gem 'wikipedia-client'
 gem 'friendly_id', '~> 5.2'
+gem 'public_activity'
+
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

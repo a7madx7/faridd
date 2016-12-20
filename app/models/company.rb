@@ -25,4 +25,7 @@ class Company < ApplicationRecord
       where('sponsored = true')
     end
   end
+
+  include PublicActivity::Model
+  tracked owner: -> (controller, model) { controller&.current_user }
 end
