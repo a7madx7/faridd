@@ -15,7 +15,7 @@ class DrugsController < ApplicationController
   def show
     @drug.view_count += 1
     @drug.save
-    @color = @drug.categories.first.color.present? ? @drug.categories.first.color : 'green'
+    @color = @drug.categories.first.cat_color
   end
 
   # GET /drugs/new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161218195632) do
+ActiveRecord::Schema.define(version: 20161224232427) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "trackable_type"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20161218195632) do
     t.integer  "parent_category_id"
     t.text     "description"
     t.integer  "view_count"
+    t.index ["name"], name: "categories_name_uindex", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -270,6 +271,16 @@ ActiveRecord::Schema.define(version: 20161218195632) do
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "youtube_videos", force: :cascade do |t|
+    t.integer  "animatable_id"
+    t.string   "animatable_type"
+    t.string   "vid_id"
+    t.text     "thumbnails"
+    t.string   "title"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

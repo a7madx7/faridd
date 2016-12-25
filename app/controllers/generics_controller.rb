@@ -20,6 +20,14 @@ class GenericsController < ApplicationController
     if request.path != generic_path(@generic)
       redirect_to @generic, status: :moved_permanently
     end
+
+    unless @generic&.youtube_videos.count > 3
+      begin
+        @generic.youtube
+      rescue
+        redirect_to 'puplic/404.html'
+      end
+    end
   end
   def update
 

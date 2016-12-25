@@ -1,4 +1,32 @@
-<ul class="no-bullets ui centered attached orange segment">
-  <%= render 'generics/generic', g: @generic %>
-</ul>
-<%= link_to "View #{@generic.name} on wikipedia", @generic.wikipedia_page_url, class: 'ui centered bottom attached orange button' %>
+<div class="ui two columns grid">
+ <div class="column">
+   <ul class="no-bullets ui centered attached orange segment">
+     <%= render 'generics/generic', g: @generic %>
+   </ul>
+   <%= link_to "View #{@generic.name} on wikipedia", @generic.wikipedia_page_url, class: 'ui centered bottom attached orange button' %>
+
+ </div>
+  <div class="red segment colum">
+    <%- @generic.youtube_videos.each do |vid| %>
+        <%= link_to "http://youtube.com/watch?v=#{vid.vid_id}" do %>
+           <div class="ui card">
+             <div class="ui image">
+               <img src="<%= vid.medium_thumbnail %>">
+             </div>
+             <div class="content">
+               <a class="header"><%= vid.title %></a>
+               <div class="meta">
+                 <span class="date">Started in 2014</span>
+               </div>
+             </div>
+             <div class="extra content">
+               <a>
+                 <i class="user icon"></i>
+                 22 Friends
+               </a>
+             </div>
+           </div>
+        <% end %>
+   <% end %>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 
 
 <div class="drug_card column">
-  <%- @color = drug.categories.first.present? ? suppress(Exception) { drug.categories.first.color } : 'green' %>
+  <%- @color = drug.categories.first.present? ? suppress(Exception) { drug.categories.first.cat_color } : 'green' %>
   <div class="ui <%= @color %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
     <div class="content">
       <%= link_to drug_path(drug), class: "ui #{@color} ribbon label"  do %>

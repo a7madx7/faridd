@@ -1,3 +1,15 @@
 // Place all the styles related to the Welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$main-color: #8A0753;
+
+#welcome_header{
+  color: $main-color;
+  font-weight: bold;
+  font-size: 2em;
+  span{
+    font-weight: bolder;
+    font-size: 2.2em;
+    color: #78023d;
+  }
+}

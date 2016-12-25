@@ -1,6 +1,6 @@
 <%- cache cat do %>
     <%= link_to category_path(cat), class: 'item' do %>
-        <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
-        <span><strong><%= "#{cat.name.upcase} (#{cat.drugs.count})" %></strong></span>
+        <%= semantic_icon("#{cat.cat_color}", :tag) %>
+        <span><strong><%= "#{cat.id}: #{cat.name.upcase} contains (#{cat.drugs.count} drugs) = (#{number_to_currency(cat.drugs.sum(:price))})" %></strong></span>
     <% end %>
 <% end %>

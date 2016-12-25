@@ -35,23 +35,23 @@
 </div>
 
 <div class='ui pointing dropdown link icon item'>
-  <%= semantic_icon('purple tags') %>
+  <%= semantic_icon('purple list') %>
   &nbsp;
   <span class="text">Categories</span>
   <%= semantic_icon(:dropdown) %>
   <div class="ui vertical menu">
 
     <div class="ui dropdown item">
-      Most popular categories
+      Famous categories
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- if @most_popular_categories %>
-            <%- @most_popular_categories.each do |cat| %>
+        <%- if @famous_cats %>
+            <%- @famous_cats.each do |cat| %>
                 <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <%- else %>
-            <%- Category.most_popular.each do |cat| %>
+            <%- Category.famous.each do |cat| %>
                 <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <% end %>
@@ -59,16 +59,16 @@
     </div>
 
     <div class="ui dropdown item">
-      Least popular categories
+      Infamous categories
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- if @least_popular_categories %>
-            <%- @least_popular_categories.each do |cat| %>
+        <%- if @infamous_cats %>
+            <%- @infamous_cats.each do |cat| %>
                 <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <%- else %>
-            <%- Category.least_popular.each do |cat| %>
+            <%- Category.infamous.each do |cat| %>
                 <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <% end %>
@@ -82,13 +82,13 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- session[:pricey_cats].each do |c| %>
-            <%- cat = Category.find(c[0]) %>
-            <%- cache cat do %>
-                <%= link_to category_path(cat), class: 'item' do %>
-                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat.name.upcase} (#{number_to_currency(c[1])})" %></strong></span>
-                <% end %>
+        <%- if @pricey_cats %>
+            <%- @pricey_cats.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
+        <%- else %>
+            <%- Category.pricey.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <% end %>
       </div>
@@ -99,13 +99,13 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         <div class="header">CLICK ANY CATEGORY TO VIEW IT</div>
-        <%- session[:cheap_cats].each do |c| %>
-            <%- cat = Category.find(c[0]) %>
-            <%- cache cat do %>
-                <%= link_to category_path(cat), class: 'item' do %>
-                    <%= semantic_icon("#{cat.color.present? ? cat.color : 'purple'}", :tag) %>
-                    <span><strong><%= "#{cat.name.upcase} (#{number_to_currency(c[1])})" %></strong></span>
-                <% end %>
+        <%- if @cheap_cats %>
+            <%- @cheap_cats.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
+            <% end %>
+        <%- else %>
+            <%- Category.cheap.each do |cat| %>
+                <%= render 'layouts/cat_link', cat: cat %>
             <% end %>
         <% end %>
       </div>
@@ -146,7 +146,7 @@
   </div>
 </div>
 <div class='ui pointing dropdown link icon item'>
-  <%= semantic_icon('purple registered') %>
+  <%= semantic_icon('purple trademark') %>
   &nbsp;
   <span class="text">Drugs</span>
   <%= semantic_icon(:dropdown) %>

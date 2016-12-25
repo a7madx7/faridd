@@ -42,11 +42,12 @@ class ApplicationController < ActionController::Base
   end
 
   def prepare_stats
-    unless session[:cheap_cats]
-      session[:cheap_cats] = Category.cheap
-    end
-    unless session[:pricey_cats]
-      session[:pricey_cats] = Category.pricey
-    end
+    # session.clear
+    # unless session[:cheap_cats]
+    #   session[:cheap_cats] = Category.cheap
+    # end
+    # unless session[:pricey_cats]
+    #   session[:pricey_cats] = Category.pricey
+    # end
   end
 end

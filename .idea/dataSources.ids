@@ -348,6 +348,7 @@
       <column name="description" sqlType="TEXT" precision="0" scale="-1" nullable="true" jdbcType="12"/>
       <column name="view_count" sqlType="INTEGER" precision="0" scale="-1" nullable="true" jdbcType="4"/>
       <primary-key columns="id"/>
+      <index name="categories_name_uindex" unique="true" columns="name"/>
     </table>
     <table name="comments" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INTEGER" precision="0" scale="-1" nullable="false" jdbcType="4"/>

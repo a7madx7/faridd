@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   has_many :drugs, through: :drug_categories
 
   has_many :likes
+  has_many :youtube_videos, as: :animatable
 
   validates :name, presence: true, uniqueness: true, length: (2..128)
   validates :color, length: (0..64), allow_nil: true, allow_blank: true
@@ -20,6 +21,25 @@ class Category < ApplicationRecord
   scope :popular, -> {
     Category.order(view_count: :desc)
   }
+
+
+  scope :by_drug_prices, -> (sort = 'desc', limit = 20){
+        # select('categories.id, categories.name, categories.color, categories.updated_at, categories.created_at, sum(drugs.price) as total_drugs').
+        joins(:drugs)
+        .group('categories.id, categories.name')
+        .select('categories.*, sum(drugs.price) as total_value')
+        .order("total_value #{sort}")
+        .limit(limit)
+  }
+  scope :by_drugs_count, -> (sort, limit){
+      joins(:drugs)
+      .select('drugs.*, categories.*, count(drug_id) as drugs_count')
+      .group('drug_id')
+      .order("drugs_count #{sort}")
+      .limit(limit)
+  }
+
+
   def drugs_in
     # search drugs inside a certain category
     Drug.joins(:categories).where(categories: { id: [1,2,3,4,5] }).where('drugs.name like ?', "%ant%")
@@ -72,32 +92,35 @@ class Category < ApplicationRecord
     # Category.order(updated_at: :asc, :view_count)
   end
 
-  def color
+  def cat_color
+    return color if color&.present?
     return 'teal' unless name
     name.downcase!
     if name['anti'] or name['cancer'] or name['hiv'] or name['aids'] or name['cephalo'] or name['quinolon'] or name['tetra'] or name['toxin'] or name['vaccine'] or name['combination'] or name['hepatitis'] or name['marcolides']
-      'red'
+      color = 'red'
     elsif name['vitamin'] or name['skin'] or name['supplement'] or name['complement'] or name['preparation'] or name['massage'] or name['care']
-      'blue'
+      color = 'blue'
     elsif name['erect'] or name['aphrodisiac'] or name['delay'] or name['sex']
-      'pink'
+      color = 'pink'
     elsif name['depres'] or name['psyc'] or name['leptic']
-      'brown'
+      color = 'brown'
     elsif name['diuretic'] or name['ace'] or name['ca channel'] or name['beta block'] or name['hypertens'] or name['heart'] or name['failure']
-      'orange'
+      color = 'orange'
     elsif name['inflammatory'] or name['pyretic'] or name['analgesic'] or name['anti-rheum'] or name['allerg']
-      'violet'
+      color = 'violet'
     elsif name['cosmetic'] or name['accessory']
-      'green'
+      color = 'green'
     elsif name['vaginal'] or name['gargle'] or name['wash'] or name['paint']
-      'yellow'
+      color = 'yellow'
     elsif name['proton'] or name['cholesterol'] or name['h2'] or name['antacid']
-      'black'
+      color = 'black'
     elsif name['burn'] or name['sun']
-      'grey'
+      color = 'grey'
     else
-      'teal'
+      color = 'teal'
     end
+    save
+    color
   end
 
   class << self
@@ -105,40 +128,32 @@ class Category < ApplicationRecord
       where('name like :value', value: "%#{q}%")
     end
     ### get the categories with the most number of drugs associated with it.
-    def most_popular
-      @most_popular_categories ||= all.sort { |a, b| b.drugs.count <=> a.drugs.count }.first(20)
+    def famous
+      # @famous_cats ||= all.sort { |a, b| b.drugs.count <=> a.drugs.count }.first(20)
+
+      @famous_cats ||= by_drugs_count('asc', 20)
       # @most_popular_categories = Category.joins(:drugs).order('count "drugs"')
       # joins(:drug_categories).order('drug_categories.category_id = ?')
     end
 
     ### get the categories with the least number of drugs associated with it.
-    def least_popular
-      @least_popular_categories ||= all.sort { |a, b| a.drugs.count <=> b.drugs.count }
-                                        .reject { |category| category.drugs.count < 2 }.first(20)
-
+    def infamous
+      # @infamous_cats ||= all.sort { |a, b| a.drugs.count <=> b.drugs.count }
+      #                                   .reject { |category| category.drugs.count < 2 }.first(20)
+       @infamous_cats ||= by_drugs_count('asc', 20)
     end
 
     def pricey
-      @pricey_categories ||= all.map { |cat| [cat.id, cat.drugs.sum(:price)] }
-                                 .sort { |a, b| b[1] <=> a[1] }.first(20)
-
+      @pricey_cats ||= Category.by_drug_prices('desc', 20)
     end
 
     def cheap
-      @cheap_categories ||= all.map { |cat|
-        sum = cat.drugs.sum(:price)
-        next if sum < 100
-        [cat.id, sum]
-      }
-      .compact
-      .sort { |a, b|
-        a[1] <=> b[1]
-      }.first(20)
+      @cheap_cats ||= Category.by_drug_prices('asc', 20)
     end
-  end
 
   #todo: if the category is 50 EGP cheap or any other predefined value
   #then we have to remove it and assign the drug to anoter category
   # some categories can have only one drug but the drug is very expensive
   # so this kind of category will be left alone
+  end
 end

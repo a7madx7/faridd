@@ -3,10 +3,10 @@
       <i class="tasks icon"></i>Contains
     </div>
     <br /> <br />
-    <div class="ui <%= drug.categories.first.color %> segment">
+    <div class="ui <%= drug.categories.first.cat_color %> segment">
       <% drug.generics.each_with_index do |generic, i| %>
           <p>
-            <span class="ui <%= drug.categories.first.color %> round label"><%= i + 1 %></span>
+            <span class="ui <%= drug.categories.firstcat_.color %> round label"><%= i + 1 %></span>
             <strong><%= link_to generic.to_s(drug.id), generic_path(generic) %></strong>
           </p>
           <br>
@@ -16,7 +16,7 @@
 <% else %>
     <div class="ui ribbon red label">No ingredients listed</div>
     <br /> <br />
-    <div class="ui <%= drug.categories.take.color %> segment">
+    <div class="ui <%= drug.categories.take.cat_color %> segment">
       There seems to be no listed active ingredients for the current shown drug
       <%= link_to 'Want to add them?', new_generic_path %>
     </div>

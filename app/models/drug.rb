@@ -16,6 +16,9 @@ class Drug < ApplicationRecord
   belongs_to :form
 
   validates :name, presence: true, uniqueness: true, length: (2..64)
+  # to always show the drugs of the user's country
+  # default_scope { same_country }
+
   scope :cheap, -> { order(price: :asc) }
   scope :pricey, -> { order(price: :desc) }
   scope :popular, -> {
@@ -75,11 +78,21 @@ class Drug < ApplicationRecord
   end
 
   def same_company_same_price
-
+    same_company.same_price
   end
 
   def same_country_same_price
+      same_country.same_price
+  end
 
+  def same_company
+    where('company_id = :company', company: company.id)
+  end
+  def same_price
+    where('price = :p', p: price)
+  end
+  def same_country
+    where('country_id = :c', c: country.id)
   end
 
   def picture

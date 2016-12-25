@@ -1,5 +1,5 @@
 <div class="ui attached popup" id="category_popup_<%= obj.id %>">
-  <div class="<%= obj.color %> header">
+  <div class="<%= obj.cat_color %> header">
     <%= fine obj.to_s %>
     <%- if obj.parent %>
       <br>
@@ -17,10 +17,10 @@
 
 <div class="ui card <%= obj.color %> <%= obj.text_orientation %> segment" id="category_card_<%= obj.id %>" >
   <div class="content">
-   <%= link_to fine(obj.to_s), category_path(obj), class: "#{obj.parent.color} cat header link", data: { pop: obj.id } %>
+   <%= link_to fine(obj.to_s), category_path(obj), class: "#{obj.parent.cat_color} cat header link", data: { pop: obj.id } %>
     <div class="meta">
       <%- if obj.parent %>
-          <%= link_to category_path(obj.parent), class: "#{obj.parent.color} cat link",  data: { pop: obj.id } do %>
+          <%= link_to category_path(obj.parent), class: "#{obj.parent.cat_color} cat link",  data: { pop: obj.id } do %>
               Parent category: <%= obj.parent %>
           <% end %>
           <br>
@@ -31,7 +31,7 @@
     </div>
     <div class="description">
       Contains
-      <%= link_to obj.drugs.count, category_path(obj), class: "#{obj.color} cat link",  data: { pop: obj.id } %>
+      <%= link_to obj.drugs.count, category_path(obj), class: "#{obj.cat_color} cat link",  data: { pop: obj.id } %>
       drugs
     </div>
   </div>

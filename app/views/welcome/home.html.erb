@@ -1,49 +1,15 @@
 <div class="centered" id="welcome" data-anijs="if: click, on: #welcome, do: swing animated">
   <br>
-  <h1 id="welcome_header">Welcome to faridd.com</h1>
+  <h1 id="welcome_header">Welcome to <span>f</span>aridd.com</h1>
   <p class="description" id="welcome_description" data-anijs="do: bounceInRight">The most intelligent drug api on planet earth</p>
 </div>
 
 <br><br>
 <div class="main feed">
-  <div class="ui four brown centered statistics">
-    <div class="statistic">
-      <div class="value">
-        <%= User.all.count %>
-        <i class="user icon"></i>
-      </div>
-      <div class="label">
-        Users
-      </div>
-    </div>
-
-    <div class="statistic">
-      <div class="value">
-        <%= Drug.all.count %>
-        <i class="registered icon"></i>
-      </div>
-      <div class="label">
-        Drugs
-      </div>
-    </div>
-    <div class="statistic">
-      <div class="value">
-        <%= Generic.all.count %>
-        <i class="lab icon"></i>
-      </div>
-      <div class="label">
-        Generics
-      </div>
-    </div>
-    <div class="statistic">
-      <div class="value">
-        <%= Article.all.count %>
-        <i class="edit icon"></i>
-      </div>
-      <div class="label">
-        Articles
-      </div>
-    </div>
+  <div class="ui brown centered two massive statistics">
+    <%- models.each do |name, icon| %>
+        <%= stat name, icon %>
+    <% end %>
   </div>
   <br><br>
 <%- if @users %>

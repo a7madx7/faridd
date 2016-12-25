@@ -2,6 +2,7 @@ class Generic < ApplicationRecord
   has_many :drug_generics
   has_many :drugs, through: :drug_generics
   has_many :likes
+  has_many :youtube_videos, as: :animatable
 
   validates :name, presence: true, length: (2..128), uniqueness: true
 
@@ -125,6 +126,19 @@ class Generic < ApplicationRecord
       end
     end
     self.send("#{condition}")
+  end
+
+  def youtube
+    client = Yourub::Client.new
+    results = []
+    client.search(query: name) do |v|
+      results << v
+    end
+    results.each do |v|
+      youtube_videos << YoutubeVideo.first_or_create(vid_id: v['id'], title: v['snippet']['title'], thumbnails: v['snippet']['thumbnails'])
+    end
+    save
+    youtube_videos
   end
 
   include PublicActivity::Model

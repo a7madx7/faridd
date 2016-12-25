@@ -15,6 +15,7 @@ gem 'parallel'
 gem 'wikipedia-client'
 gem 'friendly_id', '~> 5.2'
 gem 'public_activity'
+gem 'yourub'
 
 # Use sqlite3 as the database for Active Record
 # Use Puma as the app server

@@ -5,7 +5,7 @@
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <!--<link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">-->
+    <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
   </head>
 
   <body>
@@ -29,7 +29,7 @@
 
 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-<% if Rails.env.production? %>
+<% if Rails.env.production? or true %>
     <%= javascript_include_tag('ani') %>
     <%= javascript_include_tag('anijs-scrollreveal') %>
 <% end %>
