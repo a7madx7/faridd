@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="content">
+    <%- if offer.image_url.present? %>
+        <img class="right floated mini ui image" src="<%= offer.image_url %>">
+    <% end %>
+    <div class="header">
+      <%= "Drug name should go here" %>
+    </div>
+    <div class="meta">
+      Since <%= time_ago_in_words(offer.created_at) %> ago
+    </div>
+    <div class="description">
+      <%= offer.amount.present? ? offer.amount : 0 %> on
+      <br>
+      <%= offer.discount.present? ? offer.discount : 0 %> % discount
+    </div>
+  </div>
+  <div class="extra content">
+    <div class="ui three orange inverted buttons">
+      <div class="ui icon button">
+        <i class="shopping cart icon"></i>
+      </div>
+      <div class="ui icon button">
+        <i class="comment icon"></i>
+      </div>
+      <div class="ui icon button">
+        <i class="share icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

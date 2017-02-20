@@ -6,7 +6,7 @@
     <div class="ui <%= drug.categories.first.cat_color %> segment">
       <% drug.generics.each_with_index do |generic, i| %>
           <p>
-            <span class="ui <%= drug.categories.firstcat_.color %> round label"><%= i + 1 %></span>
+            <span class="ui <%= drug.categories.first.cat_color %> round label"><%= i + 1 %></span>
             <strong><%= link_to generic.to_s(drug.id), generic_path(generic) %></strong>
           </p>
           <br>

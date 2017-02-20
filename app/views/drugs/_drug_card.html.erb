@@ -1,6 +1,4 @@
-
-
-<div class="drug_card column">
+<div class="drug_card column" data-anijs="if: mouseenter, do: pulse animated">
   <%- @color = drug.categories.first.present? ? suppress(Exception) { drug.categories.first.cat_color } : 'green' %>
   <div class="ui <%= @color %> raised huge card" data-anijs="if: scroll, on: window, do: swing animated, before: scrollReveal">
     <div class="content">
@@ -37,7 +35,7 @@
         <%= render 'drugs/generics_listing', drug: drug %>
       </div>
     </div>
-    
+
     <%= render 'drugs/categories_listing', drug: drug %>
     <div class="ui massive heart rating" id="rating" data-rating="3" data-max-rating="5"></div>
     <!--Comment on a drug? -->

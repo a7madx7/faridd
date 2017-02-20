@@ -30,10 +30,10 @@ ready = ->
     if has_errors()
       alertify.error("Your article doesn't meet faridd's article standards")
     else
-      $submit = $('#article_submit_button')
-      $submit.children('.ui.button').html("<i class='edit icon'></i>Posting...")
+      # $submit = $('#article_submit_button')
+      $(this).children('.ui.button').html("<i class='edit icon'></i>Posting...")
       $('.ui.stacked.segment.form').submit()
-      $submit.prop('enabled', false)
+      $(this).prop('enabled', false)
   $('input').change -> $submit.prop('enabled', true)
 
 $ ready

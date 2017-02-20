@@ -1,0 +1,22 @@
+<%- if obj.count > 0 %>
+  <%= semantic_will_paginate obj %>
+  <h1 class="ui centered header">Current offers</h1>
+<% else %>
+  <h1 class="ui centered header">No offers are standing for the current time!</h1>
+<% end %>
+<br><br>
+<div class="main feed">
+  <div class="ui four cards">
+    <%- if obj %>
+        <%- obj.each do |offer| %>
+            <%= render 'offers/offer', offer: offer %>
+        <%- end %>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<%- if obj.count > 0 %>
+  <%= semantic_will_paginate obj %>
+<% end %>
+<div id="modal"></div>
