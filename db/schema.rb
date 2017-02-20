@@ -44,33 +44,25 @@ ActiveRecord::Schema.define(version: 20161224232427) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "article_comments", force: :cascade do |t|
-    t.integer  "article_id"
-    t.integer  "comment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "user_id"
     t.string   "image_url"
-    t.integer  "view_count"
+    t.integer  "view_count", default: 0, null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name",               null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.string   "name",                           null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "color"
     t.integer  "parent_category_id"
     t.text     "description"
-    t.integer  "view_count"
-    t.index ["name"], name: "categories_name_uindex", unique: true
+    t.integer  "view_count",         default: 0, null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -83,20 +75,20 @@ ActiveRecord::Schema.define(version: 20161224232427) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "name"
     t.integer  "drug_id"
     t.integer  "country_id"
     t.decimal  "reputation"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "view_count"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "view_count", default: 0, null: false
     t.index ["country_id"], name: "index_companies_on_country_id"
     t.index ["drug_id"], name: "index_companies_on_drug_id"
   end
 
   create_table "countries", force: :cascade do |t|
-    t.string   "code"
-    t.string   "name"
+    t.string   "code",       null: false
+    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -108,31 +100,29 @@ ActiveRecord::Schema.define(version: 20161224232427) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "drug_categories", force: :cascade do |t|
+  create_table "drug_categories", id: false, force: :cascade do |t|
     t.integer "drug_id"
     t.integer "category_id"
   end
 
   create_table "drug_generics", force: :cascade do |t|
-    t.integer  "drug_id"
-    t.integer  "generic_id"
-    t.integer  "unit_id"
-    t.string   "concentration"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer "drug_id"
+    t.integer "generic_id"
+    t.integer "unit_id"
+    t.string  "concentration"
   end
 
   create_table "drugs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                   null: false
     t.integer  "country_id"
     t.float    "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.decimal  "contents"
     t.integer  "form_id"
     t.integer  "company_id"
     t.string   "image_url"
-    t.integer  "view_count"
+    t.integer  "view_count", default: 0, null: false
     t.index ["company_id"], name: "index_drugs_on_company_id"
     t.index ["country_id"], name: "index_drugs_on_country_id"
     t.index ["form_id"], name: "index_drugs_on_form_id"
@@ -167,23 +157,31 @@ ActiveRecord::Schema.define(version: 20161224232427) do
   create_table "generics", force: :cascade do |t|
     t.string   "name"
     t.datetime "invented_at"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "image_url"
     t.string   "wikipedia_page_url"
-    t.text     "wikipedia_description"
     t.text     "wikipedia_summary"
     t.string   "wikipedia_image_urls"
     t.string   "wikipedia_links"
     t.string   "wikipedia_extlinks"
-    t.integer  "view_count"
+    t.integer  "view_count",           default: 0, null: false
     t.string   "slug"
     t.index ["slug"], name: "index_generics_on_slug"
   end
 
   create_table "likes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "comment_id"
+    t.integer  "rx_id"
+    t.integer  "formulation_id"
+    t.integer  "category_id"
+    t.integer  "company_id"
+    t.integer  "question_id"
+    t.integer  "generic_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "offers", force: :cascade do |t|
@@ -207,8 +205,8 @@ ActiveRecord::Schema.define(version: 20161224232427) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
+    t.string   "title",      null: false
+    t.text     "content",    null: false
     t.integer  "user_id"
     t.decimal  "rating"
     t.datetime "created_at", null: false
@@ -217,6 +215,8 @@ ActiveRecord::Schema.define(version: 20161224232427) do
   end
 
   create_table "rx_drugs", force: :cascade do |t|
+    t.integer  "drug_id"
+    t.integer  "rx_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -232,8 +232,9 @@ ActiveRecord::Schema.define(version: 20161224232427) do
 
   create_table "units", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "drug_generic_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "user_articles", force: :cascade do |t|
@@ -267,7 +268,7 @@ ActiveRecord::Schema.define(version: 20161224232427) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "view_count"
+    t.integer  "view_count",             default: 0,  null: false
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
