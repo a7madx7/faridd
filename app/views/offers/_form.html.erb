@@ -1,4 +1,4 @@
-<%= form_for(offer) do |f| %>
+<%= form_for(offer, html: { class: 'ui blue stacked form segment'} ) do |f| %>
   <% if offer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
@@ -11,32 +11,49 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :drug_id %>
-    <%= f.number_field :drug_id %>
+  <div class="two fields">
+    <div class="field">
+      <%= f.label :drug_id %>
+      <%= f.number_field :drug_id %>
+    </div>
+
+    <div class="field">
+      <%= f.label :user_id %>
+      <%= f.number_field :user_id %>
+    </div>
+  </div>
+
+  <div class="ui two fields">
+    <div class="field">
+      <%= f.label :discount %>
+      <div class="ui left icon input">
+        <%= f.number_field :discount, placeholder: "Place the discount you're offering in terms on percentage (%)" %>
+        <i class="percent icon"></i>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :amount %>
+      <%= f.number_field :amount, placeholder: 'Place the amount you can provide per request (the quota you are offering)' %>
+    </div>
   </div>
 
   <div class="field">
-    <%= f.label :user_id %>
-    <%= f.number_field :user_id %>
+    <div class="ui icon label">
+      <%= f.label :expiry %>
+      <i class="calendar icon"></i>
+    </div>
+    <div class="ui left icon date input">
+      <%= f.datetime_select :expiry %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :discount %>
-    <%= f.text_field :discount %>
-  </div>
 
-  <div class="field">
-    <%= f.label :expiry %>
-    <%= f.datetime_select :expiry %>
-  </div>
-
-  <div class="field">
-    <%= f.label :amount %>
-    <%= f.number_field :amount %>
-  </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <div class="ui bottom attached blue button" type="submit" id="offer_submit_button">
+      <i class="edit icon"></i> Make some money
+    </div>
   </div>
+
 <% end %>

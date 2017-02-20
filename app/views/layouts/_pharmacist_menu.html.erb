@@ -262,21 +262,25 @@
   <span class="text">Trade Center</span>
   <%= semantic_icon(:dropdown) %>
   <div class="menu">
-    <%= link_to '/trade_center', class: 'item' do %>
+    <%= link_to create_offer_path, class: 'item' do %>
         <%= semantic_icon(:purple, :edit) %>
         <span>Create an offer</span>
     <% end %>
     <div class="horizontal divider"></div>
-    <%= link_to '/offers', class: 'item' do %>
+    <%= link_to trade_center_path, class: 'item' do %>
         <%= semantic_icon(:purple, :tv) %>
         <span>All Offers</span>
     <% end %>
-    <%= link_to '/offers/recent', class: 'item' do %>
+    <%= link_to recent_offers_path, class: 'item' do %>
         <%= semantic_icon(:purple, :paw) %>
         <span>Recent offers</span>
     <% end %>
-    <%= link_to '/offers/trending', class: 'item' do %>
+    <%= link_to trending_offers_path, class: 'item' do %>
         <%= semantic_icon(:purple, :line, :chart) %>
+        <span>Trending</span>
+    <% end %>
+    <%= link_to best_value_offers_path, class: 'item' do %>
+        <%= semantic_icon(:purple, :percent) %>
         <span>Best value</span>
     <% end %>
   </div>

@@ -49,6 +49,7 @@ gem 'wikipedia-client'
 gem 'friendly_id', '~> 5.2'
 gem 'public_activity'
 gem 'yourub'
+gem 'jquery-turbolinks'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

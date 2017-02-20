@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get 'search/search'
   get '/trade_center', to: 'offers#index', as: :trade_center
+  get '/trade_center/create_offer', to: 'offers#new', as: :create_offer
+  get '/trade_center/trending', to: 'offers#trending', as: :trending_offers
+  get '/trade_center/recent', to: 'offers#recent', as: :recent_offers
+  get '/trade_center/best_value', to: 'offers#best_value', as: :best_value_offers
+
   resources :offers
   resources :formulations
 

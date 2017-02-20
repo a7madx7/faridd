@@ -1,10 +1,25 @@
 class OffersController < ApplicationController
   before_action :set_offer, only: [:show, :edit, :update, :destroy]
 
-  # GET /offers
-  # GET /offers.json
+  # GET /trade_center
+  # GET /trade_center.json
   def index
-    @offers = Offer.all
+    @offers = Offer.all.paginate(per_page: 20, page: params[:page])
+  end
+  # GET /trade_center/recent
+  # GET /trade_center/recent.json
+  def recent
+    @offers = Offer.recent.paginate(per_page: 20, page: params[:page])
+  end
+  # GET /trade_center/trending
+  # GET /trade_center/trending.json
+  def trending
+    @offers = Offer.trending.paginate(per_page: 20, page: params[:page])
+  end
+  # GET /trade_center/best_value
+  # GET /trade_center/best_value.json
+  def best_value
+    @offers = Offer.trending.paginate(per_page: 20, page: params[:page])
   end
 
   # GET /offers/1
