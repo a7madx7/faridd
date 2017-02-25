@@ -135,7 +135,9 @@ class Generic < ApplicationRecord
       results << v
     end
     results.each do |v|
-      youtube_videos << YoutubeVideo.first_or_create(vid_id: v['id'], title: v['snippet']['title'], thumbnails: v['snippet']['thumbnails'])
+      youtube_videos << YoutubeVideo.create(vid_id: v['id'],
+                                                     title: v['snippet']['title'],
+                                                     thumbnails: v['snippet']['thumbnails'])
     end
     save
     youtube_videos

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'search/search'
+  # get '/public/404.html'
   get '/trade_center', to: 'offers#index', as: :trade_center
   get '/trade_center/create_offer', to: 'offers#new', as: :create_offer
   get '/trade_center/trending', to: 'offers#trending', as: :trending_offers

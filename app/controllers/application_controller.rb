@@ -13,6 +13,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :first_name, :last_name, :profession, :gender, :username, :country])
   end
 
+  def not_found
+    render status: 404
+  end
+
   private
   def prepare_menu
     @menu ||= {}

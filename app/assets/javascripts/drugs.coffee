@@ -38,7 +38,7 @@ data_init = ->
     apiSettings: url: "/search?mode=company&term={query}"
   )
   return
-  
+
 sorter = ->
   $('table').tablesort()
   maxHeight = -1
@@ -52,6 +52,7 @@ sorter = ->
 ready = ->
   controller = window.location.pathname
   regex = new RegExp("^/drugs")
+  action_regex = new RegExp("new$")
   return false unless regex.test(controller)
   $loader = $('#loader')
   $loader.show()
@@ -66,12 +67,11 @@ ready = ->
     responsive_elements()
     #  loader_ajax()
     data_init()
-    $loader.hide()
   catch error
     console.log(error)
   finally
     $loader.hide()
-    alertify.success("Drugs loaded!")
+    alertify.success("Drugs loaded!") unless action_regex.test(controller)
 
 
 $ ready

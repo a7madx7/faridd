@@ -6,27 +6,19 @@
    <%= link_to "View #{@generic.name} on wikipedia", @generic.wikipedia_page_url, class: 'ui centered bottom attached orange button' %>
 
  </div>
+
   <div class="red segment colum">
+    <br>
     <%- @generic.youtube_videos.each do |vid| %>
-        <%= link_to "http://youtube.com/watch?v=#{vid.vid_id}" do %>
-           <div class="ui card">
-             <div class="ui image">
-               <img src="<%= vid.medium_thumbnail %>">
-             </div>
-             <div class="content">
-               <a class="header"><%= vid.title %></a>
-               <div class="meta">
-                 <span class="date">Started in 2014</span>
-               </div>
-             </div>
-             <div class="extra content">
-               <a>
-                 <i class="user icon"></i>
-                 22 Friends
-               </a>
-             </div>
-           </div>
-        <% end %>
+        <div class="ui card">
+          <iframe class="ytplayer" type="text/html" width="640" height="390"
+                  src="https://www.youtube.com/embed/<%= vid.vid_id %>?autoplay=0&origin=http://example.com"
+                  frameborder="0">
+
+          </iframe>
+        </div>
+
    <% end %>
   </div>
+
 </div>

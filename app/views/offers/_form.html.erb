@@ -1,4 +1,4 @@
-<%= form_for(offer, html: { class: 'ui blue stacked form segment'} ) do |f| %>
+<%= form_for(offer, html: { class: 'ui blue stacked fluid form segment'} ) do |f| %>
   <% if offer.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(offer.errors.count, "error") %> prohibited this offer from being saved:</h2>
@@ -13,7 +13,7 @@
 
   <div class="two fields">
     <div class="field">
-      <%= f.label :drug_id %>
+      <%= f.label :drug_id, class: 'ui right pointing label' %>
       <%= f.number_field :drug_id %>
     </div>
 
@@ -25,7 +25,7 @@
 
   <div class="ui two fields">
     <div class="field">
-      <%= f.label :discount %>
+      <%= f.label :discount, class: 'ui right pointing label' %>
       <div class="ui left icon input">
         <%= f.number_field :discount, placeholder: "Place the discount you're offering in terms on percentage (%)" %>
         <i class="percent icon"></i>
@@ -33,14 +33,14 @@
     </div>
 
     <div class="field">
-      <%= f.label :amount %>
+      <%= f.label :amount, class: 'ui right pointing label' %>
       <%= f.number_field :amount, placeholder: 'Place the amount you can provide per request (the quota you are offering)' %>
     </div>
   </div>
 
   <div class="field">
     <div class="ui icon label">
-      <%= f.label :expiry %>
+      <%= f.label :expiry, class: 'ui right pointing label' %>
       <i class="calendar icon"></i>
     </div>
     <div class="ui left icon date input">

@@ -21,11 +21,12 @@ class GenericsController < ApplicationController
       redirect_to @generic, status: :moved_permanently
     end
 
+    # if we have three videos they are enough, if not search youtube
     unless @generic&.youtube_videos.count > 3
       begin
         @generic.youtube
       rescue
-        redirect_to 'puplic/404.html'
+        not_found
       end
     end
   end

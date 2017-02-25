@@ -1,5 +1,7 @@
-<%= semantic_will_paginate obj %>
-<h1 class="ui centered header">Articles</h1>
+<%- if obj.count > 0 %>
+  <h1 class="ui centered header">Articles</h1>
+  <%= semantic_will_paginate obj %>
+<% end %>
 <br><br>
 <div class="main feed">
   <div class="ui four cards">
@@ -12,5 +14,7 @@
 </div>
 
 <br>
-<%= semantic_will_paginate obj %>
+<%- if obj.count > 0 %>
+  <%= semantic_will_paginate obj %>
+<% end %>
 <div id="modal"></div>

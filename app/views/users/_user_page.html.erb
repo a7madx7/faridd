@@ -10,7 +10,7 @@
       </div>
       <div class="content">
         <h3><i class="<%= @user.country.code.downcase %> flag"></i>Lives in <%= @user.country.name %></h3>
-        <h3><i class="<%= @user.gender.downcase %> icon"></i><%= @user.gender %></h3>
+        <h3><i class="<%= @user.gender.downcase %> icon"></i><%= @user.gender.capitalize %></h3>
         <h3>
           <i class="<%= icon_for(@user) %> icon"></i>
           Works as a <%= @user.profession.capitalize %>

@@ -1,4 +1,4 @@
-<div class="ui raised piled segments" id="drug_show_card" data-anijs="if: load, do: wobble animated">
+<div class="ui raised piled segments" id="drug_show_card" data-anijs="if: load, on: window, do: wobble animated">
   <div class="ui <%= @color %> segment">
     <%= link_to drug_path(@drug), class: "ui huge #{@color} ribbon label"  do %>
         <%= @drug.name.upcase %>

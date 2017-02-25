@@ -2,9 +2,13 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="Rails faridd: test" uuid="237134e8-d6bb-403e-884d-2a04af040a6f">
+      <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <auth-required>false</auth-required>
     </data-source>
     <data-source name="Rails faridd: development" uuid="6e88a65a-a47b-4b5d-97e8-3e45109d47f5">
+      <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <auth-required>false</auth-required>
     </data-source>
   </component>
